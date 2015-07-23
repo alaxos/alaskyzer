@@ -1,3 +1,7 @@
+<?php 
+echo $this->AlaxosHtml->script('selectize/js/standalone/selectize.min', ['block' => true]);
+echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' => true]);
+?>
 
 <div class="applications form">
     
@@ -25,14 +29,14 @@
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('Frameworks', __('Frameworks'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('frameworks._ids', ['label' => false, 'options' => $frameworks]);
+            echo $this->AlaxosForm->input('frameworks._ids', ['label' => false, 'options' => $frameworks, 'id' => 'frameworks_select']);
             echo '</div>';
             echo '</div>';
             
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('Technologies', __('Technologies'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('technologies._ids', ['label' => false, 'options' => $technologies]);
+            echo $this->AlaxosForm->input('technologies._ids', ['label' => false, 'options' => $technologies, 'id' => 'technologies_select']);
             echo '</div>';
             echo '</div>';
             
@@ -50,3 +54,31 @@
     </fieldset>
     
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#technologies_select").selectize({
+        create : true,
+        persist : false,
+        createOnBlur : true,
+        create : function(input){
+            return {
+                value : "[new]"+input,
+                text  : input
+                }
+            }
+        });
+
+    $("#frameworks_select").selectize({
+        create : true,
+        persist : false,
+        createOnBlur : true,
+        create : function(input){
+            return {
+                value : "[new]"+input,
+                text  : input
+                }
+            }
+        });
+});
+</script>

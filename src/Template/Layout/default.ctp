@@ -30,7 +30,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 	echo $this->AlaxosHtml->includeBootstrapCSS(['block' => false]);
 	echo $this->AlaxosHtml->includeBootstrapThemeCSS(['block' => false]);
 	echo $this->AlaxosHtml->includeAlaxosCSS(['block' => false]);
-	echo $this->AlaxosHtml->css('bodmer');
+	echo $this->AlaxosHtml->css('alaskyzer');
 	
 	echo $this->AlaxosHtml->includeAlaxosJQuery(['block' => false]);
 	echo $this->AlaxosHtml->includeAlaxosBootstrapJS(['block' => false]);
@@ -50,7 +50,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         <div class="col-md-3 col-sm-4">
                             <?php 
                             echo '<div id="top_unige_logo">';
-                            echo $this->Html->image('unige.png');
+                            //echo $this->Html->image('unige.png');
+                            echo 'Alaskyzer';
                             echo '</div>';
                             ?>
                         </div>
@@ -63,8 +64,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         </div>
                         <div class="col-md-3 col-sm-4 text-right">
                             <?php 
-                            echo $this->Html->image('bodmer_lab_logo.png');
-//                             echo $this->element('menus/logged_user');
                             ?>
                         </div>
                     </div>

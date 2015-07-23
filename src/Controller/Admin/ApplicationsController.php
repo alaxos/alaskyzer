@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Alaxos\Lib\StringTool;
 
 /**
  * Applications Controller
@@ -60,8 +61,32 @@ class ApplicationsController extends AppController
      */
     public function add()
     {
+//         debug($this->request->data);
+
         $application = $this->Applications->newEntity();
         if ($this->request->is('post')) {
+            
+            /*
+             * Save eventual new technologies or frameworks 
+             */
+            foreach($this->request->data['frameworks']['_ids'] as $index => $framework_id){
+                if(StringTool::start_with($framework_id, '[new]')){
+                    $framework = $this->Applications->Frameworks->newEntity(['name' => StringTool::remove_leading($framework_id, '[new]')]);
+                    if($this->Applications->Frameworks->save($framework)){
+                        $this->request->data['frameworks']['_ids'][$index] = $framework->id;
+                    }
+                }
+            }
+            
+            foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
+                if(StringTool::start_with($technology_id, '[new]')){
+                    $technology = $this->Applications->Technologies->newEntity(['name' => StringTool::remove_leading($technology_id, '[new]')]);
+                    if($this->Applications->Technologies->save($technology)){
+                        $this->request->data['technologies']['_ids'][$index] = $technology->id;
+                    }
+                }
+            }
+            
             $application = $this->Applications->patchEntity($application, $this->request->data);
             if ($this->Applications->save($application)) {
                 $this->Flash->success(___('the application has been saved'), ['plugin' => 'Alaxos']);
@@ -85,10 +110,34 @@ class ApplicationsController extends AppController
      */
     public function edit($id = null)
     {
+//         debug($this->request->data);
+        
         $application = $this->Applications->get($id, [
             'contain' => ['Frameworks', 'Technologies']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            
+            /*
+             * Save eventual new technologies or frameworks
+             */
+            foreach($this->request->data['frameworks']['_ids'] as $index => $framework_id){
+                if(StringTool::start_with($framework_id, '[new]')){
+                    $framework = $this->Applications->Frameworks->newEntity(['name' => StringTool::remove_leading($framework_id, '[new]')]);
+                    if($this->Applications->Frameworks->save($framework)){
+                        $this->request->data['frameworks']['_ids'][$index] = $framework->id;
+                    }
+                }
+            }
+            
+            foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
+                if(StringTool::start_with($technology_id, '[new]')){
+                    $technology = $this->Applications->Technologies->newEntity(['name' => StringTool::remove_leading($technology_id, '[new]')]);
+                    if($this->Applications->Technologies->save($technology)){
+                        $this->request->data['technologies']['_ids'][$index] = $technology->id;
+                    }
+                }
+            }
+            
             $application = $this->Applications->patchEntity($application, $this->request->data);
             if ($this->Applications->save($application)) {
                 $this->Flash->success(___('the application has been saved'), ['plugin' => 'Alaxos']);
@@ -181,10 +230,33 @@ class ApplicationsController extends AppController
      */
     public function copy($id = null)
     {
+        
         $application = $this->Applications->get($id, [
             'contain' => ['Frameworks', 'Technologies']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            
+            /*
+             * Save eventual new technologies or frameworks
+             */
+            foreach($this->request->data['frameworks']['_ids'] as $index => $framework_id){
+                if(StringTool::start_with($framework_id, '[new]')){
+                    $framework = $this->Applications->Frameworks->newEntity(['name' => StringTool::remove_leading($framework_id, '[new]')]);
+                    if($this->Applications->Frameworks->save($framework)){
+                        $this->request->data['frameworks']['_ids'][$index] = $framework->id;
+                    }
+                }
+            }
+            
+            foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
+                if(StringTool::start_with($technology_id, '[new]')){
+                    $technology = $this->Applications->Technologies->newEntity(['name' => StringTool::remove_leading($technology_id, '[new]')]);
+                    if($this->Applications->Technologies->save($technology)){
+                        $this->request->data['technologies']['_ids'][$index] = $technology->id;
+                    }
+                }
+            }
+            
             $application = $this->Applications->newEntity();
             $application = $this->Applications->patchEntity($application, $this->request->data);
             if ($this->Applications->save($application)) {
