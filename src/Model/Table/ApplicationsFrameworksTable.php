@@ -1,16 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Framework;
+use App\Model\Entity\ApplicationsFramework;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Frameworks Model
+ * ApplicationsFrameworks Model
  */
-class FrameworksTable extends Table
+class ApplicationsFrameworksTable extends Table
 {
 
     /**
@@ -21,19 +21,21 @@ class FrameworksTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('frameworks');
-        $this->displayField('name');
+        $this->table('applications_frameworks');
+        $this->displayField('id');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        $this->belongsToMany('Applications', [
-            'through' => 'ApplicationsFrameworks'
-//             'foreignKey' => 'framework_id',
-//             'targetForeignKey' => 'application_id',
-//             'joinTable' => 'applications_frameworks'
+        $this->belongsTo('Applications', [
+            'foreignKey' => 'application_id',
+            'joinType' => 'INNER'
         ]);
-        $this->hasOne('FrameworkVersions', [
+        $this->belongsTo('Frameworks', [
             'foreignKey' => 'framework_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('FrameworkVersions', [
+            'foreignKey' => 'framework_version_id'
         ]);
     }
 
@@ -48,8 +50,6 @@ class FrameworksTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->requirePresence('name', 'create')
-            ->notEmpty('name')
             ->add('created_by', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('created_by')
             ->add('modified_by', 'valid', ['rule' => 'numeric'])
@@ -57,7 +57,7 @@ class FrameworksTable extends Table
 
         return $validator;
     }
-    
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -67,7 +67,9 @@ class FrameworksTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['name']));
+        $rules->add($rules->existsIn(['application_id'], 'Applications'));
+        $rules->add($rules->existsIn(['framework_id'], 'Frameworks'));
+        $rules->add($rules->existsIn(['framework_version_id'], 'FrameworkVersions'));
         return $rules;
     }
 }

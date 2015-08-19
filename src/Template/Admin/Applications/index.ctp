@@ -17,7 +17,11 @@
 			<thead>
 			<tr class="sortHeader">
 				<th></th>
+				<th><?php echo $this->Paginator->sort('Users.Roles.name', ___('role')); ?></th>
+				<th><?php echo $this->Paginator->sort('Users.fullname', ___('owner name')); ?></th>
 				<th><?php echo $this->Paginator->sort('name', ___('name')); ?></th>
+				<th><?php echo $this->Paginator->sort('ApplicationsFrameworks.Frameworks.name', ___('framework')); ?></th>
+				<th><?php echo $this->Paginator->sort('ApplicationsFrameworks.FrameworkVersions.name', ___('framework version')); ?></th>
 				<th style="width:160px;"><?php echo $this->Paginator->sort('created', ___('created')); ?></th>
 				<th style="width:160px;"><?php echo $this->Paginator->sort('modified', ___('modified')); ?></th>
 				<th class="actions"></th>
@@ -32,7 +36,27 @@
 				</td>
 				<td>
 					<?php
+					echo $this->AlaxosForm->filterField('Users.Roles.name');
+					?>
+				</td>
+				<td>
+					<?php
+					echo $this->AlaxosForm->filterField('Users.fullname');
+					?>
+				</td>
+				<td>
+					<?php
 					echo $this->AlaxosForm->filterField('name');
+					?>
+				</td>
+				<td>
+					<?php
+					echo $this->AlaxosForm->filterField('ApplicationsFrameworks.Frameworks.name');
+					?>
+				</td>
+				<td>
+					<?php
+					echo $this->AlaxosForm->filterField('ApplicationsFrameworks.FrameworkVersions.name');
 					?>
 				</td>
 				<td>
@@ -63,7 +87,37 @@
 						?>
 					</td>
 					<td>
+						<?php echo h($application->owner->role->name) ?>
+					</td>
+					<td>
+						<?php echo h($application->owner->fullname) ?>
+					</td>
+					<td>
 						<?php echo h($application->name) ?>
+					</td>
+					<td>
+						<?php
+						if(!empty($application->applications_frameworks))
+						{
+						    foreach($application->applications_frameworks as $application_framework){
+						        echo '<div>';
+						        echo h($application_framework->framework->name);
+						        echo '</div>'; 
+						    }
+						}
+						?>
+					</td>
+					<td>
+						<?php
+						if(!empty($application->applications_frameworks))
+						{
+						    foreach($application->applications_frameworks as $application_framework){
+						        echo '<div>';
+						        echo h($application_framework->framework_version->name);
+						        echo '</div>'; 
+						    }
+						}
+						?>
 					</td>
 					<td>
 						<?php echo h($application->to_display_timezone('created')); ?>

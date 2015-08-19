@@ -1,16 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Framework;
+use App\Model\Entity\FrameworkVersion;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Frameworks Model
+ * FrameworkVersions Model
  */
-class FrameworksTable extends Table
+class FrameworkVersionsTable extends Table
 {
 
     /**
@@ -21,19 +21,20 @@ class FrameworksTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('frameworks');
+        $this->table('framework_versions');
         $this->displayField('name');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
+        $this->belongsTo('Frameworks', [
+            'foreignKey' => 'framework_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsToMany('Applications', [
             'through' => 'ApplicationsFrameworks'
-//             'foreignKey' => 'framework_id',
-//             'targetForeignKey' => 'application_id',
-//             'joinTable' => 'applications_frameworks'
-        ]);
-        $this->hasOne('FrameworkVersions', [
-            'foreignKey' => 'framework_id',
+            //             'foreignKey' => 'framework_id',
+        //             'targetForeignKey' => 'application_id',
+        //             'joinTable' => 'applications_frameworks'
         ]);
     }
 
@@ -57,7 +58,7 @@ class FrameworksTable extends Table
 
         return $validator;
     }
-    
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -67,7 +68,7 @@ class FrameworksTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['name']));
+        $rules->add($rules->existsIn(['framework_id'], 'Frameworks'));
         return $rules;
     }
 }

@@ -23,16 +23,22 @@ if(isset($logged_user))
 	    'options' => ['id' => 'bugs']
 	];
 	
-	$menu[] = [
-	    'title'   => ___('frameworks'),
-	    'url'	 => array('prefix' => 'admin', 'controller' => 'Frameworks', 'action' => 'index'),
-	    'options' => ['id' => 'frameworks']
-	];
-	
-	$menu[] = [
-	    'title'   => ___('technologies'),
-	    'url'	 => array('prefix' => 'admin', 'controller' => 'Technologies', 'action' => 'index'),
-	    'options' => ['id' => 'technologies']
+	$menu[___('tech')] = [
+    	[
+    	    'title'   => ___('frameworks'),
+    	    'url'	 => array('prefix' => 'admin', 'controller' => 'Frameworks', 'action' => 'index'),
+    	    'options' => ['id' => 'frameworks']
+    	],
+    	[
+    	    'title'   => ___('frameworks versions'),
+    	    'url'	 => array('prefix' => 'admin', 'controller' => 'FrameworkVersions', 'action' => 'index'),
+    	    'options' => ['id' => 'frameworkVersions']
+    	],
+	    [
+	       'title'   => ___('technologies'),
+	        'url'	 => array('prefix' => 'admin', 'controller' => 'Technologies', 'action' => 'index'),
+            'options' => ['id' => 'technologies']
+            ]
 	];
 	
 	$menu[] = [
@@ -44,17 +50,30 @@ if(isset($logged_user))
 
 if(isset($logged_user) && $logged_user->role_id == ROLE_ID_ADMINISTRATOR)
 {
-	$menu[] = [
-				'title'   => ___('users'),
-				'url'	 => array('prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'),
-				'options' => ['id' => 'users']
-	];
+    $menu[___('users')] = [
+        [
+            'title'   => ___('users'),
+            'url'	 => array('prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'),
+            'options' => ['id' => 'users']
+        ],
+        [
+            'title'   => ___('roles'),
+            'url'	 => array('prefix' => 'admin', 'controller' => 'Roles', 'action' => 'index'),
+            'options' => ['id' => 'roles']
+        ]
+    ];
+    
+// 	$menu[] = [
+// 				'title'   => ___('users'),
+// 				'url'	 => array('prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'),
+// 				'options' => ['id' => 'users']
+// 	];
 		
-	$menu[] = [
-				'title'   => ___('roles'),
-				'url'	 => array('prefix' => 'admin', 'controller' => 'Roles', 'action' => 'index'),
-				'options' => ['id' => 'roles']
-	];
+// 	$menu[] = [
+// 				'title'   => ___('roles'),
+// 				'url'	 => array('prefix' => 'admin', 'controller' => 'Roles', 'action' => 'index'),
+// 				'options' => ['id' => 'roles']
+// 	];
 	
 	$menu[] = [
 	    'title'   => ___('status'),

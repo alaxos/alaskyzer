@@ -1,0 +1,11 @@
+.tag{
+	display:inline-block;
+	background:#efefef;
+	/*margin:0px 3px;*/
+	margin-right:3px;
+	padding:1px 3px;
+	border-radius:3px;
+}
+.tag a:not(:hover){
+	color:inherit;
+}

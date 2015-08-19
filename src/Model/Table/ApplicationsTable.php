@@ -35,15 +35,27 @@ class ApplicationsTable extends Table
         $this->hasMany('Tasks', [
             'foreignKey' => 'application_id'
         ]);
-        $this->belongsToMany('Frameworks', [
-            'foreignKey' => 'application_id',
-            'targetForeignKey' => 'framework_id',
-            'joinTable' => 'applications_frameworks'
+        
+        $this->hasMany('ApplicationsFrameworks', [
+            'foreignKey' => 'application_id'
         ]);
+        
+//         $this->belongsToMany('Frameworks', [
+//             'through' => 'ApplicationsFrameworks'
+//         ]);
+//         $this->belongsToMany('FrameworkVersions', [
+//             'through' => 'ApplicationsFrameworks'
+//         ]);
+
         $this->belongsToMany('Technologies', [
             'foreignKey' => 'application_id',
             'targetForeignKey' => 'technology_id',
             'joinTable' => 'applications_technologies'
+        ]);
+        
+        $this->belongsTo('Users', [
+            'propertyName' => 'owner',
+            'foreignKey' => 'created_by'
         ]);
     }
 

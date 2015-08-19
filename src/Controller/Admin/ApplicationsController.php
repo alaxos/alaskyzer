@@ -34,7 +34,24 @@ class ApplicationsController extends AppController
     */
     public function index()
     {
-        $this->set('applications', $this->paginate($this->Filter->getFilterQuery()));
+        $this->Filter->config('aliases', [
+            'Users.fullname' => [
+                'expression' => $this->Applications->find()->func()->concat(['Users.firstname' => 'literal', ' ', 'Users.lastname' => 'literal']),
+                'columnType' => 'string'
+            ]
+        ]);
+        
+        $query = $this->Filter->getFilterQuery();
+        $query->contain(['Users' => ['Roles'], 'ApplicationsFrameworks' => ['Frameworks', 'FrameworkVersions']]);
+        
+//         $query = $this->Applications->find();
+//         $query->contain(['Users', 'Frameworks', 'FrameworkVersions']);
+//         $query->where(function($exp, $query) {
+//             $f =  $query->func()->concat(['Users.firstname' => 'literal', ' ', 'Users.lastname' => 'literal']);
+//             return $exp->like($f, '%Alex%');
+//         });
+        
+        $this->set('applications', $this->paginate($query));
         $this->set('_serialize', ['applications']);
     }
 
@@ -48,7 +65,7 @@ class ApplicationsController extends AppController
     public function view($id = null)
     {
         $application = $this->Applications->get($id, [
-            'contain' => ['Frameworks', 'Technologies', 'Bugs', 'Instances', 'Tasks']
+            'contain' => ['ApplicationsFrameworks' => ['Frameworks', 'FrameworkVersions'], 'Technologies', 'Bugs', 'Instances', 'Tasks']
         ]);
         $this->set('application', $application);
         $this->set('_serialize', ['application']);
@@ -61,43 +78,68 @@ class ApplicationsController extends AppController
      */
     public function add()
     {
-//         debug($this->request->data);
-
         $application = $this->Applications->newEntity();
         if ($this->request->is('post')) {
             
-            /*
-             * Save eventual new technologies or frameworks 
-             */
-            foreach($this->request->data['frameworks']['_ids'] as $index => $framework_id){
+//             debug($this->request->data);
+//             die();
+            
+            foreach($this->request->data['frameworks'] as $index => $framework_data){
+                
+                /*
+                 * Save framework
+                 */
+                $framework_id = $framework_data['id'];
                 if(StringTool::start_with($framework_id, '[new]')){
                     $framework = $this->Applications->Frameworks->newEntity(['name' => StringTool::remove_leading($framework_id, '[new]')]);
                     if($this->Applications->Frameworks->save($framework)){
-                        $this->request->data['frameworks']['_ids'][$index] = $framework->id;
+                        $this->request->data['frameworks'][$index]['id'] = $framework->id;
+                        $framework_id = $framework->id;
+                    }
+                }
+                
+                /*
+                 * Save linked new framework version
+                 */
+                if(isset($framework_data['_joinData']['framework_version_id'])){
+                    $framework_version_id = $framework_data['_joinData']['framework_version_id'];
+                    if(StringTool::start_with($framework_version_id, '[new]')){
+                        $frameworkVersion = $this->Applications->Frameworks->FrameworkVersions->newEntity(['framework_id' => $framework_id, 'name' => StringTool::remove_leading($framework_version_id, '[new]')]);
+                        if($this->Applications->Frameworks->FrameworkVersions->save($frameworkVersion)){
+                            $this->request->data['frameworks'][$index]['_joinData']['framework_version_id'] = $frameworkVersion->id;
+                            $framework_version_id = $frameworkVersion->id;
+                        }
                     }
                 }
             }
             
-            foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
-                if(StringTool::start_with($technology_id, '[new]')){
-                    $technology = $this->Applications->Technologies->newEntity(['name' => StringTool::remove_leading($technology_id, '[new]')]);
-                    if($this->Applications->Technologies->save($technology)){
-                        $this->request->data['technologies']['_ids'][$index] = $technology->id;
+            if(is_array($this->request->data['technologies']['_ids']))
+            {
+                foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
+                    if(StringTool::start_with($technology_id, '[new]')){
+                        $technology = $this->Applications->Technologies->newEntity(['name' => StringTool::remove_leading($technology_id, '[new]')]);
+                        if($this->Applications->Technologies->save($technology)){
+                            $this->request->data['technologies']['_ids'][$index] = $technology->id;
+                        }
                     }
                 }
             }
+            
+//             debug($this->request->data);
+//             die();
             
             $application = $this->Applications->patchEntity($application, $this->request->data);
             if ($this->Applications->save($application)) {
                 $this->Flash->success(___('the application has been saved'), ['plugin' => 'Alaxos']);
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $application->id]);
             } else {
                 $this->Flash->error(___('the application could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
         }
         $frameworks = $this->Applications->Frameworks->find('list', ['limit' => 200]);
+//         $frameworkVersions = $this->Applications->Frameworks->FrameworkVersions->find('list', ['limit' => 200]);
         $technologies = $this->Applications->Technologies->find('list', ['limit' => 200]);
-        $this->set(compact('application', 'frameworks', 'technologies'));
+        $this->set(compact('application', 'frameworks', 'frameworkVersions', 'technologies'));
         $this->set('_serialize', ['application']);
     }
 
@@ -113,27 +155,78 @@ class ApplicationsController extends AppController
 //         debug($this->request->data);
         
         $application = $this->Applications->get($id, [
-            'contain' => ['Frameworks', 'Technologies']
+            'contain' => ['ApplicationsFrameworks' => ['Frameworks', 'FrameworkVersions'], 'Technologies']
         ]);
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             
-            /*
-             * Save eventual new technologies or frameworks
-             */
-            foreach($this->request->data['frameworks']['_ids'] as $index => $framework_id){
+//             debug($this->request->data);
+//             die();
+            
+            foreach($this->request->data['applications_frameworks'] as $index => $application_framework){
+                
+                /*
+                 * Save framework
+                 */
+                $framework_id = $application_framework['framework_id'];
                 if(StringTool::start_with($framework_id, '[new]')){
-                    $framework = $this->Applications->Frameworks->newEntity(['name' => StringTool::remove_leading($framework_id, '[new]')]);
-                    if($this->Applications->Frameworks->save($framework)){
-                        $this->request->data['frameworks']['_ids'][$index] = $framework->id;
+                    $framework = $this->Applications->ApplicationsFrameworks->Frameworks->newEntity(['name' => StringTool::remove_leading($framework_id, '[new]')]);
+                    if($this->Applications->ApplicationsFrameworks->Frameworks->save($framework)){
+                        $this->request->data['applications_frameworks'][$index]['framework_id'] = $framework->id;
+                        $framework_id = $framework->id;
+                    }
+                }
+                
+                /*
+                 * Save linked new framework version
+                 */
+                $framework_version_id = $application_framework['framework_version_id'];
+                if(StringTool::start_with($framework_version_id, '[new]')){
+                    $framework_version = $this->Applications->ApplicationsFrameworks->FrameworkVersions->newEntity(['name' => StringTool::remove_leading($framework_version_id, '[new]')]);
+                    if($this->Applications->ApplicationsFrameworks->FrameworkVersions->save($framework_version)){
+                        $this->request->data['applications_frameworks'][$index]['framework_version_id'] = $framework_version->id;
+                        $framework_version_id = $framework_version->id;
                     }
                 }
             }
             
-            foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
-                if(StringTool::start_with($technology_id, '[new]')){
-                    $technology = $this->Applications->Technologies->newEntity(['name' => StringTool::remove_leading($technology_id, '[new]')]);
-                    if($this->Applications->Technologies->save($technology)){
-                        $this->request->data['technologies']['_ids'][$index] = $technology->id;
+//             foreach($this->request->data['frameworks'] as $index => $framework_data){
+                
+//                 /*
+//                  * Save framework
+//                  */
+//                 $framework_id = $framework_data['id'];
+//                 if(StringTool::start_with($framework_id, '[new]')){
+//                     $framework = $this->Applications->Frameworks->newEntity(['name' => StringTool::remove_leading($framework_id, '[new]')]);
+//                     if($this->Applications->Frameworks->save($framework)){
+//                         $this->request->data['frameworks'][$index]['id'] = $framework->id;
+//                         $framework_id = $framework->id;
+//                     }
+//                 }
+                
+//                 /*
+//                  * Save linked new framework version
+//                  */
+//                 if(isset($framework_data['_joinData']['framework_version_id'])){
+//                     $framework_version_id = $framework_data['_joinData']['framework_version_id'];
+//                     if(StringTool::start_with($framework_version_id, '[new]')){
+//                         $frameworkVersion = $this->Applications->Frameworks->FrameworkVersions->newEntity(['framework_id' => $framework_id, 'name' => StringTool::remove_leading($framework_version_id, '[new]')]);
+//                         if($this->Applications->Frameworks->FrameworkVersions->save($frameworkVersion)){
+//                             $this->request->data['frameworks'][$index]['_joinData']['framework_version_id'] = $frameworkVersion->id;
+//                             $framework_version_id = $frameworkVersion->id;
+//                         }
+//                     }
+//                 }
+//             }
+            
+            if(is_array($this->request->data['technologies']['_ids']))
+            {
+                foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
+                    if(StringTool::start_with($technology_id, '[new]')){
+                        $technology = $this->Applications->Technologies->newEntity(['name' => StringTool::remove_leading($technology_id, '[new]')]);
+                        if($this->Applications->Technologies->save($technology)){
+                            $this->request->data['technologies']['_ids'][$index] = $technology->id;
+                        }
                     }
                 }
             }
@@ -146,9 +239,11 @@ class ApplicationsController extends AppController
                 $this->Flash->error(___('the application could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
         }
-        $frameworks = $this->Applications->Frameworks->find('list', ['limit' => 200]);
+        
+        $frameworks = $this->Applications->ApplicationsFrameworks->Frameworks->find('list', ['limit' => 200]);
+        $frameworkVersions = $this->Applications->ApplicationsFrameworks->FrameworkVersions->find('list')->where(['framework_id' => $application->applications_frameworks[0]->framework->id]);
         $technologies = $this->Applications->Technologies->find('list', ['limit' => 200]);
-        $this->set(compact('application', 'frameworks', 'technologies'));
+        $this->set(compact('application', 'frameworks', 'frameworkVersions', 'technologies'));
         $this->set('_serialize', ['application']);
     }
 
