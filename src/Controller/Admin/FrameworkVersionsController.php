@@ -214,7 +214,7 @@ class FrameworkVersionsController extends AppController
         
         if(is_numeric($framework_id) && $this->FrameworkVersions->Frameworks->exists($framework_id))
         {
-            $frameworkVersions = $this->FrameworkVersions->find()->where(['framework_id' => $framework_id]);
+            $frameworkVersions = $this->FrameworkVersions->find()->where(['framework_id' => $framework_id])->order(['sort' => 'asc']);
             
             $this->response->type('json');
             $this->response->body(json_encode($frameworkVersions));

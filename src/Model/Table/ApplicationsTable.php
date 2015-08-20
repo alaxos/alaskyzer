@@ -37,7 +37,8 @@ class ApplicationsTable extends Table
         ]);
         
         $this->hasMany('ApplicationsFrameworks', [
-            'foreignKey' => 'application_id'
+            'foreignKey' => 'application_id',
+            'dependent'  => true
         ]);
         
 //         $this->belongsToMany('Frameworks', [

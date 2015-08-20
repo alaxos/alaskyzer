@@ -31,13 +31,18 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
             echo $this->AlaxosForm->label('Frameworks', __('Frameworks'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
 
+            echo $this->AlaxosForm->input('applications_frameworks.0.framework_id', ['type' => 'select', 'label' => false, 'options' => $frameworks, 'empty' => true, 'id' => 'frameworks_select']);
+            echo $this->Html->image('ajax-loader.gif', ['id' => 'applications_frameworks_0_loader', 'style' => 'display:none;']);
+            
+            echo $this->AlaxosForm->input('applications_frameworks.0.framework_version_id', ['type' => 'select', 'label' => false, 'empty' => true, 'id' => 'framework_version_select']);
+            
 //             echo $this->AlaxosForm->input('frameworks._ids', ['label' => false, 'options' => $frameworks, 'id' => 'frameworks_select']);
             
 //             echo $this->AlaxosForm->input('frameworks.0.id', ['type' => 'select', 'label' => false, 'options' => $frameworks, 'empty' => true, 'id' => 'frameworks_select']);
 //             echo $this->AlaxosForm->input('frameworks.0._joinData.framework_version_id', ['type' => 'select', 'label' => false, 'options' => $frameworkVersions, 'empty' => true, 'id' => 'framework_version_select']);
             
-            echo $this->AlaxosForm->input('frameworks.0.id', ['type' => 'select', 'label' => false, 'options' => $frameworks, 'empty' => true, 'id' => 'frameworks_select']);
-            echo $this->AlaxosForm->input('frameworks.0._joinData.framework_version_id', ['type' => 'select', 'label' => false, 'empty' => true, 'id' => 'framework_version_select']);
+//             echo $this->AlaxosForm->input('frameworks.0.id', ['type' => 'select', 'label' => false, 'options' => $frameworks, 'empty' => true, 'id' => 'frameworks_select']);
+//             echo $this->AlaxosForm->input('frameworks.0._joinData.framework_version_id', ['type' => 'select', 'label' => false, 'empty' => true, 'id' => 'framework_version_select']);
             
             echo '</div>';
             echo '</div>';
@@ -131,6 +136,8 @@ $(document).ready(function() {
 
     function fill_framework_version_options(framework_id)
     {
+    	$("#applications_frameworks_0_loader").show();
+    	
         framework_version_selectize.disable();
         framework_version_selectize.clearOptions();
         framework_version_selectize.load(function(callback){
@@ -144,6 +151,7 @@ $(document).ready(function() {
             })
             .always(function(){
                 framework_version_selectize.enable();
+                $("#applications_frameworks_0_loader").hide();
             });
         });
     }

@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Alaxos\Lib\StringTool;
 
 /**
  * FrameworkVersions Model
@@ -26,16 +27,22 @@ class FrameworkVersionsTable extends Table
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
+        
+        $this->hasMany('ApplicationsFrameworks', [
+            'foreignKey' => 'framework_version_id',
+            'dependant'  => true
+        ]);
+        
         $this->belongsTo('Frameworks', [
             'foreignKey' => 'framework_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsToMany('Applications', [
-            'through' => 'ApplicationsFrameworks'
-            //             'foreignKey' => 'framework_id',
-        //             'targetForeignKey' => 'application_id',
-        //             'joinTable' => 'applications_frameworks'
-        ]);
+//         $this->belongsToMany('Applications', [
+//             'through' => 'ApplicationsFrameworks'
+//             //             'foreignKey' => 'framework_id',
+//         //             'targetForeignKey' => 'application_id',
+//         //             'joinTable' => 'applications_frameworks'
+//         ]);
     }
 
     /**
@@ -70,5 +77,52 @@ class FrameworkVersionsTable extends Table
     {
         $rules->add($rules->existsIn(['framework_id'], 'Frameworks'));
         return $rules;
+    }
+    
+    public function ensureEntityExists($framework_id, $name)
+    {
+        if(StringTool::start_with($name, '[new]')){
+            $name = StringTool::remove_leading($name, '[new]');
+        }
+        
+        $search = [
+            'framework_id' => $framework_id,
+            'name'         => $name
+        ];
+        
+        return $this->findOrCreate($search);
+    }
+    
+    public function updateNaturalSortValues($framework_id)
+    {
+        $framework_versions = $this->find('all')->where(['framework_id' => $framework_id]);
+        
+        if(!empty($framework_versions))
+        {
+            $names_sorted = [];
+            $names        = [];
+            foreach($framework_versions as $framework_version)
+            {
+                $names_sorted[$framework_version->name] = $framework_version;
+                $names[] = $framework_version->name;
+            }
+            
+            natsort($names);
+            
+            $sort = 0;
+            foreach($names as $name)
+            {
+                $framework_version = $names_sorted[$name];
+                $framework_version->sort = $sort;
+                
+                if(!$this->save($framework_version)){
+                    return false;
+                }
+                
+                $sort += 10;
+            }
+        }
+        
+        return true;
     }
 }
