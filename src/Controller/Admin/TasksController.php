@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Tasks Controller
@@ -26,6 +27,11 @@ class TasksController extends AppController
      */
     public $components = ['Alaxos.Filter'];
 
+    public function beforeFilter(Event $event)
+    {
+        $this->Security->config('unlockedActions', ['close', 'open']);
+    }
+    
     /**
     * Index method
     *
@@ -81,7 +87,9 @@ class TasksController extends AppController
             $task = $this->Tasks->patchEntity($task, $this->request->data);
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(___('the task has been saved'), ['plugin' => 'Alaxos']);
-                return $this->redirect(['action' => 'index']);
+                
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'index', '#' => $task->application_id . '_' . $task->id]);
+                
             } else {
                 $this->Flash->error(___('the task could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
@@ -140,7 +148,33 @@ class TasksController extends AppController
             $this->Flash->error(___('the task could not be closed'), ['plugin' => 'Alaxos']);
         }
         
-        return $this->redirect($this->referer(['action' => 'view', $id]));
+        $task = $this->Tasks->get($id, [
+            'contain' => []
+        ]);
+        
+        return $this->redirect(['controller' => 'Dashboard', 'action' => 'index', '#' => $task->application_id . '_' . $task->id]);
+        
+//         return $this->redirect($this->referer(['action' => 'view', $id]));
+    }
+    
+    public function open($id = null)
+    {
+        if($this->Tasks->open($id))
+        {
+            $this->Flash->success(___('the task has been opened'), ['plugin' => 'Alaxos']);
+        }
+        else
+        {
+            $this->Flash->error(___('the task could not be opened'), ['plugin' => 'Alaxos']);
+        }
+    
+        $task = $this->Tasks->get($id, [
+            'contain' => []
+        ]);
+        
+        return $this->redirect(['controller' => 'Dashboard', 'action' => 'index', '#' => $task->application_id . '_' . $task->id]);
+        
+//         return $this->redirect($this->referer(['action' => 'view', $id]));
     }
     
     /**

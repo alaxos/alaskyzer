@@ -9,6 +9,8 @@ $this->AlaxosHtml->includeAlaxosJs();
     </div>
     <div class="col-md-9">
         
+        <h2 id="selected_application_title"></h2>
+        
         <div class="row">
             <div class="col-md-12">
                 <?php 

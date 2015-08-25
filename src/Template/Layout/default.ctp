@@ -139,7 +139,7 @@ $(document).ready(function(){
     }
     
     $(document).on('keydown', null, 'ctrl+t', tasksList);
-    $(document).on('keydown', null, 'ctrl+n', newTask);
+    //$(document).on('keydown', null, 'ctrl+n', newTask);
     $(document).on('keydown', null, 'ctrl+a', applicationsList);
     
 });

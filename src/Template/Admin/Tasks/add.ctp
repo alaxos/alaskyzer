@@ -12,7 +12,13 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
         <div class="panel panel-default">
             <div class="panel-heading">
             <?php
-            echo $this->Navbars->actionButtons(['buttons_group' => 'add']);
+            $btn_back_to_list_link = ['controller' => 'Dashboard', 'action' => 'index'];
+            if($application_id = $this->request->query('application_id'))
+            {
+                $btn_back_to_list_link['#'] = $application_id;
+            }
+            
+            echo $this->Navbars->actionButtons(['buttons_group' => 'add', 'btn_back_to_list' => ['visible' => true, 'link' => $btn_back_to_list_link]]);
             ?>
             </div>
             <div class="panel-body">

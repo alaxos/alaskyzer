@@ -97,6 +97,8 @@ function select_application(application_id)
     
 	var application = applications_by_id[application_id];
 
+	$("#selected_application_title").html(application.name);
+	
 	fill_tasks(application.tasks);
 
 	$(location).attr("hash", application_id);

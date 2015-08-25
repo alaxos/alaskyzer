@@ -119,4 +119,20 @@ class TasksTable extends Table
             return false;
         }
     }
+    
+    public function open($id, $datetime = null)
+    {
+        $task = $this->get($id);
+    
+        if(isset($task->closed) || isset($task->abandoned))
+        {
+            $this->patchEntity($task, ['closed' => null, 'abandoned' => null]);
+            
+            return $this->save($task);
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

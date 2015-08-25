@@ -4,6 +4,12 @@ use Cake\Routing\Router;
 
 <div id="tasks_list" style="display:none;">
 
+    <div class="text-right" style="margin-bottom:10px;">
+    <?php 
+    echo $this->Html->link(__('new task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'tasks_list_add_btn']);
+    ?>
+    </div>
+    
     <ul class="nav nav-tabs" role="tablist" id="task_tabs">
         <li role="presentation" id="open_task_tab_link"><a href="#open_tasks_tab"   aria-controls="open_tasks_tab"   role="tab" data-toggle="tab"><?php echo ___('open');?> <span class="badge active_tasks_total"></span></a></li>
         <li role="presentation" id="closed_task_tab_link"><a href="#closed_tasks_tab" aria-controls="closed_tasks_tab" role="tab" data-toggle="tab"><?php echo ___('closed');?> <span class="badge closed_tasks_total"></span></a></li>
@@ -27,9 +33,6 @@ use Cake\Routing\Router;
             </ul>
         </div>
         
-        <?php 
-        echo $this->Html->link(__('new task'), '#', ['id' => 'tasks_list_add_btn']);
-        ?>
     </div>
     
 </div>
@@ -51,17 +54,27 @@ $(document).ready(function(){
 
         //$(this).tab('show');
 	})
-		
+	
+	var newTask = function(){
+        window.location = "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'add']);?>?application_id=" + $("#applications_list a.active").attr("data-application-id");
+        return false;
+    }
+    
 	$("#tasks_list_add_btn").click(function(e){
 		e.preventDefault();
-
-	    if($("#applications_list a.active").length > 0)
-	    {
-	    	  window.location = "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'add']);?>?application_id=" + $("#applications_list a.active").attr("data-application-id");
-	    }
+		newTask();
+		
+// 	    if($("#applications_list a.active").length > 0)
+// 	    {
+//	    	  window.location = "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'add']);?>?application_id=" + $("#applications_list a.active").attr("data-application-id");
+// 	    }
 	});
-});
     
+	$(document).on('keydown', null, 'ctrl+n', newTask);
+});
+
+
+
 function select_open_tasks_panel()
 {
 	if($("#open_task_tab_link.active").length == 0)
@@ -195,28 +208,36 @@ function fill_task_row(task)
 	});
 }
 
+var tasks_by_id = {};
+
 function get_task_details(task_id)
 {
 	$("#task_details_loader").show();
 
-	var task = null;
-	
-	$.ajax({
-		url      : "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'details']);?>/" + task_id + ".json",
-		dataType : "json",
-		async: false
-	})
-	.done(function(data, textStatus, jqXHR){
-		task = data;
-	})
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		Alaxos.manage_ajax_error(jqXHR);
-	})
-	.always(function(){
-		$("#task_details_loader").hide();
-	});
+    if(typeof(tasks_by_id[task_id]) == "undefined")
+    {
+    	var task = null;
+    	
+    	$.ajax({
+    		url      : "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'details']);?>/" + task_id + ".json",
+    		dataType : "json",
+    		async: false
+    	})
+    	.done(function(data, textStatus, jqXHR){
+    		task = data;
+    		tasks_by_id[task.id] = task;
+    	})
+    	.fail(function(jqXHR, textStatus, errorThrown) {
+    		Alaxos.manage_ajax_error(jqXHR);
+    	})
+    	.always(function(){
+    		$("#task_details_loader").hide();
+    	});
+    }
 
-	return task;
+    $("#task_details_loader").hide();
+    
+	return tasks_by_id[task_id];
 }
 
 function select_task(task_id)
@@ -316,8 +337,44 @@ function show_task_details(task){
     task_details += "</div>";
     
     task_details += "</div>";
+
+    /******/
+    
+    task_details += "<div class=\"row\" style=\"margin-top:20px;\">";
+    task_details += "<div class=\"col-md-12\">";
+
+    task_details += "<form id=\"postOnClickForm\" action=\"\" method=\"post\"><input type=\"hidden\" id=\"postOnClickFormCsrf\" name=\"_csrfToken\" value=\"<?php echo $this->request->params['_csrfToken']; ?>\" /></form>";
+        
+    if(task.closed == null && task.abandoned == null)
+    {
+    	task_details += '<?php echo $this->Html->link(__('close task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'close_task_btn']); ?>';
+    }
+    else
+    {
+    	task_details += '<?php echo $this->Html->link(__('open task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'open_task_btn']); ?>';
+    }
+    
+    task_details += "</div>";
+    task_details += "</div>";
+    
     
     $("#task_details").html(task_details);
     $("#task_details").show();
+
+    var task_id = $("#tasks_list .list-group .active").attr("data-task-id");
+    
+    $("#close_task_btn").click(function(e){
+        e.preventDefault();
+        
+        $("#postOnClickForm").attr("action", "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'close']);?>/" + task_id);
+        $("#postOnClickForm").submit();
+    });
+
+    $("#open_task_btn").click(function(e){
+        e.preventDefault();
+        
+        $("#postOnClickForm").attr("action", "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'open']);?>/" + task_id);
+        $("#postOnClickForm").submit();
+    });
 }
 </script>
