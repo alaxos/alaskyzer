@@ -47,7 +47,7 @@ class StatusController extends AppController
     public function view($id = null)
     {
         $status = $this->Status->get($id, [
-            'contain' => ['Bugs', 'Tasks']
+            'contain' => ['Tasks']
         ]);
         $this->set('status', $status);
         $this->set('_serialize', ['status']);

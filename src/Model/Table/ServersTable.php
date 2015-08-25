@@ -26,9 +26,7 @@ class ServersTable extends Table
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        $this->hasMany('Bugs', [
-            'foreignKey' => 'server_id'
-        ]);
+        
         $this->hasMany('Instances', [
             'foreignKey' => 'server_id'
         ]);

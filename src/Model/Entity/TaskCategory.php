@@ -5,9 +5,9 @@ use Cake\ORM\Entity;
 use Alaxos\Model\Entity\TimezonedTrait;
 
 /**
- * Bug Entity.
+ * TaskCategory Entity.
  */
-class Bug extends Entity
+class TaskCategory extends Entity
 {
 	use TimezonedTrait;
 
@@ -17,17 +17,9 @@ class Bug extends Entity
      * @var array
      */
     protected $_accessible = [
-        'status_id' => true,
-        'application_id' => true,
-        'server_id' => true,
         'name' => true,
-        'description' => true,
-        'due_date' => true,
-        'closed' => true,
         'created_by' => true,
         'modified_by' => true,
-        'status' => true,
-        'application' => true,
-        'server' => true,
+        'tasks' => true,
     ];
 }

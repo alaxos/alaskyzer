@@ -9,3 +9,38 @@
 .tag a:not(:hover){
 	color:inherit;
 }
+
+.bg-green{
+    background-color:#A2EBD0;
+    color:#555;
+}
+.bg-blue{
+    background-color:#2a9fd6;
+    color:#fff;
+}
+.bg-blue a{
+    color:#fff;
+}
+.bg-danger{
+    color:red;
+    background-color:#f2dede;
+}
+.bg-success{
+    color:green;
+    background-color:#dff0d8;
+}
+
+.application_line, .task-line
+{
+	cursor:pointer;
+}
+#task_details
+{
+	border: 1px solid #ddd;
+	border-radius:4px;
+	padding:15px;
+}
+.task_property_name
+{
+	color:#aaa;
+}

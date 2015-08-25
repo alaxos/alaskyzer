@@ -26,9 +26,7 @@ class ApplicationsTable extends Table
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        $this->hasMany('Bugs', [
-            'foreignKey' => 'application_id'
-        ]);
+        
         $this->hasMany('Instances', [
             'foreignKey' => 'application_id'
         ]);

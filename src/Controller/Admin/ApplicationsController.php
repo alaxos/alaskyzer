@@ -77,7 +77,7 @@ class ApplicationsController extends AppController
     public function view($id = null)
     {
         $application = $this->Applications->get($id, [
-            'contain' => ['ApplicationsFrameworks' => ['Frameworks', 'FrameworkVersions'], 'Technologies', 'Bugs', 'Instances', 'Tasks']
+            'contain' => ['ApplicationsFrameworks' => ['Frameworks', 'FrameworkVersions'], 'Technologies', 'Instances', 'Tasks']
         ]);
         $this->set('application', $application);
         $this->set('_serialize', ['application']);
@@ -397,5 +397,21 @@ class ApplicationsController extends AppController
         $application->id = $id;
         $this->set(compact('application', 'frameworks', 'technologies'));
         $this->set('_serialize', ['application']);
+    }
+    
+    public function getList()
+    {
+//         $this->autoRender = false;
+        $this->response->type('json');
+        
+        $applications = $this->Applications->find()->contain(['Tasks'])->order(['name']);
+        
+        $this->set(compact('applications'));
+        
+//         $applications = $this->Tasks->Applications->find()->contain(['Tasks' => function($q){
+//             return $q->where(['Tasks.closed IS NULL', 'Tasks.abandoned IS NULL']);
+//         }])->order(['name']);
+        
+//         $this->response->body(json_encode($applications->toArray()));
     }
 }

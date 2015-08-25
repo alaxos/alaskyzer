@@ -53,6 +53,7 @@ use Cake\Network\Request;
 use Cake\Routing\DispatcherFactory;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
+use Cake\I18n\I18n;
 
 /**
  * Read configuration file and inject configuration into various
@@ -97,7 +98,8 @@ mb_internal_encoding(Configure::read('App.encoding'));
  * Set the default locale. This controls how dates, number and currency is
  * formatted and sets the default language to use for translations.
  */
-ini_set('intl.default_locale', 'fr_CH');
+//ini_set('intl.default_locale', 'fr_CH');
+I18n::locale('fr_CH');
 
 /**
  * Register application error and exception handlers.
@@ -208,6 +210,10 @@ Configure::write('default_display_timezone', 'Europe/Zurich');
 
 define('ROLE_ID_ADMINISTRATOR', 1);
 define('ROLE_ID_USER', 2);
+
+define('STATUS_ID_OPEN',      1);
+define('STATUS_ID_ABANDONED', 2);
+define('STATUS_ID_CLOSED',    3);
 
 Configure::write('Shibboleth.unique_id_attribute',         'uniqueID');
 Configure::write('Shibboleth.attributes_mapping',          [Configure::read('Shibboleth.unique_id_attribute') => 'external_uid',

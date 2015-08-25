@@ -1,16 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Status;
+use App\Model\Entity\TaskCategory;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Status Model
+ * TaskCategories Model
  */
-class StatusTable extends Table
+class TaskCategoriesTable extends Table
 {
 
     /**
@@ -21,13 +21,14 @@ class StatusTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('status');
+        $this->table('task_categories');
         $this->displayField('name');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        
-        
+        $this->hasMany('Tasks', [
+            'foreignKey' => 'task_category_id'
+        ]);
     }
 
     /**

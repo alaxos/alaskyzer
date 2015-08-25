@@ -1,4 +1,5 @@
 <?php
+use Cake\Routing\Router;
 /**
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -24,7 +25,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Html->meta('icon') ?>
+    <?= $this->Html->meta('icon', 'img/alaskyzer.png') ?>
 
     <?php
 	echo $this->AlaxosHtml->includeBootstrapCSS(['block' => false]);
@@ -34,6 +35,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 	
 	echo $this->AlaxosHtml->includeAlaxosJQuery(['block' => false]);
 	echo $this->AlaxosHtml->includeAlaxosBootstrapJS(['block' => false]);
+	echo $this->AlaxosHtml->script('jquery.hotkeys');
 	?>
 
     <?= $this->fetch('meta') ?>
@@ -41,29 +43,33 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <div id="container" class="container">
+    <div id="container" class="container-fluid">
         
         <div class="row">
             <div class="col-md-12">
                 <header>
                     <div class="row">
-                        <div class="col-md-3 col-sm-4">
+                        <div class="col-md-1 col-sm-2 col-xs-3">
                             <?php 
                             echo '<div id="top_unige_logo">';
-                            //echo $this->Html->image('unige.png');
-                            echo 'Alaskyzer';
+                            echo $this->Html->image('alaskyzer.png', ['style' => 'height:75px;vertical-align:middle;']);
                             echo '</div>';
                             ?>
                         </div>
-                        <div class="col-md-6 col-sm-4">
+                        <div class="col-md-6 col-sm-6 col-xs-5">
                             <?php
                             echo '<h1>'; 
                             echo $this->Html->link('Alaskyzer', '/');
                             echo '</h1>';
                             ?>
                         </div>
-                        <div class="col-md-3 col-sm-4 text-right">
+                        <div class="col-md-5 col-sm-4 col-xs-4 text-right">
                             <?php 
+                            echo $this->Html->link(__('<u>t</u>asks list'), ['prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'index'], ['escape' => false]);
+                            echo ' | ';
+                            echo $this->Html->link(__('<u>n</u>ew task'), ['prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'add'], ['escape' => false]);
+                            echo ' | ';
+                            echo $this->Html->link(__('<u>a</u>pplications list'), ['prefix' => 'admin', 'controller' => 'Applications', 'action' => 'index'], ['escape' => false]);
                             ?>
                         </div>
                     </div>
@@ -113,3 +119,28 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	var tasksList = function(){
+        window.location = "<?php echo Router::url(['prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'index']); ?>";
+        return false;
+    }
+    
+    var newTask = function(){
+        window.location = "<?php echo Router::url(['prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'add']); ?>";
+        return false;
+    }
+
+    var applicationsList = function(){
+        window.location = "<?php echo Router::url(['prefix' => 'admin', 'controller' => 'Applications', 'action' => 'index']); ?>";
+        return false;
+    }
+    
+    $(document).on('keydown', null, 'ctrl+t', tasksList);
+    $(document).on('keydown', null, 'ctrl+n', newTask);
+    $(document).on('keydown', null, 'ctrl+a', applicationsList);
+    
+});
+</script>

@@ -5,25 +5,25 @@ $menu = [];
 
 if(isset($logged_user))
 {
+    $menu[] = [
+        'title'   => ___('dashboard'),
+        'url'	 => array('prefix' => 'admin', 'controller' => 'Dashboard', 'action' => 'index'),
+        'options' => ['id' => 'dashboard']
+    ];
+    
+    $menu[] = [
+        'title'   => ___('tasks'),
+        'url'	 => array('prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'index'),
+        'options' => ['id' => 'tasks']
+    ];
+    
 	$menu[] = [
 			'title'   => ___('applications'),
 			'url'	 => array('prefix' => 'admin', 'controller' => 'Applications', 'action' => 'index'),
 			'options' => ['id' => 'applications']
 	];
 	
-	$menu[] = [
-	    'title'   => ___('tasks'),
-	    'url'	 => array('prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'index'),
-	    'options' => ['id' => 'tasks']
-	];
-	
-	$menu[] = [
-	    'title'   => ___('bugs'),
-	    'url'	 => array('prefix' => 'admin', 'controller' => 'Bugs', 'action' => 'index'),
-	    'options' => ['id' => 'bugs']
-	];
-	
-	$menu[___('tech')] = [
+	$menu[___('catalogs')] = [
     	[
     	    'title'   => ___('frameworks'),
     	    'url'	 => array('prefix' => 'admin', 'controller' => 'Frameworks', 'action' => 'index'),
@@ -35,22 +35,31 @@ if(isset($logged_user))
     	    'options' => ['id' => 'frameworkVersions']
     	],
 	    [
-	       'title'   => ___('technologies'),
+	        'title'   => ___('technologies'),
 	        'url'	 => array('prefix' => 'admin', 'controller' => 'Technologies', 'action' => 'index'),
             'options' => ['id' => 'technologies']
-            ]
-	];
-	
-	$menu[] = [
-	    'title'   => ___('servers'),
-	    'url'	 => array('prefix' => 'admin', 'controller' => 'Servers', 'action' => 'index'),
-	    'options' => ['id' => 'servers']
+        ],
+	    [
+	        'title'   => ___('servers'),
+	        'url'	 => array('prefix' => 'admin', 'controller' => 'Servers', 'action' => 'index'),
+	        'options' => ['id' => 'servers']
+	    ],
+	    [
+	        'title'   => ___('status'),
+	        'url'	 => array('prefix' => 'admin', 'controller' => 'Status', 'action' => 'index'),
+	        'options' => ['id' => 'status']
+	    ],
+	    [
+	        'title'   => ___('task categories'),
+	        'url'	 => array('prefix' => 'admin', 'controller' => 'TaskCategories', 'action' => 'index'),
+	        'options' => ['id' => 'taskCategories']
+	    ]
 	];
 }
 
 if(isset($logged_user) && $logged_user->role_id == ROLE_ID_ADMINISTRATOR)
 {
-    $menu[___('users')] = [
+    $menu[___('profiles')] = [
         [
             'title'   => ___('users'),
             'url'	 => array('prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'),
@@ -74,12 +83,6 @@ if(isset($logged_user) && $logged_user->role_id == ROLE_ID_ADMINISTRATOR)
 // 				'url'	 => array('prefix' => 'admin', 'controller' => 'Roles', 'action' => 'index'),
 // 				'options' => ['id' => 'roles']
 // 	];
-	
-	$menu[] = [
-	    'title'   => ___('status'),
-	    'url'	 => array('prefix' => 'admin', 'controller' => 'Status', 'action' => 'index'),
-	    'options' => ['id' => 'status']
-	];
 }
 
 $menu['_right_'] = [];

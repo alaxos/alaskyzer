@@ -19,6 +19,7 @@ use Cake\I18n\I18n;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Utility\Text;
+use Cake\Database\Type;
 
 /**
  * Application Controller
@@ -45,6 +46,7 @@ class AppController extends Controller
         $this->loadComponent('Security');
         $this->loadComponent('Csrf');
         $this->loadComponent('Auth');
+        $this->loadComponent('RequestHandler');
         
         $this->loadComponent('Alaxos.Filter');
         $this->loadComponent('Alaxos.Logger', ['days_to_keep_logs' => 30]);

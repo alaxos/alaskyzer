@@ -34,15 +34,15 @@ class TasksController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Status', 'Applications', 'Servers']
+            'contain' => ['TaskCategories', 'Applications', 'Servers']
         ];
         $this->set('tasks', $this->paginate($this->Filter->getFilterQuery()));
         $this->set('_serialize', ['tasks']);
         
-        $status = $this->Tasks->Status->find('list', ['limit' => 200]);
+        $taskCategories = $this->Tasks->TaskCategories->find('list', ['limit' => 200]);
         $applications = $this->Tasks->Applications->find('list', ['limit' => 200]);
         $servers = $this->Tasks->Servers->find('list', ['limit' => 200]);
-        $this->set(compact('status', 'applications', 'servers'));
+        $this->set(compact('taskCategories', 'applications', 'servers'));
     }
 
     /**
@@ -55,10 +55,18 @@ class TasksController extends AppController
     public function view($id = null)
     {
         $task = $this->Tasks->get($id, [
-            'contain' => ['Status', 'Applications', 'Servers']
+            'contain' => ['TaskCategories', 'Applications', 'Servers']
         ]);
         $this->set('task', $task);
         $this->set('_serialize', ['task']);
+    }
+    
+    public function details($id = null)
+    {
+        $task = $this->Tasks->get($id, [
+            'contain' => ['TaskCategories', 'Applications', 'Servers']
+        ]);
+        $this->set('task', $task);
     }
 
     /**
@@ -78,10 +86,16 @@ class TasksController extends AppController
                 $this->Flash->error(___('the task could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
         }
-        $status = $this->Tasks->Status->find('list', ['limit' => 200]);
-        $applications = $this->Tasks->Applications->find('list', ['limit' => 200]);
-        $servers = $this->Tasks->Servers->find('list', ['limit' => 200]);
-        $this->set(compact('task', 'status', 'applications', 'servers'));
+        else
+        {
+            $this->request->data['application_id'] = $this->request->query('application_id');
+        }
+        
+        $taskCategories = $this->Tasks->TaskCategories->find('list', ['limit' => 200]);
+        $applications   = $this->Tasks->Applications->find('list', ['limit' => 200])->order(['name']);
+        $servers        = $this->Tasks->Servers->find('list', ['limit' => 200]);
+        
+        $this->set(compact('task', 'taskCategories', 'applications', 'servers'));
         $this->set('_serialize', ['task']);
     }
 
@@ -98,6 +112,8 @@ class TasksController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+//             debug($this->request->data);
+//             die();
             $task = $this->Tasks->patchEntity($task, $this->request->data);
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(___('the task has been saved'), ['plugin' => 'Alaxos']);
@@ -106,13 +122,27 @@ class TasksController extends AppController
                 $this->Flash->error(___('the task could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
         }
-        $status = $this->Tasks->Status->find('list', ['limit' => 200]);
+        $taskCategories = $this->Tasks->TaskCategories->find('list', ['limit' => 200]);
         $applications = $this->Tasks->Applications->find('list', ['limit' => 200]);
         $servers = $this->Tasks->Servers->find('list', ['limit' => 200]);
-        $this->set(compact('task', 'status', 'applications', 'servers'));
+        $this->set(compact('task', 'taskCategories', 'applications', 'servers'));
         $this->set('_serialize', ['task']);
     }
 
+    public function close($id = null)
+    {
+        if($this->Tasks->close($id))
+        {
+            $this->Flash->success(___('the task has been closed'), ['plugin' => 'Alaxos']);
+        }
+        else
+        {
+            $this->Flash->error(___('the task could not be closed'), ['plugin' => 'Alaxos']);
+        }
+        
+        return $this->redirect($this->referer(['action' => 'view', $id]));
+    }
+    
     /**
      * Delete method
      *
@@ -204,12 +234,36 @@ class TasksController extends AppController
                 $this->Flash->error(___('the task could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
         }
-        $status = $this->Tasks->Status->find('list', ['limit' => 200]);
+        $taskCategories = $this->Tasks->TaskCategories->find('list', ['limit' => 200]);
         $applications = $this->Tasks->Applications->find('list', ['limit' => 200]);
         $servers = $this->Tasks->Servers->find('list', ['limit' => 200]);
         
         $task->id = $id;
-        $this->set(compact('task', 'status', 'applications', 'servers'));
+        $this->set(compact('task', 'taskCategories', 'applications', 'servers'));
         $this->set('_serialize', ['task']);
     }
+
+    public function open_tasks()
+    {
+        $this->autoRender = false;
+        $this->response->type('json');
+        
+        $applications = $this->Tasks->Applications->find()->contain(['Tasks' => function($q){
+                return $q->where(['Tasks.closed IS NULL', 'Tasks.abandoned IS NULL']);
+            }])->order(['name']);
+        
+//         $applications = $this->Tasks->Applications->find()->matching('Tasks', function($q){
+//             return $q->where(['Tasks.closed IS NULL', 'Tasks.abandoned IS NULL']);
+//         });
+        
+//         $results = [];
+        
+//         foreach($applications as $i => $application){
+//             $results[$i]['tasks'] = $application['_matchingData']['Tasks'];
+//         }
+        
+        
+        $this->response->body(json_encode($applications->toArray()));
+    }
+
 }

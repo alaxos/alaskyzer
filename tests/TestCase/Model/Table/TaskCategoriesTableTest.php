@@ -1,14 +1,14 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\BugsTable;
+use App\Model\Table\TaskCategoriesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\BugsTable Test Case
+ * App\Model\Table\TaskCategoriesTable Test Case
  */
-class BugsTableTest extends TestCase
+class TaskCategoriesTableTest extends TestCase
 {
 
     /**
@@ -17,15 +17,18 @@ class BugsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.bugs',
-        'app.status',
+        'app.task_categories',
         'app.tasks',
+        'app.status',
         'app.applications',
         'app.instances',
-        'app.frameworks',
         'app.applications_frameworks',
+        'app.frameworks',
+        'app.framework_versions',
         'app.technologies',
         'app.applications_technologies',
+        'app.users',
+        'app.roles',
         'app.servers'
     ];
 
@@ -37,8 +40,8 @@ class BugsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Bugs') ? [] : ['className' => 'App\Model\Table\BugsTable'];
-        $this->Bugs = TableRegistry::get('Bugs', $config);
+        $config = TableRegistry::exists('TaskCategories') ? [] : ['className' => 'App\Model\Table\TaskCategoriesTable'];
+        $this->TaskCategories = TableRegistry::get('TaskCategories', $config);
     }
 
     /**
@@ -48,7 +51,7 @@ class BugsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Bugs);
+        unset($this->TaskCategories);
 
         parent::tearDown();
     }
@@ -69,16 +72,6 @@ class BugsTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

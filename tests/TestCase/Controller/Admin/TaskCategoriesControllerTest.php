@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller\Admin;
 
-use App\Controller\Admin\BugsController;
+use App\Controller\Admin\TaskCategoriesController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\Admin\BugsController Test Case
+ * App\Controller\Admin\TaskCategoriesController Test Case
  */
-class BugsControllerTest extends IntegrationTestCase
+class TaskCategoriesControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,15 +16,18 @@ class BugsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.bugs',
-        'app.status',
+        'app.task_categories',
         'app.tasks',
+        'app.status',
         'app.applications',
         'app.instances',
-        'app.frameworks',
         'app.applications_frameworks',
+        'app.frameworks',
+        'app.framework_versions',
         'app.technologies',
         'app.applications_technologies',
+        'app.users',
+        'app.roles',
         'app.servers'
     ];
 

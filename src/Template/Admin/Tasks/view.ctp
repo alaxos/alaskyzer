@@ -11,6 +11,11 @@
 		<div class="panel-body">
 			<dl class="dl-horizontal">
 			
+				<dt><?php echo __('Task Category'); ?></dt>
+				<dd>
+					<?php echo $task->has('task_category') ? $this->Html->link($task->task_category->name, ['controller' => 'TaskCategories', 'action' => 'view', $task->task_category->id]) : '' ?>
+				</dd>
+					
 				<dt><?php echo __('Status'); ?></dt>
 				<dd>
 					<?php echo $task->has('status') ? $this->Html->link($task->status->name, ['controller' => 'Status', 'action' => 'view', $task->status->id]) : '' ?>
