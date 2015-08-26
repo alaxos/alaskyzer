@@ -30,7 +30,19 @@
     background-color:#dff0d8;
 }
 
-.application_line, .task-line
+#tasks_list th
+{
+	font-weight: normal;
+	color:#aaa;
+	border-bottom:1px;
+}
+
+#tasks_list tr:last-child td
+{
+	border-bottom:1px solid #ddd;
+}
+
+.application_line, .task-row
 {
 	cursor:pointer;
 }

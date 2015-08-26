@@ -61,6 +61,11 @@ class AppController extends Controller
     
     function beforeFilter(Event $event)
     {
+        if($this->request->params['controller'] == 'Pages')
+        {
+            $this->Auth->allow();
+        }
+        
         $this->_set_authentication();
         $this->_set_logged_user();
     }
@@ -71,7 +76,7 @@ class AppController extends Controller
         $this->Auth->config('unauthorizedRedirect', '/');
         $this->Auth->config('authError', __('you are not authorized to access this page'));
         $this->Auth->config('flash', ['element' => 'Alaxos.error']);
-        $this->Auth->config('loginRedirect', ['prefix' => 'admin', 'controller' => 'Applications', 'action' => 'index']);
+        $this->Auth->config('loginRedirect', ['prefix' => 'admin', 'controller' => 'Dashboard', 'action' => 'index']);
         $this->Auth->config('logoutRedirect', '/');
         
         $complete_new_user_data_fonction = function(\Cake\Network\Request $request, $user_data){
@@ -101,27 +106,24 @@ class AppController extends Controller
     
     public function isAuthorized()
     {
-        $user = $this->Auth->user();
-        if(!empty($user))
+        $prefix = isset($this->request->params['prefix']) ? $this->request->params['prefix'] : null;
+        
+        if(empty($prefix))
         {
-            if(in_array($user['role_id'], [ROLE_ID_ADMINISTRATOR]))
+            return true;
+        }
+        else
+        {
+            $user = $this->Auth->user();
+            if(!empty($user))
             {
-                return true;
-            }
-            else
-            {
-                $prefix = isset($this->request->params['prefix']) ? $this->request->params['prefix'] : null;
-                 
-                if(empty($prefix))
+                if(in_array($user['role_id'], [ROLE_ID_ADMINISTRATOR]))
                 {
                     return true;
                 }
-                else
+                elseif($prefix == 'admin' && in_array($user['role_id'], [ROLE_ID_ADMINISTRATOR]))
                 {
-                    if($prefix == 'admin' && in_array($user['role_id'], [ROLE_ID_ADMINISTRATOR]))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }

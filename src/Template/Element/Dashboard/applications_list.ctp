@@ -18,6 +18,12 @@ function get_applications(async)
     {
     	async = false;
     }
+
+	if(typeof(fill_linked_tasks) == "undefined")
+    {
+	    fill_linked_tasks = false;
+    }
+	
 	
 	$.ajax({
 		url      : "<?php echo Router::url(['controller' => 'Applications', 'action' => 'getList']);?>.json",
@@ -36,7 +42,7 @@ function get_applications(async)
 
 function fill_applications(async)
 {
-	var applications = get_applications();
+	var applications = get_applications(async);
 	fill_applications_list(applications);
 }
 
@@ -99,7 +105,7 @@ function select_application(application_id)
 
 	$("#selected_application_title").html(application.name);
 	
-	fill_tasks(application.tasks);
+	fill_tasks(application.tasks, true);
 
 	$(location).attr("hash", application_id);
 }

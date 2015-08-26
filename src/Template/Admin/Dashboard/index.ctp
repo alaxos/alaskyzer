@@ -2,12 +2,12 @@
 $this->AlaxosHtml->includeAlaxosJs();
 ?>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <?php 
         echo $this->element('Dashboard/applications_list');
         ?>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
         
         <h2 id="selected_application_title"></h2>
         

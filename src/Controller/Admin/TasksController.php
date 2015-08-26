@@ -29,7 +29,9 @@ class TasksController extends AppController
 
     public function beforeFilter(Event $event)
     {
-        $this->Security->config('unlockedActions', ['close', 'open']);
+        parent::beforeFilter($event);
+        
+        $this->Security->config('unlockedActions', ['close', 'open', 'delete']);
     }
     
     /**
@@ -86,12 +88,12 @@ class TasksController extends AppController
         if ($this->request->is('post')) {
             $task = $this->Tasks->patchEntity($task, $this->request->data);
             if ($this->Tasks->save($task)) {
-                $this->Flash->success(___('the task has been saved'), ['plugin' => 'Alaxos']);
+                $this->Flash->success(___('the task has been saved'));
                 
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'index', '#' => $task->application_id . '_' . $task->id]);
                 
             } else {
-                $this->Flash->error(___('the task could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
+                $this->Flash->error(___('the task could not be saved. Please, try again.'));
             }
         }
         else
@@ -124,10 +126,11 @@ class TasksController extends AppController
 //             die();
             $task = $this->Tasks->patchEntity($task, $this->request->data);
             if ($this->Tasks->save($task)) {
-                $this->Flash->success(___('the task has been saved'), ['plugin' => 'Alaxos']);
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success(___('the task has been saved'));
+//                 return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'index', '#' => $task->application_id . '_' . $task->id]);
             } else {
-                $this->Flash->error(___('the task could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
+                $this->Flash->error(___('the task could not be saved. Please, try again.'));
             }
         }
         $taskCategories = $this->Tasks->TaskCategories->find('list', ['limit' => 200]);
@@ -141,11 +144,12 @@ class TasksController extends AppController
     {
         if($this->Tasks->close($id))
         {
-            $this->Flash->success(___('the task has been closed'), ['plugin' => 'Alaxos']);
+//             $this->Flash->success(___('the task has been closed'), ['plugin' => 'Alaxos']);
+            $this->Flash->success(___('the task has been closed'));
         }
         else
         {
-            $this->Flash->error(___('the task could not be closed'), ['plugin' => 'Alaxos']);
+            $this->Flash->error(___('the task could not be closed'));
         }
         
         $task = $this->Tasks->get($id, [
@@ -161,11 +165,11 @@ class TasksController extends AppController
     {
         if($this->Tasks->open($id))
         {
-            $this->Flash->success(___('the task has been opened'), ['plugin' => 'Alaxos']);
+            $this->Flash->success(___('the task has been opened'));
         }
         else
         {
-            $this->Flash->error(___('the task could not be opened'), ['plugin' => 'Alaxos']);
+            $this->Flash->error(___('the task could not be opened'));
         }
     
         $task = $this->Tasks->get($id, [
@@ -191,25 +195,27 @@ class TasksController extends AppController
         
         try
         {
+            $application_id = $task->application_id;
+            
             if ($this->Tasks->delete($task)) {
-                $this->Flash->success(___('the task has been deleted'), ['plugin' => 'Alaxos']);
+                $this->Flash->success(___('the task has been deleted'));
             } else {
-                $this->Flash->error(___('the task could not be deleted. Please, try again.'), ['plugin' => 'Alaxos']);
+                $this->Flash->error(___('the task could not be deleted. Please, try again.'));
             }
         }
         catch(\Exception $ex)
         {
             if($ex->getCode() == 23000)
             {
-                $this->Flash->error(___('the task could not be deleted as it is still used in the database'), ['plugin' => 'Alaxos']);
+                $this->Flash->error(___('the task could not be deleted as it is still used in the database'));
             }
             else
             {
-                $this->Flash->error(sprintf(__('The task could not be deleted: %s', $ex->getMessage())), ['plugin' => 'Alaxos']);
+                $this->Flash->error(sprintf(__('The task could not be deleted: %s', $ex->getMessage())));
             }
         }
         
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'Dashboard', 'action' => 'index', '#' => $application_id]);
     }
     
     /**
@@ -262,10 +268,10 @@ class TasksController extends AppController
             $task = $this->Tasks->newEntity();
             $task = $this->Tasks->patchEntity($task, $this->request->data);
             if ($this->Tasks->save($task)) {
-                $this->Flash->success(___('the task has been saved'), ['plugin' => 'Alaxos']);
+                $this->Flash->success(___('the task has been saved'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(___('the task could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
+                $this->Flash->error(___('the task could not be saved. Please, try again.'));
             }
         }
         $taskCategories = $this->Tasks->TaskCategories->find('list', ['limit' => 200]);

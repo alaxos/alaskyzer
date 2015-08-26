@@ -64,23 +64,28 @@ class UsersController extends AppController
     
     			if($shibboleth_auth->isNewUser())
     			{
-    				$this->Flash->set(__('Your account has been created'), ['element' => 'Alaxos.success']);
+//     				$this->Flash->set(__('Your account has been created'), ['element' => 'Alaxos.success']);
+    				$this->Flash->success(__('Your account has been created'));
     			}
     			else
     			{
-    				$this->Flash->set(__('You have been authenticated'), ['element' => 'Alaxos.success']);
+//     				$this->Flash->set(__('You have been authenticated'), ['element' => 'Alaxos.success']);
+    			    $this->Flash->success(__('You have been authenticated'));
     			}
     
     			$this->redirect($this->Auth->redirectUrl());
     		}
     		else
     		{
-    			$this->Flash->set(__('unable to login'), ['element' => 'Alaxos.error']);
+//     			$this->Flash->set(__('unable to login'), ['element' => 'Alaxos.error']);
+    		    $this->Flash->error(__('unable to login'));
     		}
     	}
     	else
     	{
-    		$this->Flash->set(__('you are already logged in'), ['element' => 'Alaxos.info']);
+//     		$this->Flash->set(__('you are already logged in'), ['element' => 'Alaxos.info']);
+    	    $this->Flash->info(__('you are already logged in'));
+    	    
     		$this->redirect($this->referer('/'));
     	}
     }

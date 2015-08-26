@@ -65,11 +65,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         </div>
                         <div class="col-md-5 col-sm-4 col-xs-4 text-right">
                             <?php 
-                            echo $this->Html->link(__('<u>t</u>asks list'), ['prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'index'], ['escape' => false]);
-                            echo ' | ';
-                            echo $this->Html->link(__('<u>n</u>ew task'), ['prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'add'], ['escape' => false]);
-                            echo ' | ';
-                            echo $this->Html->link(__('<u>a</u>pplications list'), ['prefix' => 'admin', 'controller' => 'Applications', 'action' => 'index'], ['escape' => false]);
+                            if(isset($logged_user) && in_array($logged_user->role_id, [ROLE_ID_ADMINISTRATOR]))
+                            {
+                                echo $this->Html->link(__('<u>t</u>asks list'), ['prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'index'], ['escape' => false]);
+                                echo ' | ';
+                                echo $this->Html->link(__('<u>n</u>ew task'), ['prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'add'], ['escape' => false]);
+                                echo ' | ';
+                                echo $this->Html->link(__('<u>a</u>pplications list'), ['prefix' => 'admin', 'controller' => 'Applications', 'action' => 'index'], ['escape' => false]);
+                            }
                             ?>
                         </div>
                     </div>

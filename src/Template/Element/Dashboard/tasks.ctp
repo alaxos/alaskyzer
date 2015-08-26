@@ -12,13 +12,26 @@ use Cake\Routing\Router;
     
     <ul class="nav nav-tabs" role="tablist" id="task_tabs">
         <li role="presentation" id="open_task_tab_link"><a href="#open_tasks_tab"   aria-controls="open_tasks_tab"   role="tab" data-toggle="tab"><?php echo ___('open');?> <span class="badge active_tasks_total"></span></a></li>
-        <li role="presentation" id="closed_task_tab_link"><a href="#closed_tasks_tab" aria-controls="closed_tasks_tab" role="tab" data-toggle="tab"><?php echo ___('closed');?> <span class="badge closed_tasks_total"></span></a></li>
+        <li role="presentation" id="closed_task_tab_link"><a href="#closed_tasks_tab" aria-controls="closed_tasks_tab" role="tab" data-toggle="tab"><?php echo ___('closed');?> <span class="closed_tasks_total" style="color:#aaa;"></span></a></li>
     </ul>
     
     
     <div class="tab-content" style="margin-top:20px;">
     
         <div role="tabpanel" class="tab-pane fade in active" id="open_tasks_tab">
+            
+            <table cellpadding="0" cellspacing="0" class="table table-striped table-hover table-condensed" id="open_tasks_table" style="display:none;">
+            <thead>
+            <tr class="sortHeader">
+                <th><?php echo ___('created');?></th>
+                <th><?php echo ___('name');?></th>
+                <th><?php echo ___('due date');?></th>
+            </tr>
+            </thead>
+            <tbody id="open_tasks_rows">
+            
+            </tbody>
+            </table>
             
             <ul class="list-group" id="open_tasks">
             
@@ -28,6 +41,19 @@ use Cake\Routing\Router;
         
         <div role="tabpanel" class="tab-pane fade" id="closed_tasks_tab">
         
+            <table cellpadding="0" cellspacing="0" class="table table-striped table-hover table-condensed" id="closed_tasks_table" style="display:none;">
+            <thead>
+            <tr class="sortHeader">
+                <th><?php echo ___('created');?></th>
+                <th><?php echo ___('name');?></th>
+                <th><?php echo ___('closed');?></th>
+            </tr>
+            </thead>
+            <tbody id="closed_tasks_rows">
+            
+            </tbody>
+            </table>
+            
             <ul class="list-group" id="closed_tasks">
             
             </ul>
@@ -63,11 +89,6 @@ $(document).ready(function(){
 	$("#tasks_list_add_btn").click(function(e){
 		e.preventDefault();
 		newTask();
-		
-// 	    if($("#applications_list a.active").length > 0)
-// 	    {
-//	    	  window.location = "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'add']);?>?application_id=" + $("#applications_list a.active").attr("data-application-id");
-// 	    }
 	});
     
 	$(document).on('keydown', null, 'ctrl+n', newTask);
@@ -97,13 +118,17 @@ function select_closed_tasks_panel()
 
 function clear_tasks()
 {
-	$("#open_tasks").html("");
-	$("#closed_tasks").html("");
+	$("#open_tasks_rows").html("");
+	$("#closed_tasks_rows").html("");
 	$("#task_details").html("").hide();
 }
 
-function fill_tasks(tasks)
+function fill_tasks(tasks, load_details)
 {
+	if(typeof(load_details) == "undefined"){
+		load_details = false;
+    }
+    
 	var active_tasks_total = 0;
     var closed_tasks_total = 0;
     
@@ -114,6 +139,10 @@ function fill_tasks(tasks)
 			active_tasks_total++;
 		}else{
 			closed_tasks_total++;
+		}
+
+		if(load_details){
+			get_task_details(task.id, true);
 		}
 	});
 
@@ -127,91 +156,104 @@ function fill_tasks(tasks)
         $(".active_tasks_total").html(active_tasks_total);
         $(".active_tasks_total").show();
         $("#open_task_tab_link").removeClass("disabled");
+        $("#open_tasks_table").show();
+        $("#open_task_tab_link").show();
     }else{
         $(".active_tasks_total").hide();
         $("#open_task_tab_link").addClass("disabled");
+        $("#open_tasks_table").hide();
+        $("#open_task_tab_link").hide();
     }
     
     if(closed_tasks_total>0){
-        $(".closed_tasks_total").html(closed_tasks_total);
+        $(".closed_tasks_total").html("(" + closed_tasks_total + ")");
         $(".closed_tasks_total").show();
         $("#closed_task_tab_link").removeClass("disabled");
+        $("#closed_tasks_table").show();
+        $("#closed_task_tab_link").show();
     }else{
         $(".closed_tasks_total").hide();
         $("#closed_task_tab_link").addClass("disabled");
+        $("#closed_tasks_table").hide();
+        $("#closed_task_tab_link").hide();
     }
 
+    if(active_tasks_total > 0 || closed_tasks_total > 0)
+    {
+        $("#task_tabs").show();
+    }
+    else
+    {
+    	$("#task_tabs").hide();
+    }
+    
     $("#tasks_list").show();
 }
 
 function fill_task_row(task)
 {
-	var task_item = "";
+	var task_row = "";
 
 	if(task.closed == null && task.abandoned == null)
     {
-	    task_item += "<a class=\"list-group-item task-line\" data-task-id=\"" + task.id + "\" id=\"task_" + task.id + "\">";
-	    
-        task_item += "<div class=\"row\">";
+        task_row += "<tr class=\"task-row\" id=\"task_row_" + task.id + "\" data-task-id=\"" + task.id + "\">";
+        
+        task_row += "<td>";
+        task_row += task.created;
+        task_row += "</td>";
 
-        task_item += "<div class=\"col-md-2\">";
-        task_item += task.created;
-        task_item += "</div>";
-        
-        task_item += "<div class=\"col-md-8\">";
-        task_item += task.name;
-        task_item += "</div>";
-        
-        task_item += "<div class=\"col-md-2\">";
+        task_row += "<td>";
+        task_row += task.name;
+        task_row += "</td>";
+
+        task_row += "<td>";
         if(task.due_date != null)
         {
-            task_item += task.due_date;
+        	task_row += task.due_date;
         }
-        task_item += "</div>";
+        task_row += "</td>";
         
-        task_item += "</div>";
-        
-        task_item += "</a>";
-        
-        $("#open_tasks").append(task_item);
+        task_row += "</tr>";
+
+        $("#open_tasks_rows").append(task_row);
     }
     else
     {
-    	task_item += "<a class=\"list-group-item task-line\" data-task-id=\"" + task.id + "\" id=\"task_" + task.id + "\">";
-
-        task_item += "<div class=\"row\">";
-
-        task_item += "<div class=\"col-md-2\">";
-        task_item += task.created;
-        task_item += "</div>";
+        task_row += "<tr class=\"task-row\" id=\"task_row_" + task.id + "\" data-task-id=\"" + task.id + "\">";
         
-        task_item += "<div class=\"col-md-8\">";
-        task_item += task.name;
-        task_item += "</div>";
-        
-        task_item += "<div class=\"col-md-2\">";
+        task_row += "<td>";
+        task_row += task.created;
+        task_row += "</td>";
+
+        task_row += "<td>";
+        task_row += task.name;
+        task_row += "</td>";
+
+        task_row += "<td>";
         if(task.closed != null)
         {
-            task_item += "<?php echo __('closed');?>: " + task.closed;
+        	task_row += task.closed;
         }
-        task_item += "</div>";
+        task_row += "</td>";
         
-        task_item += "</div>";
-        
-    	task_item += "</a>";
-    	
-    	$("#closed_tasks").append(task_item);
+        task_row += "</tr>";
+
+        $("#closed_tasks_rows").append(task_row);
     }
 
-	$("#task_" + task.id).click(function(){
+	$("#task_row_" + task.id).click(function(){
 		select_task($(this).attr("data-task-id"));
 	});
 }
 
 var tasks_by_id = {};
 
-function get_task_details(task_id)
+function get_task_details(task_id, async)
 {
+	if(typeof(async) == "undefined"){
+		async = false;
+    }
+    
 	$("#task_details_loader").show();
 
     if(typeof(tasks_by_id[task_id]) == "undefined")
@@ -221,7 +263,7 @@ function get_task_details(task_id)
     	$.ajax({
     		url      : "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'details']);?>/" + task_id + ".json",
     		dataType : "json",
-    		async: false
+    		async    : async
     	})
     	.done(function(data, textStatus, jqXHR){
     		task = data;
@@ -242,7 +284,7 @@ function get_task_details(task_id)
 
 function select_task(task_id)
 {
-	$(".task-line").removeClass("active");
+	$(".task-row").removeClass("info");
 
 	if(task_id != null)
 	{
@@ -260,19 +302,26 @@ function select_task(task_id)
     	 * Show task details
     	 */
     	var task = get_task_details(task_id);
-    
-    	if(task.closed == null && task.abandoned == null)
-        {
-    		select_open_tasks_panel();
-        }
-    	else
-    	{
-    		select_closed_tasks_panel();
-    	}
 
-    	$("#task_" + task_id).addClass("active");
-    	
-    	show_task_details(task);
+        if(task != null)
+        {
+            if(task.closed == null && task.abandoned == null)
+            {
+                select_open_tasks_panel();
+            }
+            else
+            {
+                select_closed_tasks_panel();
+            }
+            
+            $("#task_row_" + task_id).addClass("info");
+            
+            show_task_details(task);
+        }
+        else
+        {
+            Alaxos.manage_ajax_error("<?php echo __('task not found'); ?>");
+        }
 	}
 	else
 	{
@@ -344,15 +393,22 @@ function show_task_details(task){
     task_details += "<div class=\"col-md-12\">";
 
     task_details += "<form id=\"postOnClickForm\" action=\"\" method=\"post\"><input type=\"hidden\" id=\"postOnClickFormCsrf\" name=\"_csrfToken\" value=\"<?php echo $this->request->params['_csrfToken']; ?>\" /></form>";
-        
+
+    task_details += "<div class=\"btn-group\">";
+    
     if(task.closed == null && task.abandoned == null)
     {
-    	task_details += '<?php echo $this->Html->link(__('close task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'close_task_btn']); ?>';
+    	task_details += '<?php echo $this->Html->link('<span class="glyphicon glyphicon-ok"></span> ' . __('close task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'close_task_btn', 'escape' => false]); ?>';
     }
     else
     {
-    	task_details += '<?php echo $this->Html->link(__('open task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'open_task_btn']); ?>';
+    	task_details += '<?php echo $this->Html->link('<span class="glyphicon glyphicon-share"></span> ' . __('open task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'open_task_btn', 'escape' => false]); ?>';
     }
+
+    task_details += '<?php echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span> ' . __('edit task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'edit_task_btn', 'escape' => false]); ?>';
+    task_details += '<?php echo $this->Html->link('<span class="glyphicon glyphicon-trash"></span> ' . __('delete task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'delete_task_btn', 'escape' => false]); ?>';
+
+    task_details += "</div>";
     
     task_details += "</div>";
     task_details += "</div>";
@@ -361,7 +417,7 @@ function show_task_details(task){
     $("#task_details").html(task_details);
     $("#task_details").show();
 
-    var task_id = $("#tasks_list .list-group .active").attr("data-task-id");
+    var task_id = $("#tasks_list tr.info").attr("data-task-id");
     
     $("#close_task_btn").click(function(e){
         e.preventDefault();
@@ -375,6 +431,22 @@ function show_task_details(task){
         
         $("#postOnClickForm").attr("action", "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'open']);?>/" + task_id);
         $("#postOnClickForm").submit();
+    });
+
+    $("#edit_task_btn").click(function(e){
+        e.preventDefault();
+
+        window.location = "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'edit']);?>/" + task_id;
+    });
+
+    $("#delete_task_btn").click(function(e){
+        e.preventDefault();
+
+        if(confirm("<?php echo ___('do you really want to delete the task ?'); ?>"))
+        {
+            $("#postOnClickForm").attr("action", "<?php echo Router::url(['controller' => 'Tasks', 'action' => 'delete']);?>/" + task_id);
+            $("#postOnClickForm").submit();
+        }
     });
 }
 </script>
