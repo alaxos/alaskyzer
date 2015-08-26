@@ -1,0 +1,1136 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Alaskyzer\n"
+"POT-Creation-Date: 2015-08-26 17:04+0100\n"
+"PO-Revision-Date: 2015-08-26 17:43+0100\n"
+"Last-Translator: Nicolas Rod <nicolas.rod@unige.ch>\n"
+"Language-Team: fr <nico@alaxos.com>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;___\n"
+"X-Poedit-Basepath: ../../\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: Console\n"
+"X-Poedit-SearchPath-1: Controller\n"
+"X-Poedit-SearchPath-2: Form\n"
+"X-Poedit-SearchPath-3: Lib\n"
+"X-Poedit-SearchPath-4: Model\n"
+"X-Poedit-SearchPath-5: Shell\n"
+"X-Poedit-SearchPath-6: Template\n"
+"X-Poedit-SearchPath-7: View\n"
+
+#: Controller/UsersController.php:68
+msgid "Your account has been created"
+msgstr "Votre compte a été créé"
+
+#: Controller/UsersController.php:73
+msgid "You have been authenticated"
+msgstr "Vous êtes maintenant authentifié"
+
+#: Controller/UsersController.php:81
+msgid "unable to login"
+msgstr "impossible de se loguer"
+
+#: Controller/UsersController.php:87
+msgid "you are already logged in"
+msgstr "vous êtes déjà logué"
+
+#: Controller/AppController.php:77
+msgid "you are not authorized to access this page"
+msgstr "vous n'êtes pas autorisé à accéder à cette page"
+
+#: Controller/Admin/StatusController.php:67
+#: Controller/Admin/StatusController.php:92
+#: Controller/Admin/StatusController.php:187
+msgid "the status has been saved"
+msgstr "le statut a été enregistré"
+
+#: Controller/Admin/StatusController.php:70
+#: Controller/Admin/StatusController.php:95
+#: Controller/Admin/StatusController.php:190
+msgid "the status could not be saved. Please, try again."
+msgstr "le statut n'a pas pu être sauvé. Veuillez réessayer."
+
+#: Controller/Admin/StatusController.php:117
+msgid "the status has been deleted"
+msgstr "Le statut a été effacé."
+
+#: Controller/Admin/StatusController.php:119
+msgid "the status could not be deleted. Please, try again."
+msgstr "Le statut n'a pas pu être effacé. Veuillez réessayer."
+
+#: Controller/Admin/StatusController.php:126
+msgid "the status could not be deleted as it is still used in the database"
+msgstr ""
+"Le statut n'a pas pu être effacé car il est encore utilisé dans la base de "
+"données"
+
+#: Controller/Admin/StatusController.php:130
+#, php-format
+msgid "The status could not be deleted: %s"
+msgstr "le statut n'a pas pu être effacé: %s"
+
+#: Controller/Admin/StatusController.php:152
+msgid "the selected status has been deleted."
+msgstr "Le statut sélectionné a été effacé."
+
+#: Controller/Admin/StatusController.php:155
+#, php-format
+msgid "The %s selected status have been deleted."
+msgstr "Les %s statuts sélectionnés ont été effacés."
+
+#: Controller/Admin/StatusController.php:158
+#: Controller/Admin/StatusController.php:162
+msgid "the selected status could not be deleted. Please, try again."
+msgstr "Le statut sélectionné n'a pas pu être effacé. Veuillez réessayer."
+
+#: Controller/Admin/StatusController.php:165
+msgid "there was no status to delete"
+msgstr "aucun statut à effacer"
+
+#: Controller/Admin/ServersController.php:67
+#: Controller/Admin/ServersController.php:92
+#: Controller/Admin/ServersController.php:187
+msgid "the server has been saved"
+msgstr "Le serveur a été enregistré."
+
+#: Controller/Admin/ServersController.php:70
+#: Controller/Admin/ServersController.php:95
+#: Controller/Admin/ServersController.php:190
+msgid "the server could not be saved. Please, try again."
+msgstr "Le serveur n'a pas pu être enregistré. Veuillez réessayer."
+
+#: Controller/Admin/ServersController.php:117
+msgid "the server has been deleted"
+msgstr "Le serveur a été effacé."
+
+#: Controller/Admin/ServersController.php:119
+msgid "the server could not be deleted. Please, try again."
+msgstr "Le serveur n'a pas pu être effacé. Veuillez réessayer."
+
+#: Controller/Admin/ServersController.php:126
+msgid "the server could not be deleted as it is still used in the database"
+msgstr ""
+"Le serveur n'a pas pu être effacé car il est encore utilisé dans la base de "
+"données"
+
+#: Controller/Admin/ServersController.php:130
+#, php-format
+msgid "The server could not be deleted: %s"
+msgstr "Le serveur n'a pas pu être effacé: %s"
+
+#: Controller/Admin/ServersController.php:152
+msgid "the selected server has been deleted."
+msgstr "Le serveur sélectionné a été effacé."
+
+#: Controller/Admin/ServersController.php:155
+#, php-format
+msgid "The %s selected servers have been deleted."
+msgstr "Les %s serveurs sélectionnés ont été effacés."
+
+#: Controller/Admin/ServersController.php:158
+#: Controller/Admin/ServersController.php:162
+msgid "the selected servers could not be deleted. Please, try again."
+msgstr ""
+"Les serveurs sélectionnés n'ont pas pu être effacé. Veuillez réessayer."
+
+#: Controller/Admin/ServersController.php:165
+msgid "there was no server to delete"
+msgstr "aucun serveur à effacer"
+
+#: Controller/Admin/FrameworksController.php:67
+#: Controller/Admin/FrameworksController.php:93
+#: Controller/Admin/FrameworksController.php:189
+msgid "the framework has been saved"
+msgstr "le framework a été enregistré."
+
+#: Controller/Admin/FrameworksController.php:70
+#: Controller/Admin/FrameworksController.php:96
+#: Controller/Admin/FrameworksController.php:192
+msgid "the framework could not be saved. Please, try again."
+msgstr "le framework n'a pas pu être enregistré. Veuillez réessayer."
+
+#: Controller/Admin/FrameworksController.php:119
+msgid "the framework has been deleted"
+msgstr "le framework a été effacé."
+
+#: Controller/Admin/FrameworksController.php:121
+msgid "the framework could not be deleted. Please, try again."
+msgstr "le framework n'a pas pu être effacé. Veuillez réessayer."
+
+#: Controller/Admin/FrameworksController.php:128
+msgid "the framework could not be deleted as it is still used in the database"
+msgstr ""
+"le framework n'a pas pu être effacé car il est encore utilisé dans la base "
+"de données"
+
+#: Controller/Admin/FrameworksController.php:132
+#, php-format
+msgid "The framework could not be deleted: %s"
+msgstr "Le framework n'a pas pu être effacé: %s"
+
+#: Controller/Admin/FrameworksController.php:154
+msgid "the selected framework has been deleted."
+msgstr "le framework sélectionné a été effacé."
+
+#: Controller/Admin/FrameworksController.php:157
+#, php-format
+msgid "The %s selected frameworks have been deleted."
+msgstr "Les %s frameworks sélectionnés ont été effacés."
+
+#: Controller/Admin/FrameworksController.php:160
+#: Controller/Admin/FrameworksController.php:164
+msgid "the selected frameworks could not be deleted. Please, try again."
+msgstr ""
+"les frameworks sélectionnés n'ont pas pu être effacés. Veuillez réessayer."
+
+#: Controller/Admin/FrameworksController.php:167
+msgid "there was no framework to delete"
+msgstr "aucun framework à effacer"
+
+#: Controller/Admin/TasksController.php:91
+#: Controller/Admin/TasksController.php:129
+#: Controller/Admin/TasksController.php:271
+msgid "the task has been saved"
+msgstr "la tâche a été enregistrée."
+
+#: Controller/Admin/TasksController.php:96
+#: Controller/Admin/TasksController.php:133
+#: Controller/Admin/TasksController.php:274
+msgid "the task could not be saved. Please, try again."
+msgstr "la tâche n'a pas pu être enregistrée. Veuillez réessayer."
+
+#: Controller/Admin/TasksController.php:148
+msgid "the task has been closed"
+msgstr "la tâche a été fermée"
+
+#: Controller/Admin/TasksController.php:152
+msgid "the task could not be closed"
+msgstr "la tâche n'a pas pu être fermée"
+
+#: Controller/Admin/TasksController.php:168
+msgid "the task has been opened"
+msgstr "la tâche a été ouverte"
+
+#: Controller/Admin/TasksController.php:172
+msgid "the task could not be opened"
+msgstr "la tâche n'a pas pu être ouverte"
+
+#: Controller/Admin/TasksController.php:201
+msgid "the task has been deleted"
+msgstr "la tâche a été effacée"
+
+#: Controller/Admin/TasksController.php:203
+msgid "the task could not be deleted. Please, try again."
+msgstr "la tâche n'a pas pu être effacée. Veuillez réessayer."
+
+#: Controller/Admin/TasksController.php:210
+msgid "the task could not be deleted as it is still used in the database"
+msgstr ""
+"la tâche n'a pas pu être effacée car elle est encore utilisée dans la base "
+"de données"
+
+#: Controller/Admin/TasksController.php:214
+#, php-format
+msgid "The task could not be deleted: %s"
+msgstr "La tâche n'a pas pu être effacée: %s"
+
+#: Controller/Admin/TasksController.php:236
+msgid "the selected task has been deleted."
+msgstr "la tâche sélectionnée a été effacée."
+
+#: Controller/Admin/TasksController.php:239
+#, php-format
+msgid "The %s selected tasks have been deleted."
+msgstr "Les %s tâches sélectionnées ont été effacées."
+
+#: Controller/Admin/TasksController.php:242
+#: Controller/Admin/TasksController.php:246
+msgid "the selected tasks could not be deleted. Please, try again."
+msgstr ""
+"les tâches sélectionnées n'ont pas pu être effacées. Veuillez réessayer."
+
+#: Controller/Admin/TasksController.php:249
+msgid "there was no task to delete"
+msgstr "aucune tâche à effacer"
+
+#: Controller/Admin/ApplicationsController.php:142
+#: Controller/Admin/ApplicationsController.php:215
+#: Controller/Admin/ApplicationsController.php:388
+msgid "the application has been saved"
+msgstr "l'application a été enregistrée"
+
+#: Controller/Admin/ApplicationsController.php:145
+#: Controller/Admin/ApplicationsController.php:218
+#: Controller/Admin/ApplicationsController.php:391
+msgid "the application could not be saved. Please, try again."
+msgstr "l'application n'a pas pu être enregistrée. Veuillez réessayer."
+
+#: Controller/Admin/ApplicationsController.php:244
+msgid "the application has been deleted"
+msgstr "l'application a été effacée"
+
+#: Controller/Admin/ApplicationsController.php:246
+msgid "the application could not be deleted. Please, try again."
+msgstr "l'application n'a pas pu être effacée. Veuillez réessayer."
+
+#: Controller/Admin/ApplicationsController.php:253
+msgid ""
+"the application could not be deleted as it is still used in the database"
+msgstr ""
+"l'application n'a pas pu être effacée car elle est encore utilisée dans la "
+"base de données"
+
+#: Controller/Admin/ApplicationsController.php:257
+#, php-format
+msgid "The application could not be deleted: %s"
+msgstr "L'application n'a pas pu être effacée: %s"
+
+#: Controller/Admin/ApplicationsController.php:289
+msgid "the selected application has been deleted."
+msgstr "l'application sélectionnée a été effacée."
+
+#: Controller/Admin/ApplicationsController.php:292
+#, php-format
+msgid "The %s selected applications have been deleted."
+msgstr "Les %s applications sélectionnées ont été effacées."
+
+#: Controller/Admin/ApplicationsController.php:297
+#, php-format
+msgid "%s selected applications could not be deleted. Please, try again."
+msgstr ""
+"%s applications sélectionnées n'ont pas pu être effacées. Veuillez réessayer."
+
+#: Controller/Admin/ApplicationsController.php:343
+msgid "there was no application to delete"
+msgstr "aucune application à effacer"
+
+#: Controller/Admin/RolesController.php:67
+#: Controller/Admin/RolesController.php:92
+#: Controller/Admin/RolesController.php:187
+msgid "the role has been saved"
+msgstr "le rôle a été enregistré"
+
+#: Controller/Admin/RolesController.php:70
+#: Controller/Admin/RolesController.php:95
+#: Controller/Admin/RolesController.php:190
+msgid "the role could not be saved. Please, try again."
+msgstr "le rôle n'a pas pu être enregistré. Veuillez réessayer."
+
+#: Controller/Admin/RolesController.php:117
+msgid "the role has been deleted"
+msgstr "le rôle a été effacé"
+
+#: Controller/Admin/RolesController.php:119
+msgid "the role could not be deleted. Please, try again."
+msgstr "le rôle n'a pas pu être effacé. Veuillez réessayer."
+
+#: Controller/Admin/RolesController.php:126
+msgid "the role could not be deleted as it is still used in the database"
+msgstr ""
+"le rôle n'a pas pu être effacé car il est encore utilisé dans la base de "
+"données"
+
+#: Controller/Admin/RolesController.php:130
+#, php-format
+msgid "The role could not be deleted: %s"
+msgstr "Le rôle n'a pas pu être effacé: %s"
+
+#: Controller/Admin/RolesController.php:152
+msgid "the selected role has been deleted."
+msgstr "le rôle sélectionné a été effacé."
+
+#: Controller/Admin/RolesController.php:155
+#, php-format
+msgid "The %s selected roles have been deleted."
+msgstr "Les %s rôles sélectionnés ont été effacés."
+
+#: Controller/Admin/RolesController.php:158
+#: Controller/Admin/RolesController.php:162
+msgid "the selected roles could not be deleted. Please, try again."
+msgstr "les rôles sélectionnés n'ont pas pu être effacés. Veuillez réessayer."
+
+#: Controller/Admin/RolesController.php:165
+msgid "there was no role to delete"
+msgstr "aucun rôle à effacer trouvé"
+
+#: Controller/Admin/TechnologiesController.php:67
+#: Controller/Admin/TechnologiesController.php:93
+#: Controller/Admin/TechnologiesController.php:189
+msgid "the technology has been saved"
+msgstr "la technologie a été enregistrée"
+
+#: Controller/Admin/TechnologiesController.php:70
+#: Controller/Admin/TechnologiesController.php:96
+#: Controller/Admin/TechnologiesController.php:192
+msgid "the technology could not be saved. Please, try again."
+msgstr "la technologie n'a pas pu être enregistrée. Veuillez réessayer."
+
+#: Controller/Admin/TechnologiesController.php:119
+msgid "the technology has been deleted"
+msgstr "la technologie a été effacée"
+
+#: Controller/Admin/TechnologiesController.php:121
+msgid "the technology could not be deleted. Please, try again."
+msgstr "la technologie n'a pas pu être effacée. Veuillez réessayer."
+
+#: Controller/Admin/TechnologiesController.php:128
+msgid "the technology could not be deleted as it is still used in the database"
+msgstr ""
+"la technologie n'a pas pu être effacée car elle est encore utilisée dans la "
+"base de données"
+
+#: Controller/Admin/TechnologiesController.php:132
+#, php-format
+msgid "The technology could not be deleted: %s"
+msgstr "la technologie n'a pas pu être effacée: %s"
+
+#: Controller/Admin/TechnologiesController.php:154
+msgid "the selected technology has been deleted."
+msgstr "la technologie sélectionnée a été effacée."
+
+#: Controller/Admin/TechnologiesController.php:157
+#, php-format
+msgid "The %s selected technologies have been deleted."
+msgstr "Les %s technologies sélectionnées ont été effacées."
+
+#: Controller/Admin/TechnologiesController.php:160
+#: Controller/Admin/TechnologiesController.php:164
+msgid "the selected technologies could not be deleted. Please, try again."
+msgstr ""
+"les technologies sélectionnées n'ont pas pu être effacées. Veuillez "
+"réessayer."
+
+#: Controller/Admin/TechnologiesController.php:167
+msgid "there was no technology to delete"
+msgstr "aucune technologie à effacer"
+
+#: Controller/Admin/UsersController.php:73
+#: Controller/Admin/UsersController.php:99
+#: Controller/Admin/UsersController.php:195
+msgid "the user has been saved"
+msgstr "l'utilisateur a été enregistré"
+
+#: Controller/Admin/UsersController.php:76
+#: Controller/Admin/UsersController.php:102
+#: Controller/Admin/UsersController.php:198
+msgid "the user could not be saved. Please, try again."
+msgstr "l'utilisateur n'a pas pu être enregistré. Veuillez réessayer."
+
+#: Controller/Admin/UsersController.php:125
+msgid "the user has been deleted"
+msgstr "l'utilisateur a été effacé"
+
+#: Controller/Admin/UsersController.php:127
+msgid "the user could not be deleted. Please, try again."
+msgstr "l'utilisateur n'a pas pu être effacé. Veuillez réessayer."
+
+#: Controller/Admin/UsersController.php:134
+msgid "the user could not be deleted as it is still used in the database"
+msgstr ""
+"l'utilisateur n'a pas pu être effacé car il est encore utilisé dans la base "
+"de données"
+
+#: Controller/Admin/UsersController.php:138
+#, php-format
+msgid "The user could not be deleted: %s"
+msgstr "l'utilisateur n'a pas pu être effacé: %s"
+
+#: Controller/Admin/UsersController.php:160
+msgid "the selected user has been deleted."
+msgstr "l'utilisateur sélectionné a été effacé."
+
+#: Controller/Admin/UsersController.php:163
+#, php-format
+msgid "The %s selected users have been deleted."
+msgstr "Les %s utilisateurs sélectionnés ont été effacés."
+
+#: Controller/Admin/UsersController.php:166
+#: Controller/Admin/UsersController.php:170
+msgid "the selected users could not be deleted. Please, try again."
+msgstr ""
+"les utilisateurs sélectionnés n'ont pas pu être effacés. Veuillez réessayer."
+
+#: Controller/Admin/UsersController.php:173
+msgid "there was no user to delete"
+msgstr "aucun utilisateur à effacer"
+
+#: Controller/Admin/TaskCategoriesController.php:67
+#: Controller/Admin/TaskCategoriesController.php:92
+#: Controller/Admin/TaskCategoriesController.php:187
+msgid "the task category has been saved"
+msgstr "la catégorie de tâche a été enregistrée"
+
+#: Controller/Admin/TaskCategoriesController.php:70
+#: Controller/Admin/TaskCategoriesController.php:95
+#: Controller/Admin/TaskCategoriesController.php:190
+msgid "the task category could not be saved. Please, try again."
+msgstr "la catégorie de tâche n'a pas pu être enregistrée. Veuillez réessayer."
+
+#: Controller/Admin/TaskCategoriesController.php:117
+msgid "the task category has been deleted"
+msgstr "la catégorie de tâche a été effacée"
+
+#: Controller/Admin/TaskCategoriesController.php:119
+msgid "the task category could not be deleted. Please, try again."
+msgstr "la catégorie de tâche n'a pas pu être effacée. Veuillez réessayer."
+
+#: Controller/Admin/TaskCategoriesController.php:126
+msgid ""
+"the task category could not be deleted as it is still used in the database"
+msgstr ""
+"la catégorie de tâche n'a pas pu être effacée car elle est encore utilisée "
+"dans la base de données"
+
+#: Controller/Admin/TaskCategoriesController.php:130
+#, php-format
+msgid "The task category could not be deleted: %s"
+msgstr "La catégorie de tâche n'a pas pu être effacée: %s"
+
+#: Controller/Admin/TaskCategoriesController.php:152
+msgid "the selected task category has been deleted."
+msgstr "la catégorie de tâche sélectionnée a été effacée."
+
+#: Controller/Admin/TaskCategoriesController.php:155
+#, php-format
+msgid "The %s selected taskcategories have been deleted."
+msgstr "Les %s catégories de tâches sélectionnées ont été effacées."
+
+#: Controller/Admin/TaskCategoriesController.php:158
+#: Controller/Admin/TaskCategoriesController.php:162
+msgid "the selected taskcategories could not be deleted. Please, try again."
+msgstr ""
+"les catégories de tâches sélectionnées n'ont pas pu être effacées. Veuillez "
+"réessayer."
+
+#: Controller/Admin/TaskCategoriesController.php:165
+msgid "there was no task category to delete"
+msgstr "aucune catégorie de tâche à effacer"
+
+#: Controller/Admin/FrameworkVersionsController.php:74
+#: Controller/Admin/FrameworkVersionsController.php:100
+#: Controller/Admin/FrameworkVersionsController.php:196
+msgid "the framework version has been saved"
+msgstr "la version de framework a été enregistrée"
+
+#: Controller/Admin/FrameworkVersionsController.php:77
+#: Controller/Admin/FrameworkVersionsController.php:103
+#: Controller/Admin/FrameworkVersionsController.php:199
+msgid "the framework version could not be saved. Please, try again."
+msgstr ""
+"la version de framework n'a pas pu être enregistrée. Veuillez réessayer."
+
+#: Controller/Admin/FrameworkVersionsController.php:126
+msgid "the framework version has been deleted"
+msgstr "la version de framework sélectionnée a été effacée"
+
+#: Controller/Admin/FrameworkVersionsController.php:128
+msgid "the framework version could not be deleted. Please, try again."
+msgstr "la version de framework n'a pas pu être effacée. Veuillez réessayer."
+
+#: Controller/Admin/FrameworkVersionsController.php:135
+msgid ""
+"the framework version could not be deleted as it is still used in the "
+"database"
+msgstr ""
+"la version de framework n'a pas pu être effacée car elle est encore utilisée "
+"dans la base de données"
+
+#: Controller/Admin/FrameworkVersionsController.php:139
+#, php-format
+msgid "The framework version could not be deleted: %s"
+msgstr "La version de framework n'a pas pu être effacée: %s"
+
+#: Controller/Admin/FrameworkVersionsController.php:161
+msgid "the selected framework version has been deleted."
+msgstr "la version de framework sélectionnée a été effacée."
+
+#: Controller/Admin/FrameworkVersionsController.php:164
+#, php-format
+msgid "The %s selected frameworkversions have been deleted."
+msgstr "Les %s versions de framework ont été effacées."
+
+#: Controller/Admin/FrameworkVersionsController.php:167
+#: Controller/Admin/FrameworkVersionsController.php:171
+msgid "the selected frameworkversions could not be deleted. Please, try again."
+msgstr ""
+"la version de framework sélectionnée n'a pas pu être effacée. Veuillez "
+"réessayer."
+
+#: Controller/Admin/FrameworkVersionsController.php:174
+msgid "there was no framework version to delete"
+msgstr "aucune version de framework à effacer"
+
+#: Template/Users/view.ctp:3 Template/Admin/Users/view.ctp:3
+msgid "user"
+msgstr "utilisateur"
+
+#: Template/Users/view.ctp:14 Template/Admin/Users/view.ctp:14
+msgid "Role"
+msgstr "Rôle"
+
+#: Template/Users/view.ctp:19 Template/Users/copy.ctp:26
+#: Template/Users/index.ctp:21 Template/Users/add.ctp:26
+#: Template/Users/edit.ctp:26 Template/Admin/Users/view.ctp:26
+#: Template/Admin/Users/copy.ctp:33 Template/Admin/Users/index.ctp:22
+#: Template/Admin/Users/add.ctp:33 Template/Admin/Users/edit.ctp:33
+msgid "firstname"
+msgstr "prénom"
+
+#: Template/Users/view.ctp:26 Template/Users/copy.ctp:33
+#: Template/Users/index.ctp:22 Template/Users/add.ctp:33
+#: Template/Users/edit.ctp:33 Template/Admin/Users/view.ctp:33
+#: Template/Admin/Users/copy.ctp:40 Template/Admin/Users/index.ctp:23
+#: Template/Admin/Users/add.ctp:40 Template/Admin/Users/edit.ctp:40
+msgid "lastname"
+msgstr "nom"
+
+#: Template/Users/view.ctp:33 Template/Users/copy.ctp:40
+#: Template/Users/index.ctp:23 Template/Users/add.ctp:40
+#: Template/Users/edit.ctp:40 Template/Admin/Users/view.ctp:40
+#: Template/Admin/Users/copy.ctp:47 Template/Admin/Users/index.ctp:24
+#: Template/Admin/Users/add.ctp:47 Template/Admin/Users/edit.ctp:47
+msgid "email"
+msgstr "email"
+
+#: Template/Users/view.ctp:40 Template/Users/copy.ctp:47
+#: Template/Users/index.ctp:24 Template/Users/add.ctp:47
+#: Template/Users/edit.ctp:47
+msgid "external_id"
+msgstr "identifiant externe"
+
+#: Template/Users/copy.ctp:5 Template/Admin/Users/copy.ctp:5
+msgid "copy user"
+msgstr "copier l'utilisateur"
+
+#: Template/Users/copy.ctp:19 Template/Users/index.ctp:20
+#: Template/Users/add.ctp:19 Template/Users/edit.ctp:19
+#: Template/Admin/Users/copy.ctp:19 Template/Admin/Users/index.ctp:20
+#: Template/Admin/Users/add.ctp:19 Template/Admin/Users/edit.ctp:19
+msgid "role_id"
+msgstr "rôle"
+
+#: Template/Users/copy.ctp:55 Template/Users/add.ctp:55
+#: Template/Users/edit.ctp:55 Template/Admin/Status/copy.ctp:27
+#: Template/Admin/Status/add.ctp:27 Template/Admin/Status/edit.ctp:27
+#: Template/Admin/TaskCategories/copy.ctp:27
+#: Template/Admin/TaskCategories/add.ctp:27
+#: Template/Admin/TaskCategories/edit.ctp:27
+#: Template/Admin/Servers/copy.ctp:27 Template/Admin/Servers/add.ctp:27
+#: Template/Admin/Servers/edit.ctp:27 Template/Admin/Users/copy.ctp:76
+#: Template/Admin/Users/add.ctp:76 Template/Admin/Users/edit.ctp:76
+#: Template/Admin/Technologies/copy.ctp:34
+#: Template/Admin/Technologies/add.ctp:34
+#: Template/Admin/Technologies/edit.ctp:34 Template/Admin/Roles/copy.ctp:27
+#: Template/Admin/Roles/add.ctp:27 Template/Admin/Roles/edit.ctp:27
+#: Template/Admin/Frameworks/copy.ctp:34 Template/Admin/Frameworks/add.ctp:34
+#: Template/Admin/Frameworks/edit.ctp:34
+#: Template/Admin/Applications/copy.ctp:45
+#: Template/Admin/Applications/add.ctp:60
+#: Template/Admin/Applications/edit.ctp:53
+#: Template/Admin/FrameworkVersions/copy.ctp:34
+#: Template/Admin/FrameworkVersions/add.ctp:34
+#: Template/Admin/FrameworkVersions/edit.ctp:34
+#: Template/Admin/Tasks/copy.ctp:76 Template/Admin/Tasks/add.ctp:73
+#: Template/Admin/Tasks/edit.ctp:69
+msgid "submit"
+msgstr "envoyer"
+
+#: Template/Users/index.ctp:4 Template/Element/menus/top.ctp:64
+#: Template/Admin/Users/index.ctp:4
+msgid "users"
+msgstr "utilisateurs"
+
+#: Template/Users/index.ctp:25 Template/Element/Dashboard/tasks.ctp:26
+#: Template/Element/Dashboard/tasks.ctp:47 Template/Admin/Status/index.ctp:21
+#: Template/Admin/TaskCategories/index.ctp:21
+#: Template/Admin/Servers/index.ctp:21 Template/Admin/Users/index.ctp:28
+#: Template/Admin/Technologies/index.ctp:21 Template/Admin/Roles/index.ctp:21
+#: Template/Admin/Frameworks/index.ctp:21
+#: Template/Admin/Applications/index.ctp:24
+#: Template/Admin/FrameworkVersions/index.ctp:22
+#: Template/Admin/Tasks/index.ctp:28
+msgid "created"
+msgstr "créé"
+
+#: Template/Users/index.ctp:26 Template/Admin/Status/index.ctp:22
+#: Template/Admin/TaskCategories/index.ctp:22
+#: Template/Admin/Servers/index.ctp:22 Template/Admin/Users/index.ctp:29
+#: Template/Admin/Technologies/index.ctp:22 Template/Admin/Roles/index.ctp:22
+#: Template/Admin/Frameworks/index.ctp:22
+#: Template/Admin/Applications/index.ctp:25
+#: Template/Admin/FrameworkVersions/index.ctp:23
+#: Template/Admin/Tasks/index.ctp:29
+msgid "modified"
+msgstr "modifié"
+
+#: Template/Users/index.ctp:74 Template/Admin/Status/index.ctp:50
+#: Template/Admin/TaskCategories/index.ctp:50
+#: Template/Admin/Servers/index.ctp:50 Template/Admin/Users/index.ctp:92
+#: Template/Admin/Technologies/index.ctp:50 Template/Admin/Roles/index.ctp:50
+#: Template/Admin/Frameworks/index.ctp:50
+#: Template/Admin/Applications/index.ctp:68
+#: Template/Admin/FrameworkVersions/index.ctp:56
+#: Template/Admin/Tasks/index.ctp:92
+msgid "filter"
+msgstr "filtrer"
+
+#: Template/Users/index.ctp:128 Template/Admin/Status/index.ctp:92
+#: Template/Admin/TaskCategories/index.ctp:92
+#: Template/Admin/Servers/index.ctp:92 Template/Admin/Users/index.ctp:155
+#: Template/Admin/Technologies/index.ctp:92 Template/Admin/Roles/index.ctp:92
+#: Template/Admin/Frameworks/index.ctp:92
+#: Template/Admin/Applications/index.ctp:146
+#: Template/Admin/FrameworkVersions/index.ctp:101
+#: Template/Admin/Tasks/index.ctp:155
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Voulez-vous vraiment effacer # {0}?"
+
+#: Template/Users/index.ctp:153 Template/Admin/Status/index.ctp:117
+#: Template/Admin/TaskCategories/index.ctp:117
+#: Template/Admin/Servers/index.ctp:117 Template/Admin/Users/index.ctp:180
+#: Template/Admin/Technologies/index.ctp:117
+#: Template/Admin/Roles/index.ctp:117 Template/Admin/Frameworks/index.ctp:117
+#: Template/Admin/Applications/index.ctp:171
+#: Template/Admin/FrameworkVersions/index.ctp:126
+#: Template/Admin/Tasks/index.ctp:180
+msgid "previous"
+msgstr "précédent"
+
+#: Template/Users/index.ctp:155 Template/Admin/Status/index.ctp:119
+#: Template/Admin/TaskCategories/index.ctp:119
+#: Template/Admin/Servers/index.ctp:119 Template/Admin/Users/index.ctp:182
+#: Template/Admin/Technologies/index.ctp:119
+#: Template/Admin/Roles/index.ctp:119 Template/Admin/Frameworks/index.ctp:119
+#: Template/Admin/Applications/index.ctp:173
+#: Template/Admin/FrameworkVersions/index.ctp:128
+#: Template/Admin/Tasks/index.ctp:182
+msgid "next"
+msgstr "suivant"
+
+#: Template/Users/add.ctp:5 Template/Admin/Users/add.ctp:5
+msgid "add user"
+msgstr "ajouter un utilisateur"
+
+#: Template/Users/edit.ctp:5 Template/Admin/Users/edit.ctp:5
+msgid "edit user"
+msgstr "modifier un utilisateur"
+
+#: Template/Element/Dashboard/tasks.ctp:9
+msgid "new task"
+msgstr "nouvelle tâche"
+
+#: Template/Element/Dashboard/tasks.ctp:14
+msgid "open"
+msgstr "ouvert"
+
+#: Template/Element/Dashboard/tasks.ctp:15
+#: Template/Element/Dashboard/tasks.ctp:49 Template/Admin/Tasks/view.ctp:55
+#: Template/Admin/Tasks/copy.ctp:68 Template/Admin/Tasks/index.ctp:27
+#: Template/Admin/Tasks/edit.ctp:61
+msgid "closed"
+msgstr "fermé"
+
+#: Template/Element/Dashboard/tasks.ctp:27
+#: Template/Element/Dashboard/tasks.ctp:48
+#: Template/Element/Dashboard/tasks.ctp:345 Template/Admin/Status/view.ctp:14
+#: Template/Admin/Status/copy.ctp:19 Template/Admin/Status/index.ctp:20
+#: Template/Admin/Status/add.ctp:19 Template/Admin/Status/edit.ctp:19
+#: Template/Admin/TaskCategories/view.ctp:14
+#: Template/Admin/TaskCategories/copy.ctp:19
+#: Template/Admin/TaskCategories/index.ctp:20
+#: Template/Admin/TaskCategories/add.ctp:19
+#: Template/Admin/TaskCategories/edit.ctp:19
+#: Template/Admin/Servers/view.ctp:14 Template/Admin/Servers/copy.ctp:19
+#: Template/Admin/Servers/index.ctp:20 Template/Admin/Servers/add.ctp:19
+#: Template/Admin/Servers/edit.ctp:19 Template/Admin/Technologies/view.ctp:14
+#: Template/Admin/Technologies/copy.ctp:19
+#: Template/Admin/Technologies/index.ctp:20
+#: Template/Admin/Technologies/add.ctp:19
+#: Template/Admin/Technologies/edit.ctp:19 Template/Admin/Roles/view.ctp:14
+#: Template/Admin/Roles/copy.ctp:19 Template/Admin/Roles/index.ctp:20
+#: Template/Admin/Roles/add.ctp:19 Template/Admin/Roles/edit.ctp:19
+#: Template/Admin/Frameworks/view.ctp:14 Template/Admin/Frameworks/copy.ctp:19
+#: Template/Admin/Frameworks/index.ctp:20 Template/Admin/Frameworks/add.ctp:19
+#: Template/Admin/Frameworks/edit.ctp:19
+#: Template/Admin/Applications/view.ctp:20
+#: Template/Admin/Applications/copy.ctp:23
+#: Template/Admin/Applications/index.ctp:20
+#: Template/Admin/Applications/add.ctp:24
+#: Template/Admin/Applications/edit.ctp:25
+#: Template/Admin/FrameworkVersions/view.ctp:19
+#: Template/Admin/FrameworkVersions/copy.ctp:26
+#: Template/Admin/FrameworkVersions/index.ctp:21
+#: Template/Admin/FrameworkVersions/add.ctp:26
+#: Template/Admin/FrameworkVersions/edit.ctp:26
+#: Template/Admin/Tasks/view.ctp:34 Template/Admin/Tasks/copy.ctp:47
+#: Template/Admin/Tasks/index.ctp:24 Template/Admin/Tasks/add.ctp:51
+#: Template/Admin/Tasks/edit.ctp:40
+msgid "name"
+msgstr "nom"
+
+#: Template/Element/Dashboard/tasks.ctp:28
+msgid "due date"
+msgstr "délai"
+
+#: Template/Element/Dashboard/tasks.ctp:323
+msgid "task not found"
+msgstr "tâche manquante"
+
+#: Template/Element/Dashboard/tasks.ctp:361 Template/Admin/Tasks/view.ctp:41
+#: Template/Admin/Tasks/copy.ctp:54 Template/Admin/Tasks/index.ctp:25
+#: Template/Admin/Tasks/add.ctp:58 Template/Admin/Tasks/edit.ctp:47
+msgid "description"
+msgstr "description"
+
+#: Template/Element/Dashboard/tasks.ctp:377
+msgid "category"
+msgstr "catégorie"
+
+#: Template/Element/Dashboard/tasks.ctp:401
+msgid "close task"
+msgstr "fermer la tâche"
+
+#: Template/Element/Dashboard/tasks.ctp:405
+msgid "open task"
+msgstr "ouvrir la tâche"
+
+#: Template/Element/Dashboard/tasks.ctp:408 Template/Admin/Tasks/edit.ctp:5
+msgid "edit task"
+msgstr "modifier la tâche"
+
+#: Template/Element/Dashboard/tasks.ctp:409
+msgid "delete task"
+msgstr "supprimer la tâche"
+
+#: Template/Element/Dashboard/tasks.ctp:445
+msgid "do you really want to delete the task ?"
+msgstr "voulez-vous vraiment effacer cette tâche ?"
+
+#: Template/Element/menus/top.ctp:9
+msgid "dashboard"
+msgstr "tableau de bord"
+
+#: Template/Element/menus/top.ctp:15 Template/Admin/Tasks/index.ctp:4
+msgid "tasks"
+msgstr "tâches"
+
+#: Template/Element/menus/top.ctp:21 Template/Admin/Applications/index.ctp:4
+msgid "applications"
+msgstr "applications"
+
+#: Template/Element/menus/top.ctp:26
+msgid "catalogs"
+msgstr "catalogues"
+
+#: Template/Element/menus/top.ctp:28 Template/Admin/Frameworks/index.ctp:4
+#: Template/Admin/Applications/view.ctp:27
+msgid "frameworks"
+msgstr "frameworks"
+
+#: Template/Element/menus/top.ctp:33
+msgid "frameworks versions"
+msgstr "versions de frameworks"
+
+#: Template/Element/menus/top.ctp:38 Template/Admin/Technologies/index.ctp:4
+#: Template/Admin/Applications/view.ctp:49
+#: Template/Admin/Applications/index.ctp:23
+msgid "technologies"
+msgstr "technologies"
+
+#: Template/Element/menus/top.ctp:43 Template/Admin/Servers/index.ctp:4
+msgid "servers"
+msgstr "serveurs"
+
+#: Template/Element/menus/top.ctp:48 Template/Admin/Status/view.ctp:3
+#: Template/Admin/Status/index.ctp:4
+msgid "status"
+msgstr "statut"
+
+#: Template/Element/menus/top.ctp:53 Template/Admin/TaskCategories/index.ctp:4
+msgid "task categories"
+msgstr "catégories de tâches"
+
+#: Template/Element/menus/top.ctp:62
+msgid "profiles"
+msgstr "profils"
+
+#: Template/Element/menus/top.ctp:69 Template/Admin/Roles/index.ctp:4
+msgid "roles"
+msgstr "rôles"
+
+#: Template/Element/menus/top.ctp:92
+msgid "logout"
+msgstr "déconnexion"
+
+#: Template/Element/menus/top.ctp:100
+msgid "login"
+msgstr "connexion"
+
+#: Template/Pages/home.ctp:3
+msgid "tasks manager, bugs tracker, versions summary, coffee alert and more..."
+msgstr ""
+"Gestion de tâches, suivi de bugs, résumé de versions, alarmes café et plus "
+"encore..."
+
+#: Template/Admin/Status/copy.ctp:5
+msgid "copy status"
+msgstr "copier le statut"
+
+#: Template/Admin/Status/add.ctp:5
+msgid "add status"
+msgstr "ajouter un statut"
+
+#: Template/Admin/Status/edit.ctp:5
+msgid "edit status"
+msgstr "modifier le statut"
+
+#: Template/Admin/TaskCategories/view.ctp:3
+msgid "task category"
+msgstr "catégorie de tâche"
+
+#: Template/Admin/TaskCategories/copy.ctp:5
+msgid "copy task category"
+msgstr "copier la catégorie de tâche"
+
+#: Template/Admin/TaskCategories/add.ctp:5
+msgid "add task category"
+msgstr "ajouter une catégorie de tâche"
+
+#: Template/Admin/TaskCategories/edit.ctp:5
+msgid "edit task category"
+msgstr "modifier la catégorie de tâche"
+
+#: Template/Admin/Servers/view.ctp:3
+msgid "server"
+msgstr "serveur"
+
+#: Template/Admin/Servers/copy.ctp:5
+msgid "copy server"
+msgstr "copier le serveur"
+
+#: Template/Admin/Servers/add.ctp:5
+msgid "add server"
+msgstr "ajouter un serveur"
+
+#: Template/Admin/Servers/edit.ctp:5
+msgid "edit server"
+msgstr "modifier le serveur"
+
+#: Template/Admin/Users/view.ctp:19 Template/Admin/Users/copy.ctp:26
+#: Template/Admin/Users/index.ctp:21 Template/Admin/Users/add.ctp:26
+#: Template/Admin/Users/edit.ctp:26
+msgid "username"
+msgstr "nom d'utilisateur"
+
+#: Template/Admin/Users/view.ctp:47 Template/Admin/Users/copy.ctp:54
+#: Template/Admin/Users/index.ctp:25 Template/Admin/Users/add.ctp:54
+#: Template/Admin/Users/edit.ctp:54
+msgid "password"
+msgstr "mot de passe"
+
+#: Template/Admin/Users/view.ctp:54 Template/Admin/Users/copy.ctp:61
+#: Template/Admin/Users/index.ctp:26 Template/Admin/Users/add.ctp:61
+#: Template/Admin/Users/edit.ctp:61
+msgid "external_uid"
+msgstr "identifiant externe"
+
+#: Template/Admin/Users/view.ctp:61 Template/Admin/Users/copy.ctp:68
+#: Template/Admin/Users/index.ctp:27 Template/Admin/Users/add.ctp:68
+#: Template/Admin/Users/edit.ctp:68
+msgid "enabled"
+msgstr "actif"
+
+#: Template/Admin/Technologies/view.ctp:3
+msgid "technology"
+msgstr "technologie"
+
+#: Template/Admin/Technologies/copy.ctp:5
+msgid "copy technology"
+msgstr "copier la technologie"
+
+#: Template/Admin/Technologies/copy.ctp:26
+#: Template/Admin/Technologies/add.ctp:26
+#: Template/Admin/Technologies/edit.ctp:26
+#: Template/Admin/Frameworks/copy.ctp:26 Template/Admin/Frameworks/add.ctp:26
+#: Template/Admin/Frameworks/edit.ctp:26
+msgid "Applications"
+msgstr "Applications"
+
+#: Template/Admin/Technologies/add.ctp:5
+msgid "add technology"
+msgstr "ajouter une technologie"
+
+#: Template/Admin/Technologies/edit.ctp:5
+msgid "edit technology"
+msgstr "modifier la technologie"
+
+#: Template/Admin/Roles/view.ctp:3
+msgid "role"
+msgstr "rôle"
+
+#: Template/Admin/Roles/copy.ctp:5
+msgid "copy role"
+msgstr "copier un rôle"
+
+#: Template/Admin/Roles/add.ctp:5
+msgid "add role"
+msgstr "ajouter un rôle"
+
+#: Template/Admin/Roles/edit.ctp:5
+msgid "edit role"
+msgstr "modifier un rôle"
+
+#: Template/Admin/Frameworks/view.ctp:3
+#: Template/Admin/Applications/index.ctp:21
+msgid "framework"
+msgstr "framework"
+
+#: Template/Admin/Frameworks/copy.ctp:5
+msgid "copy framework"
+msgstr "copier le framework"
+
+#: Template/Admin/Frameworks/add.ctp:5
+msgid "add framework"
+msgstr "ajouter un framework"
+
+#: Template/Admin/Frameworks/edit.ctp:5
+msgid "edit framework"
+msgstr "modifier le framework"
+
+#: Template/Admin/Applications/view.ctp:9
+msgid "application"
+msgstr "application"
+
+#: Template/Admin/Applications/copy.ctp:9
+msgid "copy application"
+msgstr "copier l'application"
+
+#: Template/Admin/Applications/copy.ctp:30
+#: Template/Admin/Applications/add.ctp:31
+#: Template/Admin/Applications/edit.ctp:32
+msgid "Frameworks"
+msgstr "Frameworks"
+
+#: Template/Admin/Applications/copy.ctp:37
+#: Template/Admin/Applications/add.ctp:51
+#: Template/Admin/Applications/edit.ctp:45
+msgid "Technologies"
+msgstr "Technologies"
+
+#: Template/Admin/Applications/index.ctp:22
+#: Template/Admin/FrameworkVersions/view.ctp:3
+msgid "framework version"
+msgstr "version de framework"
+
+#: Template/Admin/Applications/add.ctp:10
+msgid "add application"
+msgstr "ajouter une application"
+
+#: Template/Admin/Applications/edit.ctp:11
+msgid "edit application"
+msgstr "modifier l'application"
+
+#: Template/Admin/FrameworkVersions/view.ctp:14
+msgid "Framework"
+msgstr "Framework"
+
+#: Template/Admin/FrameworkVersions/copy.ctp:5
+msgid "copy framework version"
+msgstr "copier la version de framework"
+
+#: Template/Admin/FrameworkVersions/copy.ctp:19
+#: Template/Admin/FrameworkVersions/index.ctp:20
+#: Template/Admin/FrameworkVersions/add.ctp:19
+#: Template/Admin/FrameworkVersions/edit.ctp:19
+msgid "framework_id"
+msgstr "framework"
+
+#: Template/Admin/FrameworkVersions/index.ctp:4
+msgid "framework versions"
+msgstr "versions du framework"
+
+#: Template/Admin/FrameworkVersions/add.ctp:5
+msgid "add framework version"
+msgstr "ajouter une version de framework"
+
+#: Template/Admin/FrameworkVersions/edit.ctp:5
+msgid "edit framework version"
+msgstr "modifier la version de framework"
+
+#: Template/Admin/Tasks/view.ctp:3
+msgid "task"
+msgstr "tâche"
+
+#: Template/Admin/Tasks/view.ctp:14
+msgid "Task Category"
+msgstr "Catégorie de tâche"
+
+#: Template/Admin/Tasks/view.ctp:19
+msgid "Status"
+msgstr "Statut"
+
+#: Template/Admin/Tasks/view.ctp:24
+msgid "Application"
+msgstr "Application"
+
+#: Template/Admin/Tasks/view.ctp:29
+msgid "Server"
+msgstr "Serveur"
+
+#: Template/Admin/Tasks/view.ctp:48 Template/Admin/Tasks/copy.ctp:61
+#: Template/Admin/Tasks/index.ctp:26 Template/Admin/Tasks/add.ctp:65
+#: Template/Admin/Tasks/edit.ctp:54
+msgid "due_date"
+msgstr "délai"
+
+#: Template/Admin/Tasks/copy.ctp:5
+msgid "copy task"
+msgstr "copier la tâche"
+
+#: Template/Admin/Tasks/copy.ctp:19 Template/Admin/Tasks/index.ctp:20
+#: Template/Admin/Tasks/add.ctp:30 Template/Admin/Tasks/edit.ctp:19
+msgid "task_category_id"
+msgstr "catégorie de tâche"
+
+#: Template/Admin/Tasks/copy.ctp:26 Template/Admin/Tasks/index.ctp:21
+msgid "status_id"
+msgstr "statut"
+
+#: Template/Admin/Tasks/copy.ctp:33 Template/Admin/Tasks/index.ctp:22
+#: Template/Admin/Tasks/add.ctp:37 Template/Admin/Tasks/edit.ctp:26
+msgid "application_id"
+msgstr "application"
+
+#: Template/Admin/Tasks/copy.ctp:40 Template/Admin/Tasks/index.ctp:23
+#: Template/Admin/Tasks/add.ctp:44 Template/Admin/Tasks/edit.ctp:33
+msgid "server_id"
+msgstr "serveur"
+
+#: Template/Admin/Tasks/add.ctp:10
+msgid "add task"
+msgstr "ajouter une tâche"
+
+#: Template/Layout/default.ctp:70
+msgid "<u>t</u>asks list"
+msgstr "liste des <u>t</u>âches"
+
+#: Template/Layout/default.ctp:72
+msgid "<u>n</u>ew task"
+msgstr "<u>n</u>ouvelle tâche"
+
+#: Template/Layout/default.ctp:74
+msgid "<u>a</u>pplications list"
+msgstr "liste des <u>a</u>pplications"
+
+#: Template/Layout/default.ctp:112
+msgid "University of Geneva"
+msgstr "Université de Genève"
