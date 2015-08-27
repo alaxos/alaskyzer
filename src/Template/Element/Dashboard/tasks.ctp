@@ -4,7 +4,7 @@ use Cake\Routing\Router;
 
 <div id="tasks_list" style="display:none;">
 
-    <div class="text-right" style="margin-bottom:10px;">
+    <div style="margin:10px 0px 20px 0px;">
     <?php 
     echo $this->Html->link(__('new task'), '#', ['class' => 'btn btn-default btn-sm', 'id' => 'tasks_list_add_btn']);
     ?>
@@ -363,7 +363,9 @@ function show_task_details(task){
     task_details += "</div>";
 
     task_details += "<div class=\"col-md-11\">";
+    task_details += "<pre>";
     task_details += task.description;
+    task_details += "</pre>";
     task_details += "</div>";
     
     task_details += "</div>";
