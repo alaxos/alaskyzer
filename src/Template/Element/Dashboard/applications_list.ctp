@@ -43,7 +43,21 @@ function load_applications_data(async)
 
 function fill_applications_ui_list()
 {
+	var sorted_applications = [];
 	$.each(applications_by_id, function(application_id, application){
+		sorted_applications.push(application);
+	});
+	
+    sorted_applications.sort(function(a, b){
+
+        if(a.name > b.name){
+            return 1;
+        }
+        
+        return -1;
+    });
+
+	$.each(sorted_applications, function(application_id, application){
 	    
         var application_item = "<a class=\"list-group-item application_line\" id=\"application_item_" + application.id + "\" data-application-id=\"" + application.id + "\">" + application.name;
         application_item += "<span class=\"badge\">";
@@ -53,7 +67,7 @@ function fill_applications_ui_list()
         $("#applications_list").append(application_item);
     });
 
-    $.each(applications_by_id, function(application_id, application){
+    $.each(sorted_applications, function(application_id, application){
 
         var active_tasks_total = 0;
         $.each(application.tasks, function(i, task){
