@@ -76,6 +76,20 @@ class TasksController extends AppController
         ]);
         $this->set('task', $task);
     }
+    
+    public function find()
+    {
+        $conditions = [];
+        
+        if($application_id = $this->request->query('application_id'))
+        {
+            $conditions['application_id'] = $application_id;
+        }
+        
+        $tasks = $this->Tasks->find('all')->contain(['TaskCategories', 'Applications', 'Servers'])->where($conditions);
+        $this->set('tasks', $tasks);
+    }
+    
 
     /**
      * Add method

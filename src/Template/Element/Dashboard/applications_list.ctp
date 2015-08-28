@@ -8,105 +8,105 @@ use Cake\Routing\Router;
 
 
 <script type="text/javascript">
-var applications_by_id = {};
 
-function get_applications(async)
+var applications_by_id   = {};
+var selected_application = null;
+
+function load_applications_data(async)
 {
-	var applications = null;
-	
-	if(typeof(async) == "undefined")
-    {
-    	async = false;
+	if(typeof(async) == "undefined"){
+        async = false;
     }
+    
+    $.ajax({
+        url      : "<?php echo Router::url(['controller' => 'Applications', 'action' => 'getList']);?>.json",
+        dataType : "json",
+        async    : async
+    })
+    .done(function(data, textStatus, jqXHR){
+        applications = data;
 
-	if(typeof(fill_linked_tasks) == "undefined")
-    {
-	    fill_linked_tasks = false;
-    }
-	
-	
-	$.ajax({
-		url      : "<?php echo Router::url(['controller' => 'Applications', 'action' => 'getList']);?>.json",
-		dataType : "json",
-		async : async
-	})
-	.done(function(data, textStatus, jqXHR){
-		applications = data;
-	})
-	.fail(function(jqXHR, textStatus, errorThrown) {
-		
-	});
-
-	return applications;
+        /*
+         * Fill application cache
+         */
+        applications_by_id = {};
+        $.each(applications, function(i, application){
+        	applications_by_id[application.id] = application;
+        });
+        
+        $("#applications_list").trigger("applications.loaded", [applications]);
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+        Alaxos.manage_ajax_error(jqXHR);
+    });
 }
 
-function fill_applications(async)
+function fill_applications_ui_list()
 {
-	var applications = get_applications(async);
-	fill_applications_list(applications);
-}
-
-function fill_applications_list(applications)
-{
-	applications_by_id = {}
-	$("#applications_list").html("");
-	
-	$.each(applications, function(index, application){
-
-		applications_by_id[application.id] = application;
-
-	    var application_item = "<a class=\"list-group-item application_line\" id=\"application_item_" + application.id + "\" data-application-id=\"" + application.id + "\">" + application.name;
+	$.each(applications_by_id, function(application_id, application){
+	    
+        var application_item = "<a class=\"list-group-item application_line\" id=\"application_item_" + application.id + "\" data-application-id=\"" + application.id + "\">" + application.name;
         application_item += "<span class=\"badge\">";
         application_item += "</span>";
-	    application_item += "</a>";
-	    
-		$("#applications_list").append(application_item);
-	});
+        application_item += "</a>";
+        
+        $("#applications_list").append(application_item);
+    });
 
-	$.each(applications, function(index, application){
+    $.each(applications_by_id, function(application_id, application){
 
-		var active_tasks_total = 0;
-		$.each(application.tasks, function(i, task){
-			if(task.closed == null && task.abandoned == null){
-				active_tasks_total++;
-			}
-		});
-		if(active_tasks_total > 0)
-		{
-		    $("#application_item_" + application.id + " span.badge").html(active_tasks_total);
-		}
-		else
-		{
-			$("#application_item_" + application.id + " span.badge").hide();
-		}
-	});
+        var active_tasks_total = 0;
+        $.each(application.tasks, function(i, task){
+            if(task.closed == null && task.abandoned == null){
+                active_tasks_total++;
+            }
+        });
+        if(active_tasks_total > 0)
+        {
+            $("#application_item_" + application.id + " span.badge").html(active_tasks_total);
+        }
+        else
+        {
+            $("#application_item_" + application.id + " span.badge").hide();
+        }
+        
+    });
 
-	register_applications_select();
+    $("#applications_list").trigger("applications.ui_list_populated", [applications_by_id]);
 }
 
 function register_applications_select()
 {
 	$("#applications_list a").click(function(e){
 
-		e.preventDefault();
-	    
-		select_application($(this).attr("data-application-id"));
-	});
+        e.preventDefault();
+        
+        select_application($(this).attr("data-application-id"));
+    });
 }
 
 function select_application(application_id)
 {
-	clear_tasks();
-	
-	$("#applications_list a").removeClass("active");
-	$("#application_item_" + application_id).addClass("active");
-    
-	var application = applications_by_id[application_id];
+	if(selected_application == null || selected_application.id != application_id)
+	{
+        $("#applications_list a").removeClass("active");
+        $("#application_item_" + application_id).addClass("active");
+        
+        var application = applications_by_id[application_id];
+        
+        $("#selected_application_title").html(application.name);
 
-	$("#selected_application_title").html(application.name);
-	
-	fill_tasks(application.tasks, true);
+        set_application_url_hash(application_id);
+//         $(location).attr("hash", application_id);
+        
+        //selected_application = application;
+        
+        $("#applications_list").trigger("application.selected", [application]);
+	}
+}
 
+function set_application_url_hash(application_id)
+{
 	$(location).attr("hash", application_id);
 }
 </script>
