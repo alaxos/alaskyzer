@@ -94,13 +94,17 @@ class TasksTable extends Table
             $display_timezone = null;
         }
         
-        if(isset($data['due_date']) && is_string($data['due_date'])){
+        if(isset($data['due_date']) && is_string($data['due_date']) && !empty($data['due_date'])){
             $data['due_date'] = new Time($data['due_date'], $display_timezone);
+        }elseif(isset($data['due_date']) && empty($data['due_date'])){
+            $data['due_date'] = null;
         }
         
-        if(isset($data['closed']) && is_string($data['closed'])){
+        if(isset($data['closed']) && is_string($data['closed']) && !empty($data['closed'])){
             $data['closed'] = new Time($data['closed'], $display_timezone);
             $data['closed']->setTimezone('UTC');
+        }elseif(isset($data['closed']) && empty($data['closed'])){
+            $data['closed'] = null;
         }
     }
     

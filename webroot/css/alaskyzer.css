@@ -46,6 +46,29 @@
 {
 	cursor:pointer;
 }
+.task-row-details, tr.task-row-details:hover
+{
+	background-color:#F1F6F8;
+}
+.task-row-details div.row
+{
+    margin:5px 0px;
+}
+.task-row-details pre
+{
+    font-family: inherit;
+    font-size:inherit;
+    background-color: inherit;
+    border:none;
+    padding:0px;
+}
+.task_property_name
+{
+    color:#aaa;
+}
+
+
+/*
 #task_details
 {
 	border: 1px solid #ddd;
@@ -68,3 +91,4 @@
 {
 	color:#aaa;
 }
+*/
