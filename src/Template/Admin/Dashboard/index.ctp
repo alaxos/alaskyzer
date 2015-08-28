@@ -1,4 +1,5 @@
 <?php 
+use Cake\Routing\Router;
 $this->AlaxosHtml->includeAlaxosJs();
 ?>
 <div class="row">
@@ -9,7 +10,11 @@ $this->AlaxosHtml->includeAlaxosJs();
     </div>
     <div class="col-md-10">
         
-        <h2 id="selected_application_title"></h2>
+        <h2><span id="selected_application_title"></span>
+        <?php
+        echo $this->Html->link('<span class="glyphicon glyphicon-pencil small"></span> ', ['controller' => 'Applications', 'action' => 'edit'], ['id' => 'edit_application_link', 'style' => 'display:none;', 'escape' => false]); 
+        ?>
+        </h2>
         
         <div class="row">
             <div class="col-md-12">
@@ -29,9 +34,23 @@ $this->AlaxosHtml->includeAlaxosJs();
 <script type="text/javascript">
 $(document).ready(function(){
 
-	dashboard_init();
-	select_from_url_hash();
+    dashboard_init();
+    select_from_url_hash();
+    
+    register_edit_application_link_click();
 });
+
+function register_edit_application_link_click()
+{
+	$("#edit_application_link").click(function(e){
+		e.preventDefault();
+
+		if(selected_application != null){
+			window.location = "<?php echo Router::url(['controller' => 'Applications', 'action' => 'edit']) ?>/" + selected_application.id;
+		}
+	});
+}
+
 
 function dashboard_init()
 {
@@ -124,6 +143,10 @@ function events_init()
     	selected_application = application;
     });
 
+    $("#applications_list").on("application.selected", function(e, application){
+    	$("#edit_application_link").show();
+    });
+    
     $("#tasks_list").on("task.loaded", function(e, task){
 //     	window.console.log("task.loaded " + task.id);
         fill_task_row(task);
