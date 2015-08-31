@@ -18,6 +18,9 @@
 			<tr class="sortHeader">
 				<th></th>
 				<th><?php echo $this->Paginator->sort('name', ___('name')); ?></th>
+				<th><?php echo $this->Paginator->sort('Frameworks.name', ___('framework')); ?></th>
+				<th><?php echo $this->Paginator->sort('FrameworkVersions.name', ___('framework version')); ?></th>
+				<th><?php echo $this->Paginator->sort('Technologies.name', ___('technologies')); ?></th>
 				<th style="width:160px;"><?php echo $this->Paginator->sort('created', ___('created')); ?></th>
 				<th style="width:160px;"><?php echo $this->Paginator->sort('modified', ___('modified')); ?></th>
 				<th class="actions"></th>
@@ -33,6 +36,21 @@
 				<td>
 					<?php
 					echo $this->AlaxosForm->filterField('name');
+					?>
+				</td>
+				<td>
+					<?php
+					echo $this->AlaxosForm->filterField('ApplicationsFrameworks.Frameworks.name');
+					?>
+				</td>
+				<td>
+					<?php
+					echo $this->AlaxosForm->filterField('ApplicationsFrameworks.FrameworkVersions.name');
+					?>
+				</td>
+				<td>
+					<?php
+					echo $this->AlaxosForm->filterField('Technologies.name');
 					?>
 				</td>
 				<td>
@@ -64,6 +82,42 @@
 					</td>
 					<td>
 						<?php echo h($application->name) ?>
+					</td>
+					<td>
+						<?php
+						if(!empty($application->applications_frameworks))
+						{
+						    foreach($application->applications_frameworks as $application_framework){
+						        echo '<div>';
+						        echo h($application_framework->framework->name);
+						        echo '</div>'; 
+						    }
+						}
+						?>
+					</td>
+					<td>
+						<?php
+						if(!empty($application->applications_frameworks))
+						{
+						    foreach($application->applications_frameworks as $application_framework){
+						        echo '<div>';
+						        echo h($application_framework->framework_version->name);
+						        echo '</div>'; 
+						    }
+						}
+						?>
+					</td>
+					<td>
+					   <?php
+						if(!empty($application->technologies))
+						{
+						    foreach($application->technologies as $technology){
+						        echo '<span class="tag">';
+						        echo h($technology->name);
+						        echo '</span>'; 
+						    }
+						}
+						?>
 					</td>
 					<td>
 						<?php echo h($application->to_display_timezone('created')); ?>

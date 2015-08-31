@@ -23,7 +23,8 @@ class Application extends Entity
         'bugs' => true,
         'instances' => true,
         'tasks' => true,
-        'frameworks' => true,
+        'applications_frameworks' => true,
+//         'frameworks' => true,
         'technologies' => true,
     ];
 }

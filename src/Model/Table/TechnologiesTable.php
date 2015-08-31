@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Alaxos\Lib\StringTool;
 
 /**
  * Technologies Model
@@ -52,5 +53,18 @@ class TechnologiesTable extends Table
             ->allowEmpty('modified_by');
 
         return $validator;
+    }
+    
+    public function ensureEntityExists($name)
+    {
+        if(StringTool::start_with($name, '[new]')){
+            $name = StringTool::remove_leading($name, '[new]');
+        }
+        
+        $search = [
+            'name'         => $name
+        ];
+    
+        return $this->findOrCreate($search);
     }
 }

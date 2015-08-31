@@ -213,16 +213,16 @@
         },
         {
             "name": "cakephp/cakephp",
-            "version": "3.0.10",
+            "version": "3.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "2bb38807a5a0ba91d27ec80e702dea6a3bb21e53"
+                "reference": "1fa60a537fcb4d0c6ca5647f55632d91e9b1da19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/2bb38807a5a0ba91d27ec80e702dea6a3bb21e53",
-                "reference": "2bb38807a5a0ba91d27ec80e702dea6a3bb21e53",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/1fa60a537fcb4d0c6ca5647f55632d91e9b1da19",
+                "reference": "1fa60a537fcb4d0c6ca5647f55632d91e9b1da19",
                 "shasum": ""
             },
             "require": {
@@ -284,20 +284,20 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-07-21 20:55:01"
+            "time": "2015-08-06 01:34:24"
         },
         {
             "name": "cakephp/migrations",
-            "version": "1.1.5",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/migrations.git",
-                "reference": "09b282b81ea2655eb4dac50d133278c86ab2ea94"
+                "reference": "21156cad08ee7e68dcdc8fddbd8ce345eea604c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/migrations/zipball/09b282b81ea2655eb4dac50d133278c86ab2ea94",
-                "reference": "09b282b81ea2655eb4dac50d133278c86ab2ea94",
+                "url": "https://api.github.com/repos/cakephp/migrations/zipball/21156cad08ee7e68dcdc8fddbd8ce345eea604c5",
+                "reference": "21156cad08ee7e68dcdc8fddbd8ce345eea604c5",
                 "shasum": ""
             },
             "require": {
@@ -334,7 +334,7 @@
                 "cakephp",
                 "migrations"
             ],
-            "time": "2015-07-19 16:11:26"
+            "time": "2015-08-11 17:32:27"
         },
         {
             "name": "cakephp/plugin-installer",
@@ -620,7 +620,7 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
@@ -670,16 +670,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "8cf484449130cabfd98dcb4694ca9945802a21ed"
+                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/8cf484449130cabfd98dcb4694ca9945802a21ed",
-                "reference": "8cf484449130cabfd98dcb4694ca9945802a21ed",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/d6cf02fe73634c96677e428f840704bfbcaec29e",
+                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e",
                 "shasum": ""
             },
             "require": {
@@ -723,11 +723,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:07:40"
+            "time": "2015-07-28 15:18:12"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
@@ -776,16 +776,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "4bfbe0ed3909bfddd75b70c094391ec1f142f860"
+                "reference": "71340e996171474a53f3d29111d046be4ad8a0ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/4bfbe0ed3909bfddd75b70c094391ec1f142f860",
-                "reference": "4bfbe0ed3909bfddd75b70c094391ec1f142f860",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/71340e996171474a53f3d29111d046be4ad8a0ff",
+                "reference": "71340e996171474a53f3d29111d046be4ad8a0ff",
                 "shasum": ""
             },
             "require": {
@@ -821,22 +821,22 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-01 11:25:50"
+            "time": "2015-07-28 14:07:07"
         }
     ],
     "packages-dev": [
         {
             "name": "cakephp/bake",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/bake.git",
-                "reference": "dc76b9c768ed1003ecea4d4c53f392da3464868c"
+                "reference": "68dcbbf239a87265e81f2ebd44ae39135c3d186b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/bake/zipball/dc76b9c768ed1003ecea4d4c53f392da3464868c",
-                "reference": "dc76b9c768ed1003ecea4d4c53f392da3464868c",
+                "url": "https://api.github.com/repos/cakephp/bake/zipball/68dcbbf239a87265e81f2ebd44ae39135c3d186b",
+                "reference": "68dcbbf239a87265e81f2ebd44ae39135c3d186b",
                 "shasum": ""
             },
             "require": {
@@ -869,24 +869,25 @@
                 "bake",
                 "cakephp"
             ],
-            "time": "2015-06-25 15:52:35"
+            "time": "2015-07-26 21:50:43"
         },
         {
             "name": "cakephp/debug_kit",
-            "version": "3.1.7",
+            "version": "3.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "669118b9530927235e039d15fec34baf8a7ce756"
+                "reference": "64f7daa081ea7be1c2c136801172ee7393ce09a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/669118b9530927235e039d15fec34baf8a7ce756",
-                "reference": "669118b9530927235e039d15fec34baf8a7ce756",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/64f7daa081ea7be1c2c136801172ee7393ce09a2",
+                "reference": "64f7daa081ea7be1c2c136801172ee7393ce09a2",
                 "shasum": ""
             },
             "require": {
-                "cakephp/cakephp": "3.0.*"
+                "cakephp/cakephp": "3.0.*",
+                "jdorn/sql-formatter": "~1.2"
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "dev-master",
@@ -929,7 +930,7 @@
                 "debug",
                 "kit"
             ],
-            "time": "2015-06-30 00:50:25"
+            "time": "2015-07-28 08:21:11"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1052,6 +1053,56 @@
             "time": "2015-04-20 18:58:01"
         },
         {
+            "name": "jdorn/sql-formatter",
+            "version": "v1.2.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jdorn/sql-formatter.git",
+                "reference": "64990d96e0959dff8e059dfcdc1af130728d92bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/64990d96e0959dff8e059dfcdc1af130728d92bc",
+                "reference": "64990d96e0959dff8e059dfcdc1af130728d92bc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Dorn",
+                    "email": "jeremy@jeremydorn.com",
+                    "homepage": "http://jeremydorn.com/"
+                }
+            ],
+            "description": "a PHP SQL highlighting library",
+            "homepage": "https://github.com/jdorn/sql-formatter/",
+            "keywords": [
+                "highlight",
+                "sql"
+            ],
+            "time": "2014-01-12 16:20:24"
+        },
+        {
             "name": "nikic/php-parser",
             "version": "v1.4.0",
             "source": {
@@ -1170,16 +1221,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "fde603d9f4b2418ff0f0315b93eb039c9aa41205"
+                "reference": "e8903ebba5eb019f5886ffce739ea9e3b7519579"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/fde603d9f4b2418ff0f0315b93eb039c9aa41205",
-                "reference": "fde603d9f4b2418ff0f0315b93eb039c9aa41205",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/e8903ebba5eb019f5886ffce739ea9e3b7519579",
+                "reference": "e8903ebba5eb019f5886ffce739ea9e3b7519579",
                 "shasum": ""
             },
             "require": {
@@ -1225,7 +1276,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2015-07-01 12:07:40"
+            "time": "2015-07-28 15:18:12"
         }
     ],
     "aliases": [],

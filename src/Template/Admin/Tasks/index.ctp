@@ -17,6 +17,7 @@
 			<thead>
 			<tr class="sortHeader">
 				<th></th>
+				<th><?php echo $this->Paginator->sort('task_category_id', ___('task_category_id')); ?></th>
 				<th><?php echo $this->Paginator->sort('status_id', ___('status_id')); ?></th>
 				<th><?php echo $this->Paginator->sort('application_id', ___('application_id')); ?></th>
 				<th><?php echo $this->Paginator->sort('server_id', ___('server_id')); ?></th>
@@ -35,6 +36,11 @@
 				
 				echo $this->AlaxosForm->create($search_entity, array('url' => $this->request->here(false), 'class' => 'form-horizontal', 'role' => 'form', 'novalidate' => 'novalidate'));
 				?>
+				</td>
+				<td>
+					<?php
+					echo $this->AlaxosForm->filterField('task_category_id');
+					?>
 				</td>
 				<td>
 					<?php
@@ -97,6 +103,9 @@
 						<?php
 						echo $this->AlaxosForm->checkBox('Task.' . $i . '.id', array('value' => $task->id, 'class' => 'model_id'));
 						?>
+					</td>
+					<td>
+						<?php echo $task->has('task_category') ? $this->Html->link($task->task_category->name, ['controller' => 'TaskCategories', 'action' => 'view', $task->task_category->id]) : ''; ?>
 					</td>
 					<td>
 						<?php echo $task->has('status') ? $this->Html->link($task->status->name, ['controller' => 'Status', 'action' => 'view', $task->status->id]) : ''; ?>

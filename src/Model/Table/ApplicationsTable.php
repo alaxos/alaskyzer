@@ -26,24 +26,35 @@ class ApplicationsTable extends Table
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        $this->hasMany('Bugs', [
-            'foreignKey' => 'application_id'
-        ]);
+        
         $this->hasMany('Instances', [
             'foreignKey' => 'application_id'
         ]);
         $this->hasMany('Tasks', [
             'foreignKey' => 'application_id'
         ]);
-        $this->belongsToMany('Frameworks', [
+        
+        $this->hasMany('ApplicationsFrameworks', [
             'foreignKey' => 'application_id',
-            'targetForeignKey' => 'framework_id',
-            'joinTable' => 'applications_frameworks'
+            'dependent'  => true
         ]);
+        
+//         $this->belongsToMany('Frameworks', [
+//             'through' => 'ApplicationsFrameworks'
+//         ]);
+//         $this->belongsToMany('FrameworkVersions', [
+//             'through' => 'ApplicationsFrameworks'
+//         ]);
+
         $this->belongsToMany('Technologies', [
             'foreignKey' => 'application_id',
             'targetForeignKey' => 'technology_id',
             'joinTable' => 'applications_technologies'
+        ]);
+        
+        $this->belongsTo('Users', [
+            'propertyName' => 'owner',
+            'foreignKey' => 'created_by'
         ]);
     }
 

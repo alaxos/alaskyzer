@@ -1,0 +1,94 @@
+.tag{
+	display:inline-block;
+	background:#efefef;
+	/*margin:0px 3px;*/
+	margin-right:3px;
+	padding:1px 3px;
+	border-radius:3px;
+}
+.tag a:not(:hover){
+	color:inherit;
+}
+
+.bg-green{
+    background-color:#A2EBD0;
+    color:#555;
+}
+.bg-blue{
+    background-color:#2a9fd6;
+    color:#fff;
+}
+.bg-blue a{
+    color:#fff;
+}
+.bg-danger{
+    color:red;
+    background-color:#f2dede;
+}
+.bg-success{
+    color:green;
+    background-color:#dff0d8;
+}
+
+#tasks_list th
+{
+	font-weight: normal;
+	color:#aaa;
+	border-bottom:1px;
+}
+
+#tasks_list tr:last-child td
+{
+	border-bottom:1px solid #ddd;
+}
+
+.application_line, .task-row
+{
+	cursor:pointer;
+}
+.task-row-details, tr.task-row-details:hover
+{
+	background-color:#F1F6F8;
+}
+.task-row-details div.row
+{
+    margin:5px 0px;
+}
+.task-row-details pre
+{
+    font-family: inherit;
+    font-size:inherit;
+    background-color: inherit;
+    border:none;
+    padding:0px;
+}
+.task_property_name
+{
+    color:#aaa;
+}
+
+
+/*
+#task_details
+{
+	border: 1px solid #ddd;
+	border-radius:4px;
+	padding:15px;
+}
+#task_details div.row
+{
+    margin:5px 0px;
+}
+#task_details pre
+{
+	font-family: inherit;
+	font-size:inherit;
+	background-color: inherit;
+	border:none;
+	padding:0px;
+}
+.task_property_name
+{
+	color:#aaa;
+}
+*/

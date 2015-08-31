@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Alaxos\Lib\StringTool;
 
 /**
  * Frameworks Model
@@ -26,11 +27,21 @@ class FrameworksTable extends Table
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        $this->belongsToMany('Applications', [
+        
+        $this->hasMany('ApplicationsFrameworks', [
             'foreignKey' => 'framework_id',
-            'targetForeignKey' => 'application_id',
-            'joinTable' => 'applications_frameworks'
+            'dependant'  => true
         ]);
+        
+//         $this->belongsToMany('Applications', [
+//             'through' => 'ApplicationsFrameworks'
+// //             'foreignKey' => 'framework_id',
+// //             'targetForeignKey' => 'application_id',
+// //             'joinTable' => 'applications_frameworks'
+//         ]);
+//         $this->hasOne('FrameworkVersions', [
+//             'foreignKey' => 'framework_id',
+//         ]);
     }
 
     /**
@@ -52,5 +63,31 @@ class FrameworksTable extends Table
             ->allowEmpty('modified_by');
 
         return $validator;
+    }
+    
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(['name']));
+        return $rules;
+    }
+    
+    public function ensureEntityExists($name)
+    {
+        if(StringTool::start_with($name, '[new]')){
+            $name = StringTool::remove_leading($name, '[new]');
+        }
+        
+        $search = [
+            'name'         => $name
+        ];
+        
+        return $this->findOrCreate($search);
     }
 }

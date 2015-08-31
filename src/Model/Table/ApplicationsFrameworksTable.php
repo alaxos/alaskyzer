@@ -1,16 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Bug;
+use App\Model\Entity\ApplicationsFramework;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Bugs Model
+ * ApplicationsFrameworks Model
  */
-class BugsTable extends Table
+class ApplicationsFrameworksTable extends Table
 {
 
     /**
@@ -21,21 +21,21 @@ class BugsTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('bugs');
-        $this->displayField('name');
+        $this->table('applications_frameworks');
+        $this->displayField('id');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        $this->belongsTo('Status', [
-            'foreignKey' => 'status_id',
-            'joinType' => 'INNER'
-        ]);
         $this->belongsTo('Applications', [
             'foreignKey' => 'application_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Servers', [
-            'foreignKey' => 'server_id'
+        $this->belongsTo('Frameworks', [
+            'foreignKey' => 'framework_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('FrameworkVersions', [
+            'foreignKey' => 'framework_version_id'
         ]);
     }
 
@@ -50,13 +50,6 @@ class BugsTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->requirePresence('name', 'create')
-            ->notEmpty('name')
-            ->allowEmpty('description')
-            ->add('due_date', 'valid', ['rule' => 'date'])
-            ->allowEmpty('due_date')
-            ->add('closed', 'valid', ['rule' => 'datetime'])
-            ->allowEmpty('closed')
             ->add('created_by', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('created_by')
             ->add('modified_by', 'valid', ['rule' => 'numeric'])
@@ -74,9 +67,9 @@ class BugsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['status_id'], 'Status'));
         $rules->add($rules->existsIn(['application_id'], 'Applications'));
-        $rules->add($rules->existsIn(['server_id'], 'Servers'));
+        $rules->add($rules->existsIn(['framework_id'], 'Frameworks'));
+        $rules->add($rules->existsIn(['framework_version_id'], 'FrameworkVersions'));
         return $rules;
     }
 }

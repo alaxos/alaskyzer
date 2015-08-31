@@ -6,6 +6,10 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\Event;
+use Cake\I18n\I18n;
+use Cake\I18n\Time;
+use Cake\Core\Configure;
 
 /**
  * Tasks Model
@@ -26,10 +30,10 @@ class TasksTable extends Table
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        $this->belongsTo('Status', [
-            'foreignKey' => 'status_id',
-            'joinType' => 'INNER'
+        $this->belongsTo('TaskCategories', [
+            'foreignKey' => 'task_category_id'
         ]);
+        
         $this->belongsTo('Applications', [
             'foreignKey' => 'application_id',
             'joinType' => 'INNER'
@@ -74,9 +78,65 @@ class TasksTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['status_id'], 'Status'));
+        $rules->add($rules->existsIn(['task_category_id'], 'TaskCategories'));
         $rules->add($rules->existsIn(['application_id'], 'Applications'));
         $rules->add($rules->existsIn(['server_id'], 'Servers'));
         return $rules;
+    }
+    
+    public function beforeMarshal(Event $event, \ArrayObject $data, \ArrayObject $options)
+    {
+        if(Configure::check('display_timezone')){
+            $display_timezone = Configure::read('display_timezone');
+        }elseif(Configure::check('default_display_timezone')){
+            $display_timezone = Configure::read('default_display_timezone');
+        }else{
+            $display_timezone = null;
+        }
+        
+        if(isset($data['due_date']) && is_string($data['due_date']) && !empty($data['due_date'])){
+            $data['due_date'] = new Time($data['due_date'], $display_timezone);
+        }elseif(isset($data['due_date']) && empty($data['due_date'])){
+            $data['due_date'] = null;
+        }
+        
+        if(isset($data['closed']) && is_string($data['closed']) && !empty($data['closed'])){
+            $data['closed'] = new Time($data['closed'], $display_timezone);
+            $data['closed']->setTimezone('UTC');
+        }elseif(isset($data['closed']) && empty($data['closed'])){
+            $data['closed'] = null;
+        }
+    }
+    
+    public function close($id, $datetime = null)
+    {
+        $task = $this->get($id);
+        
+        if(!isset($task->closed))
+        {
+            $this->patchEntity($task, ['closed' => new Time()]);
+            
+            return $this->save($task);
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public function open($id, $datetime = null)
+    {
+        $task = $this->get($id);
+    
+        if(isset($task->closed) || isset($task->abandoned))
+        {
+            $this->patchEntity($task, ['closed' => null, 'abandoned' => null]);
+            
+            return $this->save($task);
+        }
+        else
+        {
+            return false;
+        }
     }
 }

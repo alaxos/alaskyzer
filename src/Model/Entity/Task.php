@@ -17,6 +17,7 @@ class Task extends Entity
      * @var array
      */
     protected $_accessible = [
+        'task_category_id' => true,
         'status_id' => true,
         'application_id' => true,
         'server_id' => true,

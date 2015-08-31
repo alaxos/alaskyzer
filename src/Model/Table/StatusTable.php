@@ -26,12 +26,8 @@ class StatusTable extends Table
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        $this->hasMany('Bugs', [
-            'foreignKey' => 'status_id'
-        ]);
-        $this->hasMany('Tasks', [
-            'foreignKey' => 'status_id'
-        ]);
+        
+        
     }
 
     /**

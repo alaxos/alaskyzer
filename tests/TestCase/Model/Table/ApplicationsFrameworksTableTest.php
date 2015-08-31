@@ -1,14 +1,14 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\BugsTable;
+use App\Model\Table\ApplicationsFrameworksTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\BugsTable Test Case
+ * App\Model\Table\ApplicationsFrameworksTable Test Case
  */
-class BugsTableTest extends TestCase
+class ApplicationsFrameworksTableTest extends TestCase
 {
 
     /**
@@ -17,16 +17,19 @@ class BugsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.applications_frameworks',
+        'app.applications',
         'app.bugs',
         'app.status',
         'app.tasks',
-        'app.applications',
+        'app.servers',
         'app.instances',
         'app.frameworks',
-        'app.applications_frameworks',
+        'app.framework_versions',
         'app.technologies',
         'app.applications_technologies',
-        'app.servers'
+        'app.users',
+        'app.roles'
     ];
 
     /**
@@ -37,8 +40,8 @@ class BugsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Bugs') ? [] : ['className' => 'App\Model\Table\BugsTable'];
-        $this->Bugs = TableRegistry::get('Bugs', $config);
+        $config = TableRegistry::exists('ApplicationsFrameworks') ? [] : ['className' => 'App\Model\Table\ApplicationsFrameworksTable'];
+        $this->ApplicationsFrameworks = TableRegistry::get('ApplicationsFrameworks', $config);
     }
 
     /**
@@ -48,7 +51,7 @@ class BugsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Bugs);
+        unset($this->ApplicationsFrameworks);
 
         parent::tearDown();
     }

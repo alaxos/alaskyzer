@@ -47,7 +47,7 @@ class ServersController extends AppController
     public function view($id = null)
     {
         $server = $this->Servers->get($id, [
-            'contain' => ['Bugs', 'Instances', 'Tasks']
+            'contain' => ['Instances', 'Tasks']
         ]);
         $this->set('server', $server);
         $this->set('_serialize', ['server']);

@@ -16,9 +16,9 @@
             echo $this->AlaxosForm->create($task, ['class' => 'form-horizontal', 'role' => 'form', 'novalidate' => 'novalidate']);
             
             echo '<div class="form-group">';
-            echo $this->AlaxosForm->label('status_id', __('status_id'), ['class' => 'col-sm-2 control-label']);
+            echo $this->AlaxosForm->label('task_category_id', __('task_category_id'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('status_id', ['options' => $status, 'label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->input('task_category_id', ['options' => $taskCategories, 'empty' => true, 'label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
             

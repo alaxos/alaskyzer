@@ -1,3 +1,8 @@
+<?php 
+use Cake\Routing\Router;
+echo $this->AlaxosHtml->script('selectize/js/standalone/selectize.min', ['block' => true]);
+echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' => true]);
+?>
 
 <div class="applications form">
     
@@ -25,14 +30,28 @@
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('Frameworks', __('Frameworks'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('frameworks._ids', ['label' => false, 'options' => $frameworks]);
+
+            echo $this->AlaxosForm->input('applications_frameworks.0.framework_id', ['type' => 'select', 'label' => false, 'options' => $frameworks, 'empty' => true, 'id' => 'frameworks_select']);
+            echo $this->Html->image('ajax-loader.gif', ['id' => 'applications_frameworks_0_loader', 'style' => 'display:none;']);
+            
+            echo $this->AlaxosForm->input('applications_frameworks.0.framework_version_id', ['type' => 'select', 'label' => false, 'empty' => true, 'id' => 'framework_version_select']);
+            
+//             echo $this->AlaxosForm->input('frameworks._ids', ['label' => false, 'options' => $frameworks, 'id' => 'frameworks_select']);
+            
+//             echo $this->AlaxosForm->input('frameworks.0.id', ['type' => 'select', 'label' => false, 'options' => $frameworks, 'empty' => true, 'id' => 'frameworks_select']);
+//             echo $this->AlaxosForm->input('frameworks.0._joinData.framework_version_id', ['type' => 'select', 'label' => false, 'options' => $frameworkVersions, 'empty' => true, 'id' => 'framework_version_select']);
+            
+//             echo $this->AlaxosForm->input('frameworks.0.id', ['type' => 'select', 'label' => false, 'options' => $frameworks, 'empty' => true, 'id' => 'frameworks_select']);
+//             echo $this->AlaxosForm->input('frameworks.0._joinData.framework_version_id', ['type' => 'select', 'label' => false, 'empty' => true, 'id' => 'framework_version_select']);
+            
             echo '</div>';
             echo '</div>';
             
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('Technologies', __('Technologies'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('technologies._ids', ['label' => false, 'options' => $technologies]);
+            echo $this->AlaxosForm->input('technologies._ids', ['label' => false, 'options' => $technologies, 'id' => 'technologies_select']);
+            
             echo '</div>';
             echo '</div>';
             
@@ -50,3 +69,91 @@
     </fieldset>
     
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var framework_version_selectize;
+	
+    $("#technologies_select").selectize({
+        create : true,
+        persist : false,
+        createOnBlur : true,
+        create : function(input){
+            return {
+                value : "[new]"+input,
+                text  : input
+                }
+            }
+        });
+
+    $("#frameworks_select").selectize({
+        create : true,
+        persist : false,
+        createOnBlur : true,
+        create : function(input){
+            return {
+                value : "[new]"+input,
+                text  : input
+            }
+        },
+        onChange : function (value){
+            fill_framework_version_options(value);
+            
+//             framework_version_selectize.disable();
+//             framework_version_selectize.clearOptions();
+//             framework_version_selectize.load(function(callback){
+//                 $.ajax({
+//                    url : "<?php echo Router::url(['controller' => 'FrameworkVersions', 'action' => 'get_framework_versions']);?>.json?framework_id=" + value
+//                 })
+//                 .done(function( data, textStatus, jqXHR ){
+//                     if(data.length > 0){
+//                         framework_version_selectize.enable();
+//                         callback(data);
+//                     }
+//                 });
+//             });
+        }
+    });
+
+    var framework_version_select = $("#framework_version_select").selectize({
+        create : true,
+        persist : false,
+        createOnBlur : true,
+        valueField:"id",
+        labelField:"name",
+        create : function(input){
+            return {
+                id : "[new]"+input,
+                name  : input
+            }
+        }
+    });
+
+    framework_version_selectize = framework_version_select[0].selectize;
+
+    framework_version_selectize.disable();
+
+    function fill_framework_version_options(framework_id)
+    {
+    	$("#applications_frameworks_0_loader").show();
+    	
+        framework_version_selectize.disable();
+        framework_version_selectize.clearOptions();
+        framework_version_selectize.load(function(callback){
+            $.ajax({
+                url : "<?php echo Router::url(['controller' => 'FrameworkVersions', 'action' => 'get_framework_versions']);?>.json?framework_id=" + framework_id
+            })
+            .done(function( data, textStatus, jqXHR ){
+                if(data.length > 0){
+                    callback(data);
+                }
+            })
+            .always(function(){
+                framework_version_selectize.enable();
+                $("#applications_frameworks_0_loader").hide();
+            });
+        });
+    }
+});
+</script>

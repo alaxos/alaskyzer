@@ -17,14 +17,17 @@ class TasksControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.tasks',
+        'app.task_categories',
         'app.status',
-        'app.bugs',
         'app.applications',
         'app.instances',
-        'app.frameworks',
         'app.applications_frameworks',
+        'app.frameworks',
+        'app.framework_versions',
         'app.technologies',
         'app.applications_technologies',
+        'app.users',
+        'app.roles',
         'app.servers'
     ];
 

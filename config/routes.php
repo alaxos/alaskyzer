@@ -77,6 +77,7 @@ Router::scope('/', function ($routes) {
 });
 
     Router::prefix('admin', function($routes) {
+        $routes->extensions(['json', 'xml', 'js']);
         $routes->fallbacks();
     });
     
