@@ -50,7 +50,7 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('name', __('name'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('name', ['label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->input('name', ['label' => false, 'class' => 'form-control', 'autofocus' => true]);
             echo '</div>';
             echo '</div>';
             

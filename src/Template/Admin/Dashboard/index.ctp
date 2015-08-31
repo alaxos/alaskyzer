@@ -10,8 +10,10 @@ $this->AlaxosHtml->includeAlaxosJs();
     </div>
     <div class="col-md-10">
         
-        <h2><span id="selected_application_title"></span>
+        <h2>
         <?php
+        echo $this->Html->link('', ['controller' => 'Applications', 'action' => 'view'], ['id' => 'selected_application_title_link']);
+        echo ' ';
         echo $this->Html->link('<span class="glyphicon glyphicon-pencil small"></span> ', ['controller' => 'Applications', 'action' => 'edit'], ['id' => 'edit_application_link', 'style' => 'display:none;', 'escape' => false]); 
         ?>
         </h2>
@@ -36,9 +38,21 @@ $(document).ready(function(){
 
     dashboard_init();
     select_from_url_hash();
-    
+
+    register_view_application_link_click();
     register_edit_application_link_click();
 });
+
+function register_view_application_link_click()
+{
+	$("#selected_application_title_link").click(function(e){
+		e.preventDefault();
+
+		if(selected_application != null){
+			window.location = "<?php echo Router::url(['controller' => 'Applications', 'action' => 'view']) ?>/" + selected_application.id;
+		}
+	});
+}
 
 function register_edit_application_link_click()
 {
@@ -50,7 +64,6 @@ function register_edit_application_link_click()
 		}
 	});
 }
-
 
 function dashboard_init()
 {

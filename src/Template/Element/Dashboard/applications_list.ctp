@@ -108,7 +108,7 @@ function select_application(application_id)
         
         var application = applications_by_id[application_id];
         
-        $("#selected_application_title").html(application.name);
+        $("#selected_application_title_link").html(application.name);
 
         set_application_url_hash(application_id);
 //         $(location).attr("hash", application_id);
