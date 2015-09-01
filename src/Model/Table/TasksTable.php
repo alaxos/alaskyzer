@@ -57,8 +57,10 @@ class TasksTable extends Table
             ->requirePresence('name', 'create')
             ->notEmpty('name')
             ->allowEmpty('description')
+            
             ->add('due_date', 'valid', ['rule' => 'date'])
             ->allowEmpty('due_date')
+            
             ->add('closed', 'valid', ['rule' => 'datetime'])
             ->allowEmpty('closed')
             ->add('created_by', 'valid', ['rule' => 'numeric'])
