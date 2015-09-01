@@ -53,14 +53,7 @@
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('due_date', __('due_date'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('due_date', ['empty' => true, 'default' => '', 'label' => false, 'class' => 'form-control']);
-            echo '</div>';
-            echo '</div>';
-            
-            echo '<div class="form-group">';
-            echo $this->AlaxosForm->label('closed', __('closed'), ['class' => 'col-sm-2 control-label']);
-            echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('closed', ['label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->input('due_date', ['label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
             
