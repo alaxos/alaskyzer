@@ -454,9 +454,9 @@ function show_task_details(task, show_name){
     task_details += "</div>";
 
     task_details += "<div class=\"col-md-11\">";
-    task_details += "<pre>";
+//     task_details += "<pre>";
     task_details += task.description;
-    task_details += "</pre>";
+//     task_details += "</pre>";
     task_details += "</div>";
     
     task_details += "</div>";
