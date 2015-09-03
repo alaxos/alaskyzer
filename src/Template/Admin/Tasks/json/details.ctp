@@ -1,5 +1,6 @@
 <?php
 $parser = new ParsedownExtra();
+$parser->setBreaksEnabled(true);
 
 $task_data = [];
 

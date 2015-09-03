@@ -1,5 +1,6 @@
 <?php
 $parser = new ParsedownExtra();
+$parser->setBreaksEnabled(true);
 
 $json_array = [];
 
