@@ -62,6 +62,12 @@
     border:none;
     padding:0px;
 }
+.task-row-details code
+{
+    background-color:#fff;
+    color:#2E48C3;
+    display:block;
+}
 .task_property_name
 {
     color:#aaa;

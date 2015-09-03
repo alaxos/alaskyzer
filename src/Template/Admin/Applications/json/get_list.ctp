@@ -1,4 +1,6 @@
 <?php
+$parser = new ParsedownExtra();
+
 $json_array = [];
 
 foreach($applications as $application)
@@ -22,7 +24,8 @@ foreach($applications as $application)
         }
         elseif(in_array($field, ['description']))
         {
-            $application_data[$field] = $this->AlaxosHtml->formatText($application->{$field});
+//             $application_data[$field] = $this->AlaxosHtml->formatText($application->{$field}, ['encode_email' => false]);
+            $application_data[$field] = $parser->text($application->{$field});
         }
         else
         {
@@ -51,7 +54,8 @@ foreach($applications as $application)
             }
             elseif(in_array($field, ['description']))
             {
-                $task_data[$field] = $this->AlaxosHtml->formatText($task->{$field});
+//                 $task_data[$field] = $this->AlaxosHtml->formatText($task->{$field}, ['encode_email' => false]);
+                $task_data[$field] = $parser->text($task->{$field});
             }
             else
             {

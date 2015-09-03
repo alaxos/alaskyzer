@@ -1,4 +1,6 @@
 <?php
+$parser = new ParsedownExtra();
+
 $tasks_data = [];
 
 foreach($tasks as $task)
@@ -22,7 +24,7 @@ foreach($tasks as $task)
         }
         elseif(in_array($field, ['description']))
         {
-            $task_data[$field] = $this->AlaxosHtml->formatText($task->{$field}, ['encode_email' => false]);
+            $task_data[$field] = $parser->text($task->{$field});
         }
         else
         {

@@ -10,7 +10,8 @@
         "mobiledetect/mobiledetectlib": "2.*",
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "*",
-        "alaxos/cakephp3-bootstrap-theme": "dev-master"
+        "alaxos/cakephp3-bootstrap-theme": "dev-master",
+        "erusev/parsedown-extra": "dev-master"
     },
     "require-dev": {
         "psy/psysh": "@stable",
