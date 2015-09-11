@@ -187,8 +187,12 @@ function fill_tasks_ui_tabs(tasks)
     }
 }
 
-function fill_tasks_ui_list(tasks)
+function fill_tasks_ui_list(tasks, show_application_name)
 {
+	if(typeof(show_application_name) == "undefined"){
+		show_application_name = false;
+    }
+	
 	$("#open_tasks_rows").html("");
     $("#closed_tasks_rows").html("");
     
@@ -196,7 +200,7 @@ function fill_tasks_ui_list(tasks)
     var closed_tasks_total = 0;
     
     $.each(tasks, function(index, task){
-        add_task_row(task);
+        add_task_row(task, show_application_name);
 
         if(task.closed == null && task.abandoned == null){
             active_tasks_total++;
@@ -222,41 +226,45 @@ function fill_tasks_ui_list(tasks)
     $("#tasks_list").trigger("tasks.list_filled", [tasks]);
 }
 
-function fill_task_row(task)
+function fill_task_row(task, show_application_name)
 {
+	if(typeof(show_application_name) == "undefined"){
+		show_application_name = false;
+    }
+    
 	var row = $("#task_row_" + task.id);
     if(row.length > 0)
     {
-        var task_row_content = get_task_row_content(task);
+        var task_row_content = get_task_row_content(task, show_application_name);
     	$("#task_row_" + task.id).html(task_row_content);
     }
 }
 
-function add_task_row(task)
+function add_task_row(task, show_application_name)
 {
     if(task.closed == null && task.abandoned == null)
     {
-    	add_open_task_row(task);
+    	add_open_task_row(task, show_application_name);
     }
     else
     {
-    	add_closed_task_row(task);
+    	add_closed_task_row(task, show_application_name);
     }
 }
 
-function get_task_row_content(task)
+function get_task_row_content(task, show_application_name)
 {
 	if(task.closed == null && task.abandoned == null)
     {
-    	return get_open_task_row_content(task);
+    	return get_open_task_row_content(task, show_application_name);
     }
     else
     {
-    	return get_closed_task_row_content(task);
+    	return get_closed_task_row_content(task, show_application_name);
     }
 }
 
-function get_open_task_row_content(task)
+function get_open_task_row_content(task, show_application_name)
 {
 	var task_row_content = "";
 
@@ -264,6 +272,13 @@ function get_open_task_row_content(task)
 	task_row_content += task.created;
 	task_row_content += "</td>";
 
+	if(show_application_name && task.application != null && typeof(task.application != "undefined"))
+	{
+    	task_row_content += "<td>";
+    	task_row_content += task.application.name;
+    	task_row_content += "</td>";
+	}
+	
 	task_row_content += "<td>";
 	task_row_content += task.name;
 	task_row_content += "</td>";
@@ -278,13 +293,20 @@ function get_open_task_row_content(task)
     return task_row_content;
 }
 
-function get_closed_task_row_content(task)
+function get_closed_task_row_content(task, show_application_name)
 {
 	var task_row_content = "";
 
 	task_row_content += "<td>";
 	task_row_content += task.created;
 	task_row_content += "</td>";
+
+	if(show_application_name && task.application != null && typeof(task.application != "undefined"))
+	{
+    	task_row_content += "<td>";
+    	task_row_content += task.application.name;
+    	task_row_content += "</td>";
+	}
 
 	task_row_content += "<td>";
 	task_row_content += task.name;
@@ -300,12 +322,12 @@ function get_closed_task_row_content(task)
     return task_row_content;
 }
 
-function add_open_task_row(task)
+function add_open_task_row(task, show_application_name)
 {
 	var task_row = "";
 
 	task_row += "<tr class=\"task-row\" id=\"task_row_" + task.id + "\" data-task-id=\"" + task.id + "\">";
-    task_row += get_task_row_content(task);
+    task_row += get_task_row_content(task, show_application_name);
     task_row += "</tr>";
     
     task_row += "<tr class=\"task-row-details\" id=\"task_row_details_" + task.id + "\" data-task-id=\"" + task.id + "\" style=\"display:none;\">";
@@ -318,12 +340,12 @@ function add_open_task_row(task)
     $("#tasks_list").trigger("task.row_filled", [task]);
 }
 
-function add_closed_task_row(task)
+function add_closed_task_row(task, show_application_name)
 {
 	var task_row = "";
 
 	task_row += "<tr class=\"task-row\" id=\"task_row_" + task.id + "\" data-task-id=\"" + task.id + "\">";
-    task_row += get_task_row_content(task);
+    task_row += get_task_row_content(task, show_application_name);
     task_row += "</tr>";
 
     task_row += "<tr class=\"task-row-details\" id=\"task_row_details_" + task.id + "\" data-task-id=\"" + task.id + "\" style=\"display:none;\">";

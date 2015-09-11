@@ -94,6 +94,9 @@ function events_init()
      */
     $("#applications_list").on("applications.ui_list_populated", function(e, applications){
 		register_applications_select();
+
+		insert_all_applications_item();
+		register_all_applications_select();
 	});
 
     /*
@@ -159,10 +162,63 @@ function events_init()
     $("#applications_list").on("application.selected", function(e, application){
     	$("#edit_application_link").show();
     });
+
+    /*
+     * "All applications" selected
+     */
+    $("#applications_list").on("application.all_selected", function(e){
+    	selected_application = "all";
+    	$("#edit_application_link").hide();
+
+    	var tasks = [];
+    	$.each(applications_by_id, function(id, application){
+    		$.each(application.tasks, function(i, task){
+
+                <?php 
+                $loader = $this->Html->image('ajax-loader.gif');
+                $loading_text = $loader . ' ' . __('loading...');
+                ?>
+                if(task != null && tasks_by_id[task.id] != null)
+                {
+                    tasks.push(tasks_by_id[task.id]);
+                }
+                else
+                {
+                    var tmp_task = {
+                            id      : -1, 
+                            name    : '<?php echo $loading_text;?>', 
+                            created : '<?php echo $loading_text;?>',
+                            application : application
+                    };
+
+                    if(task != null)
+                    {
+                        tmp_task.id        = task.id;
+                        tmp_task.closed    = task.closed;
+                        tmp_task.abandoned = task.abandoned;
+                        tmp_task.created   = task.created;
+                    }
+
+                    tasks.push(tmp_task);
+                }
+            });
+        });
+        
+        fill_tasks_ui_tabs(tasks);
+        fill_tasks_ui_list(tasks, true);
+    });
+
     
     $("#tasks_list").on("task.loaded", function(e, task){
 //     	window.console.log("task.loaded " + task.id);
-        fill_task_row(task);
+
+        var show_application_name = false;
+        if(selected_application == "all")
+        {
+        	show_application_name = true;
+        }
+
+        fill_task_row(task, show_application_name);
 //         fill_task_details(task);
     });
         
