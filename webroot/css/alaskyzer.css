@@ -42,7 +42,7 @@
 	border-bottom:1px solid #ddd;
 }
 
-.application_line, .task-row
+.application_line, .all_application_line, .task-row
 {
 	cursor:pointer;
 }

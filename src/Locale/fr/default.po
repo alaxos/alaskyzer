@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Alaskyzer\n"
-"POT-Creation-Date: 2015-08-26 17:04+0100\n"
-"PO-Revision-Date: 2015-08-26 17:43+0100\n"
+"POT-Creation-Date: 2015-09-11 17:09+0100\n"
+"PO-Revision-Date: 2015-09-11 17:09+0100\n"
 "Last-Translator: Nicolas Rod <nicolas.rod@unige.ch>\n"
 "Language-Team: fr <nico@alaxos.com>\n"
 "Language: fr\n"
@@ -196,69 +196,69 @@ msgstr ""
 msgid "there was no framework to delete"
 msgstr "aucun framework à effacer"
 
-#: Controller/Admin/TasksController.php:91
-#: Controller/Admin/TasksController.php:129
-#: Controller/Admin/TasksController.php:271
+#: Controller/Admin/TasksController.php:105
+#: Controller/Admin/TasksController.php:143
+#: Controller/Admin/TasksController.php:285
 msgid "the task has been saved"
 msgstr "la tâche a été enregistrée."
 
-#: Controller/Admin/TasksController.php:96
-#: Controller/Admin/TasksController.php:133
-#: Controller/Admin/TasksController.php:274
+#: Controller/Admin/TasksController.php:110
+#: Controller/Admin/TasksController.php:147
+#: Controller/Admin/TasksController.php:288
 msgid "the task could not be saved. Please, try again."
 msgstr "la tâche n'a pas pu être enregistrée. Veuillez réessayer."
 
-#: Controller/Admin/TasksController.php:148
+#: Controller/Admin/TasksController.php:162
 msgid "the task has been closed"
 msgstr "la tâche a été fermée"
 
-#: Controller/Admin/TasksController.php:152
+#: Controller/Admin/TasksController.php:166
 msgid "the task could not be closed"
 msgstr "la tâche n'a pas pu être fermée"
 
-#: Controller/Admin/TasksController.php:168
+#: Controller/Admin/TasksController.php:182
 msgid "the task has been opened"
 msgstr "la tâche a été ouverte"
 
-#: Controller/Admin/TasksController.php:172
+#: Controller/Admin/TasksController.php:186
 msgid "the task could not be opened"
 msgstr "la tâche n'a pas pu être ouverte"
 
-#: Controller/Admin/TasksController.php:201
+#: Controller/Admin/TasksController.php:215
 msgid "the task has been deleted"
 msgstr "la tâche a été effacée"
 
-#: Controller/Admin/TasksController.php:203
+#: Controller/Admin/TasksController.php:217
 msgid "the task could not be deleted. Please, try again."
 msgstr "la tâche n'a pas pu être effacée. Veuillez réessayer."
 
-#: Controller/Admin/TasksController.php:210
+#: Controller/Admin/TasksController.php:224
 msgid "the task could not be deleted as it is still used in the database"
 msgstr ""
 "la tâche n'a pas pu être effacée car elle est encore utilisée dans la base "
 "de données"
 
-#: Controller/Admin/TasksController.php:214
+#: Controller/Admin/TasksController.php:228
 #, php-format
 msgid "The task could not be deleted: %s"
 msgstr "La tâche n'a pas pu être effacée: %s"
 
-#: Controller/Admin/TasksController.php:236
+#: Controller/Admin/TasksController.php:250
 msgid "the selected task has been deleted."
 msgstr "la tâche sélectionnée a été effacée."
 
-#: Controller/Admin/TasksController.php:239
+#: Controller/Admin/TasksController.php:253
 #, php-format
 msgid "The %s selected tasks have been deleted."
 msgstr "Les %s tâches sélectionnées ont été effacées."
 
-#: Controller/Admin/TasksController.php:242
-#: Controller/Admin/TasksController.php:246
+#: Controller/Admin/TasksController.php:256
+#: Controller/Admin/TasksController.php:260
 msgid "the selected tasks could not be deleted. Please, try again."
 msgstr ""
 "les tâches sélectionnées n'ont pas pu être effacées. Veuillez réessayer."
 
-#: Controller/Admin/TasksController.php:249
+#: Controller/Admin/TasksController.php:263
 msgid "there was no task to delete"
 msgstr "aucune tâche à effacer"
 
@@ -640,7 +640,7 @@ msgstr "rôle"
 #: Template/Admin/FrameworkVersions/add.ctp:34
 #: Template/Admin/FrameworkVersions/edit.ctp:34
 #: Template/Admin/Tasks/copy.ctp:76 Template/Admin/Tasks/add.ctp:73
-#: Template/Admin/Tasks/edit.ctp:69
+#: Template/Admin/Tasks/edit.ctp:62
 msgid "submit"
 msgstr "envoyer"
 
@@ -650,7 +650,7 @@ msgid "users"
 msgstr "utilisateurs"
 
 #: Template/Users/index.ctp:25 Template/Element/Dashboard/tasks.ctp:26
-#: Template/Element/Dashboard/tasks.ctp:47 Template/Admin/Status/index.ctp:21
+#: Template/Element/Dashboard/tasks.ctp:43 Template/Admin/Status/index.ctp:21
 #: Template/Admin/TaskCategories/index.ctp:21
 #: Template/Admin/Servers/index.ctp:21 Template/Admin/Users/index.ctp:28
 #: Template/Admin/Technologies/index.ctp:21 Template/Admin/Roles/index.ctp:21
@@ -733,15 +733,14 @@ msgid "open"
 msgstr "ouvert"
 
 #: Template/Element/Dashboard/tasks.ctp:15
-#: Template/Element/Dashboard/tasks.ctp:49 Template/Admin/Tasks/view.ctp:55
+#: Template/Element/Dashboard/tasks.ctp:45 Template/Admin/Tasks/view.ctp:55
 #: Template/Admin/Tasks/copy.ctp:68 Template/Admin/Tasks/index.ctp:27
-#: Template/Admin/Tasks/edit.ctp:61
 msgid "closed"
 msgstr "fermé"
 
 #: Template/Element/Dashboard/tasks.ctp:27
-#: Template/Element/Dashboard/tasks.ctp:48
-#: Template/Element/Dashboard/tasks.ctp:345 Template/Admin/Status/view.ctp:14
+#: Template/Element/Dashboard/tasks.ctp:44
+#: Template/Element/Dashboard/tasks.ctp:453 Template/Admin/Status/view.ctp:14
 #: Template/Admin/Status/copy.ctp:19 Template/Admin/Status/index.ctp:20
 #: Template/Admin/Status/add.ctp:19 Template/Admin/Status/edit.ctp:19
 #: Template/Admin/TaskCategories/view.ctp:14
@@ -781,39 +780,43 @@ msgstr "nom"
 msgid "due date"
 msgstr "délai"
 
-#: Template/Element/Dashboard/tasks.ctp:323
-msgid "task not found"
-msgstr "tâche manquante"
-
-#: Template/Element/Dashboard/tasks.ctp:361 Template/Admin/Tasks/view.ctp:41
+#: Template/Element/Dashboard/tasks.ctp:470 Template/Admin/Tasks/view.ctp:41
 #: Template/Admin/Tasks/copy.ctp:54 Template/Admin/Tasks/index.ctp:25
 #: Template/Admin/Tasks/add.ctp:58 Template/Admin/Tasks/edit.ctp:47
 msgid "description"
 msgstr "description"
 
-#: Template/Element/Dashboard/tasks.ctp:377
+#: Template/Element/Dashboard/tasks.ctp:488
 msgid "category"
 msgstr "catégorie"
 
-#: Template/Element/Dashboard/tasks.ctp:401
+#: Template/Element/Dashboard/tasks.ctp:512
 msgid "close task"
 msgstr "fermer la tâche"
 
-#: Template/Element/Dashboard/tasks.ctp:405
+#: Template/Element/Dashboard/tasks.ctp:516
 msgid "open task"
 msgstr "ouvrir la tâche"
 
-#: Template/Element/Dashboard/tasks.ctp:408 Template/Admin/Tasks/edit.ctp:5
+#: Template/Element/Dashboard/tasks.ctp:519 Template/Admin/Tasks/edit.ctp:5
 msgid "edit task"
 msgstr "modifier la tâche"
 
-#: Template/Element/Dashboard/tasks.ctp:409
+#: Template/Element/Dashboard/tasks.ctp:520
 msgid "delete task"
 msgstr "supprimer la tâche"
 
-#: Template/Element/Dashboard/tasks.ctp:445
+#: Template/Element/Dashboard/tasks.ctp:559
 msgid "do you really want to delete the task ?"
 msgstr "voulez-vous vraiment effacer cette tâche ?"
+
+#: Template/Element/Dashboard/applications_list.ctp:126
+msgid "all applications"
+msgstr "toutes les applications"
+
+#: Template/Element/Dashboard/applications_list.ctp:149
+msgid "all tasks"
+msgstr "toutes les tâches"
 
 #: Template/Element/menus/top.ctp:9
 msgid "dashboard"
@@ -972,6 +975,11 @@ msgstr "ajouter une technologie"
 #: Template/Admin/Technologies/edit.ctp:5
 msgid "edit technology"
 msgstr "modifier la technologie"
+
+#: Template/Admin/Dashboard/index.ctp:114
+#: Template/Admin/Dashboard/index.ctp:179
+msgid "loading..."
+msgstr "chargement..."
 
 #: Template/Admin/Roles/view.ctp:3
 msgid "role"
@@ -1134,3 +1142,6 @@ msgstr "liste des <u>a</u>pplications"
 #: Template/Layout/default.ctp:112
 msgid "University of Geneva"
 msgstr "Université de Genève"
+
+#~ msgid "task not found"
+#~ msgstr "tâche manquante"

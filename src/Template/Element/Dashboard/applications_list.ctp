@@ -91,7 +91,7 @@ function fill_applications_ui_list()
 
 function register_applications_select()
 {
-	$("#applications_list a").click(function(e){
+	$("#applications_list a.application_line").click(function(e){
 
         e.preventDefault();
         
@@ -111,9 +111,6 @@ function select_application(application_id)
         $("#selected_application_title_link").html(application.name);
 
         set_application_url_hash(application_id);
-//         $(location).attr("hash", application_id);
-        
-        //selected_application = application;
         
         $("#applications_list").trigger("application.selected", [application]);
 	}
@@ -122,5 +119,42 @@ function select_application(application_id)
 function set_application_url_hash(application_id)
 {
 	$(location).attr("hash", application_id);
+}
+
+function insert_all_applications_item()
+{
+	var all_application_item = "<a class=\"list-group-item all_application_line\" id=\"application_item_all\" data-application-id=\"all\"><?php echo ___('all applications');?>";
+	all_application_item += "<span class=\"badge\">";
+	all_application_item += "</span>";
+	all_application_item += "</a>";
+    
+	$("#applications_list").prepend(all_application_item);
+}
+
+function register_all_applications_select()
+{
+    $("#applications_list a.all_application_line").click(function(e){
+
+        e.preventDefault();
+        
+        select_all_application();
+    });
+}
+
+function select_all_application()
+{
+	$("#applications_list a").removeClass("active");
+    $(".all_application_line").addClass("active");
+
+    $("#selected_application_title_link").html("<?php echo ___('all tasks'); ?>");
+    
+    clear_application_url_hash();
+
+    $("#applications_list").trigger("application.all_selected");
+}
+
+function clear_application_url_hash()
+{
+	$(location).attr("hash", "");
 }
 </script>
