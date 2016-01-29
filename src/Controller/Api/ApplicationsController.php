@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\Admin;
+namespace App\Controller\Api;
 
 use App\Controller\AppController;
 use Alaxos\Lib\StringTool;
@@ -12,13 +12,6 @@ use Alaxos\Lib\StringTool;
  */
 class ApplicationsController extends AppController
 {
-
-    /**
-     * Helpers
-     *
-     * @var array
-     */
-    public $helpers = ['Alaxos.AlaxosHtml', 'Alaxos.AlaxosForm', 'Alaxos.Navbars'];
 
     /**
      * Components
@@ -36,7 +29,7 @@ class ApplicationsController extends AppController
     {
         $this->paginate = [
             'sortWhitelist'=>['name', 'Frameworks.name', 'FrameworkVersions.name', 'created', 'modified'],
-            'order' => ['Frameworks.name' => 'asc', 'FrameworkVersions.name' => 'asc', 'name' => 'asc']
+            'order' => ['name' => 'asc', 'Frameworks.name' => 'asc', 'FrameworkVersions.name' => 'asc']
         ];
         
         $this->Filter->config('aliases', [
@@ -47,7 +40,7 @@ class ApplicationsController extends AppController
         ]);
         
         $query = $this->Filter->getFilterQuery(['auto_wildcard_string' => false]);
-        $query->contain(['Users' => ['Roles'], 'ApplicationsFrameworks' => ['Frameworks', 'FrameworkVersions'], 'Technologies']);
+        $query->contain(['Users' => ['Roles'], 'ApplicationsFrameworks' => ['Frameworks', 'FrameworkVersions'], 'Technologies', 'Tasks']);
         
         /*
          * Trick to allow sorting on linked models
@@ -63,8 +56,29 @@ class ApplicationsController extends AppController
         
 //         echo $query->__debugInfo()['sql'];
         
-        $this->set('applications', $this->paginate($query));
-        $this->set('_serialize', ['applications']);
+        $applications = $this->paginate($query);
+        
+        $applications_data = [];
+        
+        foreach($applications as $application)
+        {
+            $app = [
+                'id'   => $application->id,
+                'name' => $application->name,
+                'total_open_tasks' => count($application->tasks)
+            ];
+            
+            $applications_data[] = $app;
+        }
+        
+//         debug($applications_data);
+        
+        $this->autoRender = false;
+        $this->response->type('json');
+        $this->response->body(json_encode($applications_data));
+        
+//         $this->set('applications', $applications_data);
+//         $this->set('_serialize', ['applications']);
     }
 
     /**
