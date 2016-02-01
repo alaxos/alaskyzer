@@ -13,7 +13,7 @@ foreach($tasks as $task)
         if(is_a($task->{$field}, 'Cake\I18n\Time'))
         {
             $time = $task->to_display_timezone($field);
-        
+            
             if(isset($time) && is_a($time, 'Cake\I18n\Time'))
             {
                 $task_data[$field] = $time->i18nFormat();
@@ -22,6 +22,10 @@ foreach($tasks as $task)
             {
                 $task_data[$field] = $time;
             }
+        }
+        elseif(isset($task->{$field}) && is_a($task->{$field}, 'Cake\I18n\Date'))
+        {
+            $task_data[$field] = $task->{$field}->i18nFormat();
         }
         elseif(in_array($field, ['description']))
         {

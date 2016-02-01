@@ -23,9 +23,12 @@ foreach($applications as $application)
                 $application_data[$field] = $time;
             }
         }
+        elseif(isset($application->{$field}) && is_a($application->{$field}, 'Cake\I18n\Date'))
+        {
+            $task_data[$field] = $application->{$field}->i18nFormat();
+        }
         elseif(in_array($field, ['description']))
         {
-//             $application_data[$field] = $this->AlaxosHtml->formatText($application->{$field}, ['encode_email' => false]);
             $application_data[$field] = $parser->text($application->{$field});
         }
         else
@@ -35,6 +38,7 @@ foreach($applications as $application)
     }
     
     $tasks_data = [];
+    
     foreach($application->tasks as $task)
     {
         $task_data = [];
@@ -53,9 +57,12 @@ foreach($applications as $application)
                     $task_data[$field] = $time;
                 }
             }
+            elseif(isset($task->{$field}) && is_a($task->{$field}, 'Cake\I18n\Date'))
+            {
+                $task_data[$field] = $task->{$field}->i18nFormat();
+            }
             elseif(in_array($field, ['description']))
             {
-//                 $task_data[$field] = $this->AlaxosHtml->formatText($task->{$field}, ['encode_email' => false]);
                 $task_data[$field] = $parser->text($task->{$field});
             }
             else
@@ -69,9 +76,6 @@ foreach($applications as $application)
     $application_data['tasks'] = $tasks_data;
     
     $json_array[] = $application_data;
-    
-//     $application->created = $application->to_display_timezone();
 }
-
 
 echo json_encode($json_array);
