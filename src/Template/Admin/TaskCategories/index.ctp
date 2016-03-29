@@ -37,12 +37,12 @@
 				</td>
 				<td>
 					<?php
-					echo $this->AlaxosForm->filterField('created');
+					echo $this->AlaxosForm->filterDate('created');
 					?>
 				</td>
 				<td>
 					<?php
-					echo $this->AlaxosForm->filterField('modified');
+					echo $this->AlaxosForm->filterDate('modified');
 					?>
 				</td>
 				<td>

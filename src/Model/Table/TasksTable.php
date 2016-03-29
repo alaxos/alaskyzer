@@ -30,6 +30,8 @@ class TasksTable extends Table
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
+        $this->addBehavior('Alaxos.Timezoned');
+        
         $this->belongsTo('TaskCategories', [
             'foreignKey' => 'task_category_id'
         ]);
@@ -86,29 +88,6 @@ class TasksTable extends Table
         return $rules;
     }
     
-    public function beforeMarshal(Event $event, \ArrayObject $data, \ArrayObject $options)
-    {
-        if(Configure::check('display_timezone')){
-            $display_timezone = Configure::read('display_timezone');
-        }elseif(Configure::check('default_display_timezone')){
-            $display_timezone = Configure::read('default_display_timezone');
-        }else{
-            $display_timezone = null;
-        }
-        
-        if(isset($data['due_date']) && is_string($data['due_date']) && !empty($data['due_date'])){
-            $data['due_date'] = new Time($data['due_date'], $display_timezone);
-        }elseif(isset($data['due_date']) && empty($data['due_date'])){
-            $data['due_date'] = null;
-        }
-        
-        if(isset($data['closed']) && is_string($data['closed']) && !empty($data['closed'])){
-            $data['closed'] = new Time($data['closed'], $display_timezone);
-            $data['closed']->setTimezone('UTC');
-        }elseif(isset($data['closed']) && empty($data['closed'])){
-            $data['closed'] = null;
-        }
-    }
     
     public function close($id, $datetime = null)
     {
