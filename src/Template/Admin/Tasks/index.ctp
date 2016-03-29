@@ -74,17 +74,17 @@
 				</td>
 				<td>
 					<?php
-					echo $this->AlaxosForm->filterField('closed');
+					echo $this->AlaxosForm->filterDate('closed');
 					?>
 				</td>
 				<td>
 					<?php
-					echo $this->AlaxosForm->filterField('created');
+					echo $this->AlaxosForm->filterDate('created');
 					?>
 				</td>
 				<td>
 					<?php
-					echo $this->AlaxosForm->filterField('modified');
+					echo $this->AlaxosForm->filterDate('modified');
 					?>
 				</td>
 				<td>
@@ -178,7 +178,7 @@
 				<ul class="pagination pagination-sm">
 				<?php
 				echo $this->Paginator->prev('< ' . __('previous'));
-				echo $this->Paginator->numbers();
+				echo $this->Paginator->numbers(['first' => 2]);
 				echo $this->Paginator->next(__('next') . ' >');
 				?>
 				</ul>
