@@ -19,7 +19,7 @@
 				<th></th>
 				<th><?php echo $this->Paginator->sort('name', ___('name')); ?></th>
 				<th><?php echo $this->Paginator->sort('Frameworks.name', ___('framework')); ?></th>
-				<th><?php echo $this->Paginator->sort('FrameworkVersions.name', ___('framework version')); ?></th>
+				<th><?php echo $this->Paginator->sort('FrameworkVersions.sort', ___('framework version')); ?></th>
 				<th><?php echo $this->Paginator->sort('Technologies.name', ___('technologies')); ?></th>
 				<th style="width:160px;"><?php echo $this->Paginator->sort('created', ___('created')); ?></th>
 				<th style="width:160px;"><?php echo $this->Paginator->sort('modified', ___('modified')); ?></th>
