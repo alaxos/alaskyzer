@@ -27,12 +27,11 @@ class DashboardController extends AppController
     public $components = ['Alaxos.Filter'];
 
     /**
-    * Index method
-    *
-    * @return void
-    */
+     * Index method
+     *
+     * @return void
+     */
     public function index()
     {
-        
     }
 }

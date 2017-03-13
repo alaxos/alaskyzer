@@ -19,79 +19,79 @@ class UsersController extends AppController
      * @var array
      */
     public $components = ['Alaxos.Filter'];
-	
-    
+
+    /**
+     * {@inheritDoc}
+     * @see \App\Controller\AppController::beforeFilter()
+     */
     public function beforeFilter(Event $event)
     {
-    	parent::beforeFilter($event);
-    
-    	$this->Auth->allow(array('shiblogin', 'logout'));
+        parent::beforeFilter($event);
+
+        $this->Auth->allow(array('shiblogin', 'logout'));
     }
-    
+
+    /**
+     * Logout user
+     * @return void
+     */
     public function logout()
     {
-    	$this->redirect($this->Auth->logout());
+        $this->redirect($this->Auth->logout());
     }
-    
+
+    /**
+     * Performs the Shibboleth login
+     * @return void
+     */
     public function shiblogin()
     {
-    	/*
-    	 * If the user comes here, it means the user is gone through the Shibboleth authentication
-    		*
-    		* -> login() can be called
-    		*
-    		*  Note: if
-    		*             $this->Auth->allow('shiblogin');
-    		*
-    		*        is not called in beforeFilter(), the authentication is done automatically.
-    		*        But in this case we could not manage the sucess/error manually
-    		*/
-    	$logged_user = $this->Auth->user();
-    
-    	if(empty($logged_user))
-    	{
-    		if($logged_user = $this->Auth->identify())
-    		{
-    		    /*
-    		     * Remove unauthorized messages that have not been shown yet
-    		     */
-    		    $this->request->session()->delete('Flash.flash');
-    		    
-    			$this->Users->set_last_login_date($logged_user['id']);
-    
-    			$this->Auth->setUser($logged_user);
-    
-    			//$this->Logger->info('login', $this->Logger->config('log_categories.login'));
-    			//debug($logged_user);
-    			$this->Logger->login($logged_user['firstname'] . ' ' . $logged_user['lastname'] . ' logged in');
-    
-    			$shibboleth_auth = $this->Auth->authenticationProvider();
-    
-    			if($shibboleth_auth->isNewUser())
-    			{
-//     				$this->Flash->set(__('Your account has been created'), ['element' => 'Alaxos.success']);
-    				$this->Flash->success(__('Your account has been created'));
-    			}
-    			else
-    			{
-//     				$this->Flash->set(__('You have been authenticated'), ['element' => 'Alaxos.success']);
-    			    $this->Flash->success(__('You have been authenticated'));
-    			}
-    
-    			$this->redirect($this->Auth->redirectUrl());
-    		}
-    		else
-    		{
-//     			$this->Flash->set(__('unable to login'), ['element' => 'Alaxos.error']);
-    		    $this->Flash->error(__('unable to login'));
-    		}
-    	}
-    	else
-    	{
-//     		$this->Flash->set(__('you are already logged in'), ['element' => 'Alaxos.info']);
-    	    $this->Flash->info(__('you are already logged in'));
-    	    
-    		$this->redirect($this->referer('/'));
-    	}
+        /*
+         * If the user comes here, it means the user is gone through the Shibboleth authentication
+            *
+            * -> login() can be called
+            *
+            *  Note: if
+            *             $this->Auth->allow('shiblogin');
+            *
+            *        is not called in beforeFilter(), the authentication is done automatically.
+            *        But in this case we could not manage the sucess/error manually
+            */
+        $loggedUser = $this->Auth->user();
+
+        if (empty($loggedUser)) {
+
+            if ($loggedUser = $this->Auth->identify()) {
+                /*
+                 * Remove unauthorized messages that have not been shown yet
+                 */
+                $this->request->session()->delete('Flash.flash');
+
+                $this->Users->set_last_login_date($loggedUser['id']);
+
+                $this->Auth->setUser($loggedUser);
+
+                $this->Logger->login($loggedUser['firstname'] . ' ' . $loggedUser['lastname'] . ' logged in');
+
+                $shibbolethAuth = $this->Auth->authenticationProvider();
+
+                if ($shibbolethAuth->isNewUser()) {
+                    $this->Flash->success(__('Your account has been created'));
+                } else {
+                    $this->Flash->success(__('You have been authenticated'));
+                }
+
+                $this->redirect($this->Auth->redirectUrl());
+
+            } else {
+                $this->Flash->error(__('unable to login'));
+                $this->redirect($this->referer('/'));
+            }
+
+        } else {
+            $this->Flash->info(__('you are already logged in'));
+
+            $this->redirect($this->referer('/'));
+        }
     }
 }
