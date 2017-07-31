@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="DLCM Front-end" default="check">
+
+    <!-- 
+    ================================================
+    CHECKS
+    ================================================
+    -->
+    <target name="check" description="Run all checks" depends="tests,codestyle">
+        <echo msg="All checks done" />
+    </target>
+    
+    <target name="tests" description="Run PHPUnit tests">
+        <exec dir="." executable="vendor/bin/phpunit" passthru="true" checkreturn="true" />
+    </target>
+    
+    <target name="codestyle" description="Run PHP Code Sniffer">
+        
+        <mkdir dir="${build.dirname}/${cs.result-dir}"/>
+        
+        <phpcodesniffer
+            standard="PSR1"
+            allowedFileExtensions="php"
+            haltonerror="true">
+            <fileset refid="src-code" />
+            <fileset refid="tests-code" />
+            <formatter type="checkstyle" outfile="${build.dirname}/${cs.result-dir}/checkstyle.xml"/>
+        </phpcodesniffer>
+        
+    </target>
+    
+    <!-- 
+    ================================================
+    VERSIONS
+    ================================================
+    -->
+	
+	<!--
+	Get the app folder name depending of the context, nightly or release
+	
+	nightly: read version number from VERSION.txt file (which may contain '0.2.0-SNAPSHOT'
+	release: read version from last GIT tag
+	
+	Default is 'nightly'.
+	To use 'release', call phing with ${build.type} set to 'release' 
+	-->
+    <target name="set-app-folder-name">
+        
+        <if>
+            <isset property="build.type" />
+            <then>
+                <if>
+                    <equals arg1="${build.type}" arg2="release" />
+                    <then>
+                        <exec outputProperty="latestVersion" command="git describe --tags `git rev-list --tags --max-count=1`" dir="."/>
+                        <property name="app-folder-name" value="dlcm-frontend-${latestVersion}" />
+                    </then>
+                    <else>
+                        <exec outputProperty="latestVersion" command="cat VERSION.txt" dir="."/>
+                        <property name="app-folder-name" value="dlcm-frontend-${latestVersion}-${build.number}" />
+                    </else>
+                </if>
+            </then>
+            <else>
+                <exec outputProperty="latestVersion" command="cat VERSION.txt" dir="."/>
+            	<property name="app-folder-name" value="dlcm-frontend-${latestVersion}-${build.number}" />
+            </else>
+        </if>
+        
+        <echo message="app-folder-name: ${app-folder-name}" />
+    </target>
+    
+    <target name="checkout-last-tag">
+        <exec outputProperty="latestTag" command="git describe --tags `git rev-list --tags --max-count=1`" dir="."/>
+        <exec outputProperty="result" command="git checkout ${latestTag}" dir="."/>
+        <echo message="checkout: ${result}" />
+    </target>
+    
+    <!-- 
+    ================================================
+    BUILD
+    ================================================
+    -->
+    <target name="prepare-build" depends="copy-files,composer-install">
+    
+    </target>
+    
+    <target name="resume-build" depends="create-package">
+        
+    </target>
+    
+    <target name="copy-files">
+        <mkdir dir="${build.dirname}" />
+        
+        <copy todir="${build.dirname}/app-code">
+            <fileset refid="app-code" />
+        </copy>
+        
+        <copy file="composer.json" todir="${build.dirname}/app-code" />
+        <copy file="composer.lock" todir="${build.dirname}/app-code" />
+        
+    </target>
+    
+    <target name="composer-install">
+        <exec dir="${build.dir}/app-code" executable="composer" passthru="true" checkreturn="true">
+            <arg value="install" />
+            <arg value="--no-interaction" />
+            <arg value="--no-dev" />
+        </exec>
+        
+        <!--
+        Remove composer files that are not needed on web server
+        -->
+        <delete file="${build.dir}/app-code/composer.json" />
+        <delete file="${build.dir}/app-code/composer.lock" />
+        
+    </target>
+    
+    <target name="create-package" depends="set-app-folder-name">
+        <tar destfile="${build.dir}/${app-folder-name}.tar.gz" basedir="${build.dir}/app-code" prefix="${app-folder-name}" compression="gzip"/>
+    </target>
+    
+    <!-- 
+    ================================================
+    DEPLOY
+    ================================================
+    -->
+    <target name="deploy" depends="set-app-folder-name">
+        <untar file="${build.dir}/${app-folder-name}.tar.gz" todir="${deploy.dir}" preservePermissions="true"/>
+        
+        <!--
+        Set folder permissions
+        -->
+        <phingcall target="set-writable-folders-permissions">
+            <property name="path" value="${deploy.dir}/${app-folder-name}" />
+            <property name="mode" value="0777" />
+        </phingcall>
+        
+        <symlink target="${deploy.dir}/${app-folder-name}" link="${deploy.link_target}" overwrite="true" />
+    </target>
+    
+    <target name="set-writable-folders-permissions">
+        <chmod mode="${mode}"  file="${path}/logs" />
+        <chmod mode="${mode}"  file="${path}/tmp" />
+        <chmod mode="${mode}"  file="${path}/tmp/cache" />
+        <chmod mode="${mode}"  file="${path}/tmp/cache/models" />
+        <chmod mode="${mode}"  file="${path}/tmp/cache/persistent" />
+        <chmod mode="${mode}"  file="${path}/tmp/cache/views" />
+        <chmod mode="${mode}"  file="${path}/tmp/sessions" />
+        <chmod mode="${mode}"  file="${path}/tmp/tests" />
+        <chmod mode="${mode}"  file="${path}/tmp/uploads" />
+        <chmod mode="${mode}"  file="${path}/uploaded_files" />
+        <chmod mode="${mode}"  file="${path}/webroot/files/download" />
+    </target>
+    
+    <!-- 
+    ================================================
+    FILESETS
+    ================================================
+    -->
+    <fileset id="src-code" dir=".">
+        <include name="src/**/*.php" />
+        <include name="src/**/*.ctp" />
+    </fileset>
+    
+    <fileset id="tests-code" dir=".">
+        <include name="tests/**/*.php" />
+    </fileset>
+    
+    <fileset id="app-code" dir=".">
+        <include name="bin/**" />
+        <include name="config/**" />
+        <include name="logs/**" />
+        <include name="plugins/**" />
+        <include name="src/**" />
+        <include name="tmp/**" />
+        <exclude name="tmp/**/dlcm_front-end_*" />
+        <include name="uploaded_files/**" />
+        <include name="webroot/**" />
+        <include name=".htaccess" />
+        <include name="VERSION.txt" />
+    </fileset>
+    
+</project>

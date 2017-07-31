@@ -82,15 +82,15 @@ class UsersTable extends Table
         $rules->add($rules->existsIn(['role_id'], 'Roles'));
         return $rules;
     }
-    
+
     public function set_last_login_date($id)
     {
         try
         {
             $user = $this->get($id);
-            
-            $user->last_login = Time::now();
-            
+
+            $user->last_login_date = Time::now();
+
             return $this->save($user);
         }
         catch(\Cake\ORM\Exception\RecordNotFoundException $ex)

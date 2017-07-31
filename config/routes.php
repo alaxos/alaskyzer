@@ -51,7 +51,7 @@ Router::scope('/', function ($routes) {
 
     $routes->connect('/shiblogin', ['controller' => 'Users', 'action' => 'shiblogin']);
     $routes->connect('/logout',    ['controller' => 'Users', 'action' => 'logout']);
-    
+
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
@@ -78,14 +78,14 @@ Router::scope('/', function ($routes) {
 
     Router::prefix('admin', function($routes) {
         $routes->extensions(['json', 'xml', 'js']);
-        $routes->fallbacks();
+        $routes->fallbacks('DashedRoute');
     });
-    
+
     Router::prefix('api', function($routes) {
         $routes->extensions(['json']);
-        $routes->fallbacks();
+        $routes->fallbacks('DashedRoute');
     });
-    
+
 /**
  * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.

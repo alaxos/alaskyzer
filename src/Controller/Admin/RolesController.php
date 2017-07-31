@@ -90,7 +90,7 @@ class RolesController extends AppController
             $role = $this->Roles->patchEntity($role, $this->request->data);
             if ($this->Roles->save($role)) {
                 $this->Flash->success(___('the role has been saved'), ['plugin' => 'Alaxos']);
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $id]);
             } else {
                 $this->Flash->error(___('the role could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
@@ -110,7 +110,7 @@ class RolesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $role = $this->Roles->get($id);
-        
+
         try
         {
             if ($this->Roles->delete($role)) {
@@ -130,44 +130,63 @@ class RolesController extends AppController
                 $this->Flash->error(sprintf(__('The role could not be deleted: %s', $ex->getMessage())), ['plugin' => 'Alaxos']);
             }
         }
-        
+
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * Delete all method
      */
-    public function delete_all() {
+    public function deleteAll() {
+
         $this->request->allowMethod('post', 'delete');
-        
+
         if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
-            
-            $query = $this->Roles->query();
-            $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
-            
-            try{
-                if ($statement = $query->execute()) {
-                    $deleted_total = $statement->rowCount();
-                    if($deleted_total == 1){
-                        $this->Flash->set(___('the selected role has been deleted.'), ['element' => 'Alaxos.success']);
+
+            $roles = $this->Roles->find()->where(['id IN' => $this->request->data['checked_ids']]);
+
+            $total         = $roles->count();
+            $total_deleted = 0;
+
+            foreach($roles as $role) {
+
+                try {
+
+                    if ($this->Roles->delete($role)) {
+                        $total_deleted++;
                     }
-                    elseif($deleted_total > 1){
-                        $this->Flash->set(sprintf(__('The %s selected roles have been deleted.'), $deleted_total), ['element' => 'Alaxos.success']);
-                    }
-                } else {
-                    $this->Flash->set(___('the selected roles could not be deleted. Please, try again.'), ['element' => 'Alaxos.error']);
+
+                } catch(\Exception $ex) {
+                    $this->log($ex);
                 }
+
             }
-            catch(\Exception $ex){
-                $this->Flash->set(___('the selected roles could not be deleted. Please, try again.'), ['element' => 'Alaxos.error', 'params' => ['exception_message' => $ex->getMessage()]]);
+
+            if ($total_deleted == $total) {
+
+                if ($total_deleted == 1) {
+                    $this->Flash->success(___('the selected role has been deleted.'), ['plugin' => 'Alaxos']);
+                } elseif ($total_deleted > 1) {
+                    $this->Flash->success(sprintf(__('The %s selected roles have been deleted.'), $total_deleted), ['plugin' => 'Alaxos']);
+                }
+
+            } else {
+
+                if ($total_deleted == 0) {
+                    $this->Flash->error(___('the selected roles could not be deleted. Please, try again.'), ['plugin' => 'Alaxos']);
+                } else {
+                    $this->Flash->error(sprintf(___('only %s selected roles on %s could be deleted'), $total_deleted, $total), ['element' => 'Alaxos']);
+                }
+
             }
+
         } else {
-            $this->Flash->set(___('there was no role to delete'), ['element' => 'Alaxos.error']);
+            $this->Flash->error(___('there was no role to delete'), ['plugin' => 'Alaxos']);
         }
-        
+
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * Copy method
      *
@@ -190,7 +209,7 @@ class RolesController extends AppController
                 $this->Flash->error(___('the role could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
         }
-        
+
         $role->id = $id;
         $this->set(compact('role'));
         $this->set('_serialize', ['role']);

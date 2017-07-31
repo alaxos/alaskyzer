@@ -1,7 +1,7 @@
 
 <div class="users view">
 	<h2><?php echo ___('user'); ?></h2>
-	
+
 	<div class="panel panel-default">
 		<div class="panel-heading">
 		<?php
@@ -10,63 +10,70 @@
 		</div>
 		<div class="panel-body">
 			<dl class="dl-horizontal">
-			
+
 				<dt><?php echo __('Role'); ?></dt>
 				<dd>
 					<?php echo $user->has('role') ? $this->Html->link($user->role->name, ['controller' => 'Roles', 'action' => 'view', $user->role->id]) : '' ?>
 				</dd>
-					
+
 				<dt><?= ___('username'); ?></dt>
 				<dd>
-					<?php 
+					<?php
 					echo h($user->username);
 					?>
 				</dd>
-				
+
 				<dt><?= ___('firstname'); ?></dt>
 				<dd>
-					<?php 
+					<?php
 					echo h($user->firstname);
 					?>
 				</dd>
-				
+
 				<dt><?= ___('lastname'); ?></dt>
 				<dd>
-					<?php 
+					<?php
 					echo h($user->lastname);
 					?>
 				</dd>
-				
+
 				<dt><?= ___('email'); ?></dt>
 				<dd>
-					<?php 
+					<?php
 					echo h($user->email);
 					?>
 				</dd>
-				
+
 				<dt><?= ___('password'); ?></dt>
 				<dd>
-					<?php 
+					<?php
 					echo h($user->password);
 					?>
 				</dd>
-				
+
 				<dt><?= ___('external_uid'); ?></dt>
 				<dd>
-					<?php 
+					<?php
 					echo h($user->external_uid);
 					?>
 				</dd>
-				
+
 				<dt><?= ___('enabled'); ?></dt>
 				<dd>
-					<?php 
+					<?php
 					echo $this->AlaxosHtml->yesNo($user->enabled);
 					?>
 				</dd>
-				
+
+                <dt><?= ___('last_login_date'); ?></dt>
+                <dd>
+                    <?php
+                    echo h($user->to_display_timezone('last_login_date'));
+                    ?>
+                </dd>
+
 			</dl>
-			<?php 
+			<?php
 			echo $this->element('Alaxos.create_update_infos', ['entity' => $user], ['plugin' => 'Alaxos']);
 			?>
 			<div>
@@ -74,4 +81,4 @@
 		</div>
 	</div>
 </div>
-	
+

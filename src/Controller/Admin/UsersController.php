@@ -98,7 +98,7 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(___('the user has been saved'), ['plugin' => 'Alaxos']);
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $id]);
             } else {
                 $this->Flash->error(___('the user could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
@@ -139,33 +139,52 @@ class UsersController extends AppController
 
     /**
      * Delete all method
-     * @return \Cake\Http\Response|null Redirects to index.
      */
-    public function delete_all()
-    {
+    public function deleteAll() {
+
         $this->request->allowMethod('post', 'delete');
 
-        if (isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])) {
+        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
 
-            $query = $this->Users->query();
-            $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
+            $users = $this->Users->find()->where(['id IN' => $this->request->data['checked_ids']]);
 
-            try {
-                if ($statement = $query->execute()) {
-                    $deletedTotal = $statement->rowCount();
-                    if ($deletedTotal == 1) {
-                        $this->Flash->set(___('the selected user has been deleted.'), ['element' => 'Alaxos.success']);
-                    } elseif ($deletedTotal > 1) {
-                        $this->Flash->set(sprintf(__('The %s selected users have been deleted.'), $deletedTotal), ['element' => 'Alaxos.success']);
+            $total         = $users->count();
+            $total_deleted = 0;
+
+            foreach($users as $user) {
+
+                try {
+
+                    if ($this->Users->delete($user)) {
+                        $total_deleted++;
                     }
-                } else {
-                    $this->Flash->set(___('the selected users could not be deleted. Please, try again.'), ['element' => 'Alaxos.error']);
+
+                } catch(\Exception $ex) {
+                    $this->log($ex);
                 }
-            } catch (\Exception $ex) {
-                $this->Flash->set(___('the selected users could not be deleted. Please, try again.'), ['element' => 'Alaxos.error', 'params' => ['exception_message' => $ex->getMessage()]]);
+
             }
+
+            if ($total_deleted == $total) {
+
+                if ($total_deleted == 1) {
+                    $this->Flash->success(___('the selected user has been deleted.'), ['plugin' => 'Alaxos']);
+                } elseif ($total_deleted > 1) {
+                    $this->Flash->success(sprintf(__('The %s selected users have been deleted.'), $total_deleted), ['plugin' => 'Alaxos']);
+                }
+
+            } else {
+
+                if ($total_deleted == 0) {
+                    $this->Flash->error(___('the selected users could not be deleted. Please, try again.'), ['plugin' => 'Alaxos']);
+                } else {
+                    $this->Flash->error(sprintf(___('only %s selected users on %s could be deleted'), $total_deleted, $total), ['element' => 'Alaxos']);
+                }
+
+            }
+
         } else {
-            $this->Flash->set(___('there was no user to delete'), ['element' => 'Alaxos.error']);
+            $this->Flash->error(___('there was no user to delete'), ['plugin' => 'Alaxos']);
         }
 
         return $this->redirect(['action' => 'index']);

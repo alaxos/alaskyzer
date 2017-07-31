@@ -2,14 +2,14 @@
 namespace App\Test\TestCase\Controller\Admin;
 
 use App\Controller\Admin\UsersController;
-use Cake\TestSuite\IntegrationTestCase;
+use Cake\ORM\TableRegistry;
+use App\Test\TestCase\Controller\AppControllerTestCase;
 
 /**
  * App\Controller\Admin\UsersController Test Case
  */
-class UsersControllerTest extends IntegrationTestCase
+class UsersControllerTest extends AppControllerTestCase
 {
-
     /**
      * Fixtures
      *
@@ -17,7 +17,10 @@ class UsersControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.users',
-        'app.roles'
+        'app.roles',
+        'plugin.alaxos.log_categories',
+        'plugin.alaxos.log_levels',
+        'plugin.alaxos.log_entries',
     ];
 
     /**
@@ -25,9 +28,35 @@ class UsersControllerTest extends IntegrationTestCase
      *
      * @return void
      */
-    public function testIndex()
+    public function testIndexAuthAdmin()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->loginAdminUser();
+
+        $this->get('/admin/users');
+
+//         debug($this->_response->__debugInfo());
+
+        $this->assertResponseOk();
+        $this->assertResponseContains('Bob.Morane@unige.ch');
+        $this->assertResponseContains('Alice.Wonderland@unige.ch');
+    }
+
+    public function testIndexAuthUser()
+    {
+        $this->loginUserUser();
+
+        $this->get('/admin/users');
+
+        //         debug($this->_response->__debugInfo());
+
+        $this->assertRedirect('/');
+    }
+
+    public function testIndexWithoutAuth()
+    {
+        $this->get('/admin/users');
+
+        $this->assertRedirect('/shiblogin?redirect=' . urlencode('/admin/users'));
     }
 
     /**
@@ -37,17 +66,39 @@ class UsersControllerTest extends IntegrationTestCase
      */
     public function testView()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->loginAdminUser();
+
+        $id = 1;
+        $user = TableRegistry::get('Users')->get($id);
+
+        $this->get('/admin/users/view/' . $id);
+
+        $this->assertResponseContains($user->firstname);
+        $this->assertResponseContains($user->lastname);
+        $this->assertResponseContains($user->email);
+
     }
 
-    /**
-     * Test add method
-     *
-     * @return void
-     */
-    public function testAdd()
+    public function testViewWithoutAuth()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $id = 1;
+        $user = TableRegistry::get('Users')->get($id);
+
+        $this->get('/admin/users/view/' . $id);
+
+        $this->assertRedirect('/shiblogin?redirect=' . urlencode('/admin/users/view/' . $id));
+    }
+
+    public function testViewAuthUser()
+    {
+        $this->loginUserUser();
+
+        $id = 1;
+        $user = TableRegistry::get('Users')->get($id);
+
+        $this->get('/admin/users/view/' . $id);
+
+        $this->assertRedirect('/');
     }
 
     /**
@@ -57,7 +108,34 @@ class UsersControllerTest extends IntegrationTestCase
      */
     public function testEdit()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->loginAdminUser();
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $id = 1;
+        $user = TableRegistry::get('Users')->get($id);
+
+        $this->get('/admin/users/edit/' . $id);
+
+//         debug((string)$user->to_display_timezone('last_login_date'));
+
+        $this->assertResponseContains($user->firstname);
+        $this->assertResponseContains($user->lastname);
+        $this->assertResponseContains((string)$user->to_display_timezone('last_login_date'));
+
+        $edit_data = [];
+
+        $edit_data['role_id']   = $user->role_id;
+        $edit_data['firstname'] = $user->firstname;
+        $edit_data['lastname']  = $user->lastname;
+        $edit_data['email']     = 'email-edited@unige.ch';
+
+        $this->post('/admin/users/edit/' . $id, $edit_data);
+
+        $this->assertRedirect('/admin/users/view/' . $id);
+
+        $this->get('/admin/users/view/' . $id);
+        $this->assertResponseContains('email-edited@unige.ch');
     }
 
     /**
@@ -67,7 +145,34 @@ class UsersControllerTest extends IntegrationTestCase
      */
     public function testDelete()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->loginAdminUser();
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $id = 1;
+        $user = TableRegistry::get('Users')->get($id);
+
+        $this->post('/admin/users/delete/' . $id);
+
+        $this->assertRedirect('/admin/users');
+
+        $this->assertResponseNotContains($user->firstname);
+    }
+
+    public function testDeleteWithoutAuth()
+    {
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $id = 1;
+        $user = TableRegistry::get('Users')->get($id);
+
+        $this->post('/admin/users/delete/' . $id);
+
+        $this->assertRedirect('/shiblogin');
+
+        $user = TableRegistry::get('Users')->get($id);
+        $this->assertEquals($id, $user->id);
     }
 
     /**
@@ -77,16 +182,35 @@ class UsersControllerTest extends IntegrationTestCase
      */
     public function testDeleteAll()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->loginAdminUser();
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $users = TableRegistry::get('Users')->find();
+        $this->assertEquals(3, $users->count());
+
+        $this->post('/admin/users/delete-all/', ['checked_ids' => [1, 2, 3]]);
+
+        $this->assertRedirect('/admin/users');
+
+        $users = TableRegistry::get('Users')->find();
+        $this->assertEquals(0, $users->count());
     }
 
-    /**
-     * Test copy method
-     *
-     * @return void
-     */
-    public function testCopy()
+    public function testDeleteAllWithoutAuth()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->enableCsrfToken();
+        $this->enableSecurityToken();
+
+        $users = TableRegistry::get('Users')->find();
+        $this->assertEquals(3, $users->count());
+
+        $this->post('/admin/users/delete-all/', ['checked_ids' => [1, 2, 3]]);
+
+        $this->assertRedirect('/shiblogin');
+
+        $users = TableRegistry::get('Users')->find();
+        $this->assertEquals(3, $users->count());
     }
 }
+
