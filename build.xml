@@ -148,9 +148,6 @@
         <chmod mode="${mode}"  file="${path}/tmp/cache/views" />
         <chmod mode="${mode}"  file="${path}/tmp/sessions" />
         <chmod mode="${mode}"  file="${path}/tmp/tests" />
-        <chmod mode="${mode}"  file="${path}/tmp/uploads" />
-        <chmod mode="${mode}"  file="${path}/uploaded_files" />
-        <chmod mode="${mode}"  file="${path}/webroot/files/download" />
     </target>
     
     <!-- 
