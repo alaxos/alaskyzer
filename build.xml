@@ -53,17 +53,17 @@
                     <equals arg1="${build.type}" arg2="release" />
                     <then>
                         <exec outputProperty="latestVersion" command="git describe --tags `git rev-list --tags --max-count=1`" dir="."/>
-                        <property name="app-folder-name" value="dlcm-frontend-${latestVersion}" />
+                        <property name="app-folder-name" value="alaskyzer-${latestVersion}" />
                     </then>
                     <else>
                         <exec outputProperty="latestVersion" command="cat VERSION.txt" dir="."/>
-                        <property name="app-folder-name" value="dlcm-frontend-${latestVersion}-${build.number}" />
+                        <property name="app-folder-name" value="alaskyzer-${latestVersion}-${build.number}" />
                     </else>
                 </if>
             </then>
             <else>
                 <exec outputProperty="latestVersion" command="cat VERSION.txt" dir="."/>
-            	<property name="app-folder-name" value="dlcm-frontend-${latestVersion}-${build.number}" />
+            	<property name="app-folder-name" value="alaskyzer-${latestVersion}-${build.number}" />
             </else>
         </if>
         
@@ -171,7 +171,7 @@
         <include name="plugins/**" />
         <include name="src/**" />
         <include name="tmp/**" />
-        <exclude name="tmp/**/dlcm_front-end_*" />
+        <exclude name="tmp/**/alaskyzer_*" />
         <include name="uploaded_files/**" />
         <include name="webroot/**" />
         <include name=".htaccess" />
