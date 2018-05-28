@@ -22,9 +22,9 @@ class TechnologiesTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('technologies');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('technologies');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
         $this->belongsToMany('Applications', [
@@ -54,17 +54,17 @@ class TechnologiesTable extends Table
 
         return $validator;
     }
-    
+
     public function ensureEntityExists($name)
     {
         if(StringTool::start_with($name, '[new]')){
             $name = StringTool::remove_leading($name, '[new]');
         }
-        
+
         $search = [
             'name'         => $name
         ];
-    
+
         return $this->findOrCreate($search);
     }
 }

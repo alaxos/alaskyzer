@@ -21,9 +21,9 @@ class RolesTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('roles');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('roles');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
         $this->hasMany('Users', [

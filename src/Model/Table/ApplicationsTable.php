@@ -21,24 +21,24 @@ class ApplicationsTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('applications');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('applications');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        
+
         $this->hasMany('Instances', [
             'foreignKey' => 'application_id'
         ]);
         $this->hasMany('Tasks', [
             'foreignKey' => 'application_id'
         ]);
-        
+
         $this->hasMany('ApplicationsFrameworks', [
             'foreignKey' => 'application_id',
             'dependent'  => true
         ]);
-        
+
 //         $this->belongsToMany('Frameworks', [
 //             'through' => 'ApplicationsFrameworks'
 //         ]);
@@ -51,7 +51,7 @@ class ApplicationsTable extends Table
             'targetForeignKey' => 'technology_id',
             'joinTable' => 'applications_technologies'
         ]);
-        
+
         $this->belongsTo('Users', [
             'propertyName' => 'owner',
             'foreignKey' => 'created_by'

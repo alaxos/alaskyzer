@@ -21,9 +21,9 @@ class TaskCategoriesTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('task_categories');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('task_categories');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
         $this->hasMany('Tasks', [

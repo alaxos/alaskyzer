@@ -22,17 +22,17 @@ class FrameworksTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('frameworks');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('frameworks');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        
+
         $this->hasMany('ApplicationsFrameworks', [
             'foreignKey' => 'framework_id',
             'dependant'  => true
         ]);
-        
+
 //         $this->belongsToMany('Applications', [
 //             'through' => 'ApplicationsFrameworks'
 // //             'foreignKey' => 'framework_id',
@@ -64,7 +64,7 @@ class FrameworksTable extends Table
 
         return $validator;
     }
-    
+
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
@@ -77,17 +77,17 @@ class FrameworksTable extends Table
         $rules->add($rules->isUnique(['name']));
         return $rules;
     }
-    
+
     public function ensureEntityExists($name)
     {
         if(StringTool::start_with($name, '[new]')){
             $name = StringTool::remove_leading($name, '[new]');
         }
-        
+
         $search = [
             'name'         => $name
         ];
-        
+
         return $this->findOrCreate($search);
     }
 }

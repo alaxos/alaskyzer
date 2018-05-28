@@ -25,17 +25,17 @@ class TasksTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('tasks');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('tasks');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
         $this->addBehavior('Alaxos.Timezoned');
-        
+
         $this->belongsTo('TaskCategories', [
             'foreignKey' => 'task_category_id'
         ]);
-        
+
         $this->belongsTo('Applications', [
             'foreignKey' => 'application_id',
             'joinType' => 'INNER'
@@ -59,10 +59,10 @@ class TasksTable extends Table
             ->requirePresence('name', 'create')
             ->notEmpty('name')
             ->allowEmpty('description')
-            
+
             ->add('due_date', 'valid', ['rule' => 'date'])
             ->allowEmpty('due_date')
-            
+
             ->add('closed', 'valid', ['rule' => 'datetime'])
             ->allowEmpty('closed')
             ->add('created_by', 'valid', ['rule' => 'numeric'])
@@ -87,16 +87,16 @@ class TasksTable extends Table
         $rules->add($rules->existsIn(['server_id'], 'Servers'));
         return $rules;
     }
-    
-    
+
+
     public function close($id, $datetime = null)
     {
         $task = $this->get($id);
-        
+
         if(!isset($task->closed))
         {
             $this->patchEntity($task, ['closed' => new Time()]);
-            
+
             return $this->save($task);
         }
         else
@@ -104,15 +104,15 @@ class TasksTable extends Table
             return false;
         }
     }
-    
+
     public function open($id, $datetime = null)
     {
         $task = $this->get($id);
-    
+
         if(isset($task->closed) || isset($task->abandoned))
         {
             $this->patchEntity($task, ['closed' => null, 'abandoned' => null]);
-            
+
             return $this->save($task);
         }
         else

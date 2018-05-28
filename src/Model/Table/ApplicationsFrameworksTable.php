@@ -21,9 +21,9 @@ class ApplicationsFrameworksTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('applications_frameworks');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('applications_frameworks');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
         $this->belongsTo('Applications', [

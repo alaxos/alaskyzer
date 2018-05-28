@@ -65,7 +65,7 @@ class UsersController extends AppController
                 /*
                  * Remove unauthorized messages that have not been shown yet
                  */
-                $this->request->session()->delete('Flash.flash');
+                $this->getRequest()->getSession()->delete('Flash.flash');
 
                 $this->Users->set_last_login_date($loggedUser['id']);
 

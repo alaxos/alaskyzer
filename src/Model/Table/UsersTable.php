@@ -22,9 +22,9 @@ class UsersTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('users');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('users');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
         $this->belongsTo('Roles', [

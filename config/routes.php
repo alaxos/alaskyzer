@@ -77,13 +77,13 @@ Router::scope('/', function ($routes) {
 });
 
     Router::prefix('admin', function($routes) {
-        $routes->extensions(['json', 'xml', 'js']);
-        $routes->fallbacks('DashedRoute');
+        $routes->setExtensions(['json', 'xml', 'js']);
+        $routes->setFallbacks('DashedRoute');
     });
 
     Router::prefix('api', function($routes) {
-        $routes->extensions(['json']);
-        $routes->fallbacks('DashedRoute');
+        $routes->setExtensions(['json']);
+        $routes->setFallbacks('DashedRoute');
     });
 
 /**

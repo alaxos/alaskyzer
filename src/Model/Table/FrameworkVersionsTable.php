@@ -22,17 +22,17 @@ class FrameworkVersionsTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('framework_versions');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('framework_versions');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        
+
         $this->hasMany('ApplicationsFrameworks', [
             'foreignKey' => 'framework_version_id',
             'dependant'  => true
         ]);
-        
+
         $this->belongsTo('Frameworks', [
             'foreignKey' => 'framework_id',
             'joinType' => 'INNER'
@@ -78,25 +78,25 @@ class FrameworkVersionsTable extends Table
         $rules->add($rules->existsIn(['framework_id'], 'Frameworks'));
         return $rules;
     }
-    
+
     public function ensureEntityExists($framework_id, $name)
     {
         if(StringTool::start_with($name, '[new]')){
             $name = StringTool::remove_leading($name, '[new]');
         }
-        
+
         $search = [
             'framework_id' => $framework_id,
             'name'         => $name
         ];
-        
+
         return $this->findOrCreate($search);
     }
-    
+
     public function updateNaturalSortValues($framework_id)
     {
         $framework_versions = $this->find('all')->where(['framework_id' => $framework_id]);
-        
+
         if(!empty($framework_versions))
         {
             $names_sorted = [];
@@ -106,23 +106,23 @@ class FrameworkVersionsTable extends Table
                 $names_sorted[$framework_version->name] = $framework_version;
                 $names[] = $framework_version->name;
             }
-            
+
             natsort($names);
-            
+
             $sort = 0;
             foreach($names as $name)
             {
                 $framework_version = $names_sorted[$name];
                 $framework_version->sort = $sort;
-                
+
                 if(!$this->save($framework_version)){
                     return false;
                 }
-                
+
                 $sort += 10;
             }
         }
-        
+
         return true;
     }
 }

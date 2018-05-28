@@ -21,13 +21,13 @@ class StatusTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('status');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('status');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->addBehavior('Alaxos.UserLink');
-        
-        
+
+
     }
 
     /**
