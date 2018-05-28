@@ -1,5 +1,6 @@
 <?php
 return [
+
     /**
      * Debug Level:
      *
@@ -37,7 +38,9 @@ return [
      */
     'App' => [
         'namespace' => 'App',
-        'encoding' => 'UTF-8',
+        'encoding' => env('APP_ENCODING', 'UTF-8'),
+        'defaultLocale' => env('APP_DEFAULT_LOCALE', 'fr_ch'),
+        'defaultTimezone' => env('APP_DEFAULT_TIMEZONE', 'UTC'),
         'base' => false,
         'dir' => 'src',
         'webroot' => 'webroot',
@@ -93,7 +96,7 @@ return [
          */
         '_cake_core_' => [
             'className' => 'File',
-            'prefix' => 'myapp_cake_core_',
+            'prefix' => 'alaskyzer_cake_core_',
             'path' => CACHE . 'persistent/',
             'serialize' => true,
             'duration' => '+2 minutes',
@@ -106,10 +109,24 @@ return [
          */
         '_cake_model_' => [
             'className' => 'File',
-            'prefix' => 'myapp_cake_model_',
+            'prefix' => 'alaskyzer_cake_model_',
             'path' => CACHE . 'models/',
             'serialize' => true,
             'duration' => '+2 minutes',
+        ],
+
+        /**
+         * Configure the cache for routes. The cached routes collection is built the
+         * first time the routes are processed via `config/routes.php`.
+         * Duration will be set to '+2 seconds' in bootstrap.php when debug = true
+         */
+        '_cake_routes_' => [
+            'className' => 'File',
+            'prefix' => 'alaskyzer_cake_routes_',
+            'path' => CACHE,
+            'serialize' => true,
+            'duration' => '+1 years',
+            'url' => env('CACHE_CAKEROUTES_URL', null),
         ],
     ],
 
@@ -140,7 +157,7 @@ return [
      *   `'skipLog' => ['Cake\Network\Exception\NotFoundException', 'Cake\Network\Exception\UnauthorizedException']`
      */
     'Error' => [
-        'errorLevel' => E_ALL & ~E_DEPRECATED,
+        'errorLevel' => E_ALL & ~E_USER_DEPRECATED,
         'exceptionRenderer' => 'Cake\Error\ExceptionRenderer',
         'skipLog' => [],
         'log' => true,
