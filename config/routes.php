@@ -78,12 +78,12 @@ Router::scope('/', function ($routes) {
 
     Router::prefix('admin', function($routes) {
         $routes->setExtensions(['json', 'xml', 'js']);
-        $routes->setFallbacks('DashedRoute');
+        $routes->fallbacks('DashedRoute');
     });
 
     Router::prefix('api', function($routes) {
         $routes->setExtensions(['json']);
-        $routes->setFallbacks('DashedRoute');
+        $routes->fallbacks('DashedRoute');
     });
 
 /**
