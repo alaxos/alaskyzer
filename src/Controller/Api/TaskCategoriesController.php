@@ -34,19 +34,19 @@ class TaskCategoriesController extends AppController
     public function index()
     {
         $query = $this->Filter->getFilterQuery();
-        
+
         $task_categories = [];
-        
+
         foreach($query as $task_category)
         {
             $tc = [
                 'id'   => $task_category->id,
                 'name' => $task_category->name,
             ];
-            
+
             $task_categories[] = $tc;
         }
-        
+
         $this->autoRender = false;
         $this->response->type('json');
         $this->response->body(json_encode($task_categories));
@@ -57,7 +57,7 @@ class TaskCategoriesController extends AppController
      *
      * @param string|null $id Task Category id.
      * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function view($id = null)
     {
@@ -94,7 +94,7 @@ class TaskCategoriesController extends AppController
      *
      * @param string|null $id Task Category id.
      * @return void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
@@ -119,13 +119,13 @@ class TaskCategoriesController extends AppController
      *
      * @param string|null $id Task Category id.
      * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $taskCategory = $this->TaskCategories->get($id);
-        
+
         try
         {
             if ($this->TaskCategories->delete($taskCategory)) {
@@ -145,21 +145,21 @@ class TaskCategoriesController extends AppController
                 $this->Flash->error(sprintf(__('The task category could not be deleted: %s', $ex->getMessage())), ['plugin' => 'Alaxos']);
             }
         }
-        
+
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * Delete all method
      */
     public function delete_all() {
         $this->request->allowMethod('post', 'delete');
-        
+
         if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
-            
+
             $query = $this->TaskCategories->query();
             $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
-            
+
             try{
                 if ($statement = $query->execute()) {
                     $deleted_total = $statement->rowCount();
@@ -179,16 +179,16 @@ class TaskCategoriesController extends AppController
         } else {
             $this->Flash->set(___('there was no task category to delete'), ['element' => 'Alaxos.error']);
         }
-        
+
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * Copy method
      *
      * @param string|null $id Task Category id.
      * @return void Redirects on successful copy, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function copy($id = null)
     {
@@ -205,7 +205,7 @@ class TaskCategoriesController extends AppController
                 $this->Flash->error(___('the task category could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
         }
-        
+
         $taskCategory->id = $id;
         $this->set(compact('taskCategory'));
         $this->set('_serialize', ['taskCategory']);

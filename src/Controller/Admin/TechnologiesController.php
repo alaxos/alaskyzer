@@ -42,7 +42,7 @@ class TechnologiesController extends AppController
      *
      * @param string|null $id Technology id.
      * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function view($id = null)
     {
@@ -81,7 +81,7 @@ class TechnologiesController extends AppController
      *
      * @param string|null $id Technology id.
      * @return void|\Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
@@ -108,7 +108,7 @@ class TechnologiesController extends AppController
      *
      * @param string|null $id Technology id.
      * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function delete($id = null)
     {
@@ -170,7 +170,7 @@ class TechnologiesController extends AppController
      *
      * @param string|null $id Technology id.
      * @return void|\Cake\Http\Response|null Redirects on successful copy, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function copy($id = null)
     {

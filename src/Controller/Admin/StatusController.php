@@ -42,7 +42,7 @@ class StatusController extends AppController
      *
      * @param string|null $id Status id.
      * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function view($id = null)
     {
@@ -79,7 +79,7 @@ class StatusController extends AppController
      *
      * @param string|null $id Status id.
      * @return void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
@@ -104,13 +104,13 @@ class StatusController extends AppController
      *
      * @param string|null $id Status id.
      * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $status = $this->Status->get($id);
-        
+
         try
         {
             if ($this->Status->delete($status)) {
@@ -130,21 +130,21 @@ class StatusController extends AppController
                 $this->Flash->error(sprintf(__('The status could not be deleted: %s', $ex->getMessage())), ['plugin' => 'Alaxos']);
             }
         }
-        
+
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * Delete all method
      */
     public function delete_all() {
         $this->request->allowMethod('post', 'delete');
-        
+
         if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
-            
+
             $query = $this->Status->query();
             $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
-            
+
             try{
                 if ($statement = $query->execute()) {
                     $deleted_total = $statement->rowCount();
@@ -164,16 +164,16 @@ class StatusController extends AppController
         } else {
             $this->Flash->set(___('there was no status to delete'), ['element' => 'Alaxos.error']);
         }
-        
+
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * Copy method
      *
      * @param string|null $id Status id.
      * @return void Redirects on successful copy, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function copy($id = null)
     {
@@ -190,7 +190,7 @@ class StatusController extends AppController
                 $this->Flash->error(___('the status could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
         }
-        
+
         $status->id = $id;
         $this->set(compact('status'));
         $this->set('_serialize', ['status']);

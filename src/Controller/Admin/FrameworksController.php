@@ -42,7 +42,7 @@ class FrameworksController extends AppController
      *
      * @param string|null $id Framework id.
      * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function view($id = null)
     {
@@ -80,7 +80,7 @@ class FrameworksController extends AppController
      *
      * @param string|null $id Framework id.
      * @return void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
@@ -106,13 +106,13 @@ class FrameworksController extends AppController
      *
      * @param string|null $id Framework id.
      * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $framework = $this->Frameworks->get($id);
-        
+
         try
         {
             if ($this->Frameworks->delete($framework)) {
@@ -132,21 +132,21 @@ class FrameworksController extends AppController
                 $this->Flash->error(sprintf(__('The framework could not be deleted: %s', $ex->getMessage())), ['plugin' => 'Alaxos']);
             }
         }
-        
+
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * Delete all method
      */
     public function delete_all() {
         $this->request->allowMethod('post', 'delete');
-        
+
         if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
-            
+
             $query = $this->Frameworks->query();
             $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
-            
+
             try{
                 if ($statement = $query->execute()) {
                     $deleted_total = $statement->rowCount();
@@ -166,16 +166,16 @@ class FrameworksController extends AppController
         } else {
             $this->Flash->set(___('there was no framework to delete'), ['element' => 'Alaxos.error']);
         }
-        
+
         return $this->redirect(['action' => 'index']);
     }
-    
+
     /**
      * Copy method
      *
      * @param string|null $id Framework id.
      * @return void Redirects on successful copy, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @throws \Cake\Http\Exception\NotFoundException When record not found.
      */
     public function copy($id = null)
     {
@@ -193,7 +193,7 @@ class FrameworksController extends AppController
             }
         }
         $applications = $this->Frameworks->Applications->find('list', ['limit' => 200]);
-        
+
         $framework->id = $id;
         $this->set(compact('framework', 'applications'));
         $this->set('_serialize', ['framework']);
