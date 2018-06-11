@@ -7,6 +7,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\I18n\Time;
+use Cake\Datasource\Exception\RecordNotFoundException;
 
 /**
  * Users Model
@@ -93,7 +94,7 @@ class UsersTable extends Table
 
             return $this->save($user);
         }
-        catch(\Cake\ORM\Exception\RecordNotFoundException $ex)
+        catch(RecordNotFoundException $ex)
         {
             return false;
         }
