@@ -39,7 +39,7 @@ class ApplicationsController extends AppController
             'order' => ['Frameworks.name' => 'asc', 'FrameworkVersions.name' => 'asc', 'name' => 'asc']
         ];
 
-        $this->Filter->config('aliases', [
+        $this->Filter->setConfig('aliases', [
             'Users.fullname' => [
                 'expression' => $this->Applications->find()->func()->concat(['Users.firstname' => 'literal', ' ', 'Users.lastname' => 'literal']),
                 'columnType' => 'string'
@@ -54,11 +54,11 @@ class ApplicationsController extends AppController
          *
          * (Cake 3.0.x does not allow to sort on linked models that are not belongsTo ?)
          */
-        $association = $this->Applications->association('ApplicationsFrameworks');
+        $association = $this->Applications->getAssociation('ApplicationsFrameworks');
         $this->Filter->addJoin($query, $association, 'LEFT');
-        $association = $this->Applications->ApplicationsFrameworks->association('FrameworkVersions');
+        $association = $this->Applications->ApplicationsFrameworks->getAssociation('FrameworkVersions');
         $this->Filter->addJoin($query, $association, 'LEFT');
-        $association = $this->Applications->ApplicationsFrameworks->association('Frameworks');
+        $association = $this->Applications->ApplicationsFrameworks->getAssociation('Frameworks');
         $this->Filter->addJoin($query, $association, 'LEFT');
 
 //         echo $query->__debugInfo()['sql'];
@@ -91,12 +91,12 @@ class ApplicationsController extends AppController
     public function add()
     {
         $application = $this->Applications->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->getRequest()->is('post')) {
 
-//             debug($this->request->data);
-//             die();
+            $data = $this->getRequest()->getData();
 
-            foreach($this->request->data['applications_frameworks'] as $index => $application_framework){
+            $application_frameworks = $this->getRequest()->getData('applications_frameworks');
+            foreach($application_frameworks as $index => $application_framework){
 
                 /*
                  * Save framework
@@ -105,7 +105,8 @@ class ApplicationsController extends AppController
                 if(StringTool::start_with($framework_id, '[new]')){
                     $framework = $this->Applications->ApplicationsFrameworks->Frameworks->ensureEntityExists($framework_id);
 
-                    $this->request->data['applications_frameworks'][$index]['framework_id'] = $framework->id;
+                    $data['applications_frameworks'][$index]['framework_id'] = $framework->id;
+                    $this->setRequest($this->getRequest()->withParsedBody($data));
                     $framework_id = $framework->id;
                 }
 
@@ -116,28 +117,27 @@ class ApplicationsController extends AppController
                 if(StringTool::start_with($framework_version_id, '[new]')){
                     $framework_version = $this->Applications->ApplicationsFrameworks->FrameworkVersions->ensureEntityExists($framework_id, $framework_version_id);
 
-                    $this->request->data['applications_frameworks'][$index]['framework_version_id'] = $framework_version->id;
+                    $data['applications_frameworks'][$index]['framework_version_id'] = $framework_version->id;
+                    $this->setRequest($this->getRequest()->withParsedBody($data));
                     $framework_version_id = $framework_version->id;
 
                     $this->Applications->ApplicationsFrameworks->FrameworkVersions->updateNaturalSortValues($framework_id);
                 }
             }
 
-            if(is_array($this->request->data['technologies']['_ids']))
+            if(is_array($data['technologies']['_ids']))
             {
-                foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
+                foreach($data['technologies']['_ids'] as $index => $technology_id){
                     if(StringTool::start_with($technology_id, '[new]')){
                         $technology = $this->Applications->Technologies->ensureEntityExists($technology_id);
 
-                        $this->request->data['technologies']['_ids'][$index] = $technology->id;
+                        $data['technologies']['_ids'][$index] = $technology->id;
+                        $this->setRequest($this->getRequest()->withParsedBody($data));
                     }
                 }
             }
 
-//             debug($this->request->data);
-//             die();
-
-            $application = $this->Applications->patchEntity($application, $this->request->data);
+            $application = $this->Applications->patchEntity($application, $this->getRequest()->getData());
             if ($this->Applications->save($application)) {
                 $this->Flash->success(___('the application has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'view', $application->id]);
@@ -160,18 +160,16 @@ class ApplicationsController extends AppController
      */
     public function edit($id = null)
     {
-//         debug($this->request->data);
-
         $application = $this->Applications->get($id, [
             'contain' => ['ApplicationsFrameworks' => ['Frameworks', 'FrameworkVersions'], 'Technologies']
         ]);
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
 
-//             debug($this->request->data);
-//             die();
+            $data = $this->getRequest()->getData();
 
-            foreach($this->request->data['applications_frameworks'] as $index => $application_framework){
+            $application_frameworks = $this->getRequest()->getData('applications_frameworks');
+            foreach($application_frameworks as $index => $application_framework){
 
                 /*
                  * Save framework
@@ -180,7 +178,8 @@ class ApplicationsController extends AppController
                 if(StringTool::start_with($framework_id, '[new]')){
                     $framework = $this->Applications->ApplicationsFrameworks->Frameworks->ensureEntityExists($framework_id);
 
-                    $this->request->data['applications_frameworks'][$index]['framework_id'] = $framework->id;
+                    $data['applications_frameworks'][$index]['framework_id'] = $framework->id;
+                    $this->setRequest($this->getRequest()->withParsedBody($data));
                     $framework_id = $framework->id;
                 }
 
@@ -192,25 +191,27 @@ class ApplicationsController extends AppController
                 if(StringTool::start_with($framework_version_id, '[new]')){
                     $framework_version = $this->Applications->ApplicationsFrameworks->FrameworkVersions->ensureEntityExists($framework_id, $framework_version_id);
 
-                    $this->request->data['applications_frameworks'][$index]['framework_version_id'] = $framework_version->id;
+                    $data['applications_frameworks'][$index]['framework_version_id'] = $framework_version->id;
+                    $this->setRequest($this->getRequest()->withParsedBody($data));
                     $framework_version_id = $framework_version->id;
 
                     $this->Applications->ApplicationsFrameworks->FrameworkVersions->updateNaturalSortValues($framework_id);
                 }
             }
 
-            if(is_array($this->request->data['technologies']['_ids']))
+            if(is_array($data['technologies']['_ids']))
             {
-                foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
+                foreach($data['technologies']['_ids'] as $index => $technology_id){
                     if(StringTool::start_with($technology_id, '[new]')){
                         $technology = $this->Applications->Technologies->ensureEntityExists($technology_id);
 
-                        $this->request->data['technologies']['_ids'][$index] = $technology->id;
+                        $data['technologies']['_ids'][$index] = $technology->id;
+                        $this->setRequest($this->getRequest()->withParsedBody($data));
                     }
                 }
             }
 
-            $application = $this->Applications->patchEntity($application, $this->request->data);
+            $application = $this->Applications->patchEntity($application, $this->getRequest()->getData());
             if ($this->Applications->save($application)) {
                 $this->Flash->success(___('the application has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -235,7 +236,7 @@ class ApplicationsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $application = $this->Applications->get($id);
 
         try
@@ -265,11 +266,13 @@ class ApplicationsController extends AppController
      * Delete all method
      */
     public function delete_all() {
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
-            $entities = $this->Applications->find()->where(['id IN' => $this->request->data['checked_ids']]);
+            $checkedIds = $this->getRequest()->getData('checked_ids');
+            $entities = $this->Applications->find()->where(['id IN' => $checkedIds]);
 
             $deleted_total     = 0;
             $not_deleted_total = 0;
@@ -297,48 +300,6 @@ class ApplicationsController extends AppController
                 $this->Flash->set(sprintf(___('%s selected applications could not be deleted. Please, try again.'), $not_deleted_total), ['element' => 'Alaxos.error']);
             }
 
-            /*****************/
-
-//             try{
-//                 if($deleted_total = $this->Applications->deleteAll(['id IN' => $this->request->data['checked_ids']]))
-//                 {
-//                     if($deleted_total == 1){
-//                         $this->Flash->set(___('the selected application has been deleted.'), ['element' => 'Alaxos.success']);
-//                     }
-//                     elseif($deleted_total > 1){
-//                         $this->Flash->set(sprintf(__('The %s selected applications have been deleted.'), $deleted_total), ['element' => 'Alaxos.success']);
-//                     }
-//                 }else{
-//                     $this->Flash->set(___('the selected applications could not be deleted. Please, try again.'), ['element' => 'Alaxos.error']);
-//                 }
-//             }
-//             catch(\Exception $ex){
-//                 $this->Flash->set(___('the selected applications could not be deleted. Please, try again.'), ['element' => 'Alaxos.error', 'params' => ['exception_message' => $ex->getMessage()]]);
-//             }
-
-            /*****************/
-
-
-//             $query = $this->Applications->query();
-//             $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
-
-//             try{
-//                 if ($statement = $query->execute()) {
-//                     $deleted_total = $statement->rowCount();
-//                     if($deleted_total == 1){
-//                         $this->Flash->set(___('the selected application has been deleted.'), ['element' => 'Alaxos.success']);
-//                     }
-//                     elseif($deleted_total > 1){
-//                         $this->Flash->set(sprintf(__('The %s selected applications have been deleted.'), $deleted_total), ['element' => 'Alaxos.success']);
-//                     }
-//                 } else {
-//                     $this->Flash->set(___('the selected applications could not be deleted. Please, try again.'), ['element' => 'Alaxos.error']);
-//                 }
-//             }
-//             catch(\Exception $ex){
-//                 $this->Flash->set(___('the selected applications could not be deleted. Please, try again.'), ['element' => 'Alaxos.error', 'params' => ['exception_message' => $ex->getMessage()]]);
-//             }
-
         } else {
             $this->Flash->set(___('there was no application to delete'), ['element' => 'Alaxos.error']);
         }
@@ -355,35 +316,58 @@ class ApplicationsController extends AppController
      */
     public function copy($id = null)
     {
-
         $application = $this->Applications->get($id, [
-            'contain' => ['Frameworks', 'Technologies']
+            'contain' => ['ApplicationsFrameworks' => ['Frameworks', 'FrameworkVersions'], 'Technologies']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
 
-            /*
-             * Save eventual new technologies or frameworks
-             */
-            foreach($this->request->data['frameworks']['_ids'] as $index => $framework_id){
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+
+            $data = $this->getRequest()->getData();
+
+            $application_frameworks = $this->getRequest()->getData('applications_frameworks');
+            foreach($application_frameworks as $index => $application_framework){
+
+                /*
+                 * Save framework
+                 */
+                $framework_id = $application_framework['framework_id'];
                 if(StringTool::start_with($framework_id, '[new]')){
-                    $framework = $this->Applications->Frameworks->newEntity(['name' => StringTool::remove_leading($framework_id, '[new]')]);
-                    if($this->Applications->Frameworks->save($framework)){
-                        $this->request->data['frameworks']['_ids'][$index] = $framework->id;
-                    }
+                    $framework = $this->Applications->ApplicationsFrameworks->Frameworks->ensureEntityExists($framework_id);
+
+                    $data['applications_frameworks'][$index]['framework_id'] = $framework->id;
+                    $this->setRequest($this->getRequest()->withParsedBody($data));
+                    $framework_id = $framework->id;
+                }
+
+                /*
+                 * Save linked new framework version
+                 */
+                $framework_version_id = $application_framework['framework_version_id'];
+
+                if(StringTool::start_with($framework_version_id, '[new]')){
+                    $framework_version = $this->Applications->ApplicationsFrameworks->FrameworkVersions->ensureEntityExists($framework_id, $framework_version_id);
+
+                    $data['applications_frameworks'][$index]['framework_version_id'] = $framework_version->id;
+                    $this->setRequest($this->getRequest()->withParsedBody($data));
+                    $framework_version_id = $framework_version->id;
+
+                    $this->Applications->ApplicationsFrameworks->FrameworkVersions->updateNaturalSortValues($framework_id);
                 }
             }
 
-            foreach($this->request->data['technologies']['_ids'] as $index => $technology_id){
-                if(StringTool::start_with($technology_id, '[new]')){
-                    $technology = $this->Applications->Technologies->newEntity(['name' => StringTool::remove_leading($technology_id, '[new]')]);
-                    if($this->Applications->Technologies->save($technology)){
-                        $this->request->data['technologies']['_ids'][$index] = $technology->id;
+            if(is_array($data['technologies']['_ids']))
+            {
+                foreach($data['technologies']['_ids'] as $index => $technology_id){
+                    if(StringTool::start_with($technology_id, '[new]')){
+                        $technology = $this->Applications->Technologies->ensureEntityExists($technology_id);
+
+                        $data['technologies']['_ids'][$index] = $technology->id;
+                        $this->setRequest($this->getRequest()->withParsedBody($data));
                     }
                 }
             }
-
             $application = $this->Applications->newEntity();
-            $application = $this->Applications->patchEntity($application, $this->request->data);
+            $application = $this->Applications->patchEntity($application, $this->getRequest()->getData());
             if ($this->Applications->save($application)) {
                 $this->Flash->success(___('the application has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -391,27 +375,20 @@ class ApplicationsController extends AppController
                 $this->Flash->error(___('the application could not be saved. Please, try again.'), ['plugin' => 'Alaxos']);
             }
         }
-        $frameworks = $this->Applications->Frameworks->find('list', ['limit' => 200]);
-        $technologies = $this->Applications->Technologies->find('list', ['limit' => 200]);
 
-        $application->id = $id;
-        $this->set(compact('application', 'frameworks', 'technologies'));
+        $frameworks = $this->Applications->ApplicationsFrameworks->Frameworks->find('list', ['limit' => 200])->order(['name' => 'asc']);
+        $frameworkVersions = $this->Applications->ApplicationsFrameworks->FrameworkVersions->find('list')->where(['framework_id' => $application->applications_frameworks[0]->framework->id])->order(['sort' => 'asc']);
+        $technologies = $this->Applications->Technologies->find('list', ['limit' => 200]);
+        $this->set(compact('application', 'frameworks', 'frameworkVersions', 'technologies'));
         $this->set('_serialize', ['application']);
     }
 
     public function getList()
     {
-//         $this->autoRender = false;
-        $this->response->type('json');
+        $this->setResponse($this->getResponse()->withType('json'));
 
         $applications = $this->Applications->find()->contain(['Tasks'])->order(['name']);
 
         $this->set(compact('applications'));
-
-//         $applications = $this->Tasks->Applications->find()->contain(['Tasks' => function($q){
-//             return $q->where(['Tasks.closed IS NULL', 'Tasks.abandoned IS NULL']);
-//         }])->order(['name']);
-
-//         $this->response->body(json_encode($applications->toArray()));
     }
 }

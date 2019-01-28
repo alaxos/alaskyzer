@@ -61,8 +61,8 @@ class StatusController extends AppController
     public function add()
     {
         $status = $this->Status->newEntity();
-        if ($this->request->is('post')) {
-            $status = $this->Status->patchEntity($status, $this->request->data);
+        if ($this->getRequest()->is('post')) {
+            $status = $this->Status->patchEntity($status, $this->getRequest()->getData());
             if ($this->Status->save($status)) {
                 $this->Flash->success(___('the status has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -86,8 +86,8 @@ class StatusController extends AppController
         $status = $this->Status->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $status = $this->Status->patchEntity($status, $this->request->data);
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $status = $this->Status->patchEntity($status, $this->getRequest()->getData());
             if ($this->Status->save($status)) {
                 $this->Flash->success(___('the status has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -108,7 +108,7 @@ class StatusController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $status = $this->Status->get($id);
 
         try
@@ -138,12 +138,13 @@ class StatusController extends AppController
      * Delete all method
      */
     public function delete_all() {
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
             $query = $this->Status->query();
-            $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
+            $query->delete()->where(['id IN' => $checkedIds]);
 
             try{
                 if ($statement = $query->execute()) {
@@ -180,9 +181,9 @@ class StatusController extends AppController
         $status = $this->Status->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $status = $this->Status->newEntity();
-            $status = $this->Status->patchEntity($status, $this->request->data);
+            $status = $this->Status->patchEntity($status, $this->getRequest()->getData());
             if ($this->Status->save($status)) {
                 $this->Flash->success(___('the status has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);

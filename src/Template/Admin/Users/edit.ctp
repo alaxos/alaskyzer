@@ -18,56 +18,56 @@
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('role_id', __('role_id'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('role_id', ['options' => $roles, 'label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->control('role_id', ['options' => $roles, 'label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
 
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('username', __('username'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('username', ['label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->control('username', ['label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
 
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('firstname', __('firstname'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('firstname', ['label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->control('firstname', ['label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
 
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('lastname', __('lastname'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('lastname', ['label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->control('lastname', ['label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
 
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('email', __('email'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('email', ['label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->control('email', ['label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
 
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('password', __('password'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('password', ['label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->control('password', ['label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
 
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('external_uid', __('external_uid'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('external_uid', ['label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->control('external_uid', ['label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
 
             echo '<div class="form-group">';
             echo $this->AlaxosForm->label('enabled', __('enabled'), ['class' => 'col-sm-2 control-label']);
             echo '<div class="col-sm-5">';
-            echo $this->AlaxosForm->input('enabled', ['label' => false, 'class' => 'form-control']);
+            echo $this->AlaxosForm->control('enabled', ['label' => false, 'class' => 'form-control']);
             echo '</div>';
             echo '</div>';
 

@@ -108,7 +108,7 @@ class AppController extends Controller
 
     public function isAuthorized()
     {
-        $prefix = isset($this->request->params['prefix']) ? $this->request->params['prefix'] : null;
+        $prefix = $this->getRequest()->getParam('prefix');
 
         if(empty($prefix))
         {

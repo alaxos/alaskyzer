@@ -61,8 +61,8 @@ class ServersController extends AppController
     public function add()
     {
         $server = $this->Servers->newEntity();
-        if ($this->request->is('post')) {
-            $server = $this->Servers->patchEntity($server, $this->request->data);
+        if ($this->getRequest()->is('post')) {
+            $server = $this->Servers->patchEntity($server, $this->getRequest()->getData());
             if ($this->Servers->save($server)) {
                 $this->Flash->success(___('the server has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -86,8 +86,8 @@ class ServersController extends AppController
         $server = $this->Servers->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $server = $this->Servers->patchEntity($server, $this->request->data);
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $server = $this->Servers->patchEntity($server, $this->getRequest()->getData());
             if ($this->Servers->save($server)) {
                 $this->Flash->success(___('the server has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -108,7 +108,7 @@ class ServersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $server = $this->Servers->get($id);
 
         try
@@ -138,12 +138,13 @@ class ServersController extends AppController
      * Delete all method
      */
     public function delete_all() {
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
             $query = $this->Servers->query();
-            $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
+            $query->delete()->where(['id IN' => $checkedIds]);
 
             try{
                 if ($statement = $query->execute()) {
@@ -180,9 +181,9 @@ class ServersController extends AppController
         $server = $this->Servers->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $server = $this->Servers->newEntity();
-            $server = $this->Servers->patchEntity($server, $this->request->data);
+            $server = $this->Servers->patchEntity($server, $this->getRequest()->getData());
             if ($this->Servers->save($server)) {
                 $this->Flash->success(___('the server has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);

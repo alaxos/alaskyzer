@@ -66,8 +66,8 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
+        if ($this->getRequest()->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(___('the user has been saved'), ['plugin' => 'Alaxos']);
 
@@ -93,8 +93,8 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->data);
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(___('the user has been saved'), ['plugin' => 'Alaxos']);
 
@@ -117,7 +117,7 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
 
         try {
@@ -142,11 +142,12 @@ class UsersController extends AppController
      */
     public function deleteAll() {
 
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
-            $users = $this->Users->find()->where(['id IN' => $this->request->data['checked_ids']]);
+            $users = $this->Users->find()->where(['id IN' => $checkedIds]);
 
             $total         = $users->count();
             $total_deleted = 0;
@@ -202,9 +203,9 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $user = $this->Users->newEntity();
-            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user = $this->Users->patchEntity($user, $this->getRequest()->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(___('the user has been saved'), ['plugin' => 'Alaxos']);
 

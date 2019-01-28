@@ -47,9 +47,9 @@ class TasksController extends AppController
 
         $query = $this->Filter->getFilterQuery();
 
-        if(isset($this->request->query['application_id']))
-        {
-            $query->where(['application_id' => $this->request->query['application_id']]);
+        $applicationId = $this->getRequest()->getQuery('application_id');
+        if (isset($applicationId)) {
+            $query->where(['application_id' => $applicationId]);
         }
 
         $tasks = $this->paginate($query);
@@ -79,8 +79,7 @@ class TasksController extends AppController
         }
 
         $this->autoRender = false;
-        $this->response->type('json');
-        $this->response->body(json_encode($tasks_data));
+        $this->setResponse($this->getResponse()->withType('json')->withStringBody(json_encode($tasks_data)));
     }
 
     /**
@@ -111,7 +110,7 @@ class TasksController extends AppController
     {
         $conditions = [];
 
-        if($application_id = $this->request->query('application_id'))
+        if($application_id = $this->getRequest()->getQuery('application_id'))
         {
             $conditions['application_id'] = $application_id;
         }
@@ -129,8 +128,8 @@ class TasksController extends AppController
     public function add()
     {
         $task = $this->Tasks->newEntity();
-        if ($this->request->is('post')) {
-            $task = $this->Tasks->patchEntity($task, $this->request->data);
+        if ($this->getRequest()->is('post')) {
+            $task = $this->Tasks->patchEntity($task, $this->getRequest()->getData());
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(___('the task has been saved'));
 
@@ -142,7 +141,7 @@ class TasksController extends AppController
         }
         else
         {
-            $this->request->data['application_id'] = $this->request->query('application_id');
+            $this->setRequest($this->getRequest()->withData('application_id', $this->getRequest()->getQuery('application_id')));
         }
 
         $taskCategories = $this->Tasks->TaskCategories->find('list', ['limit' => 200]);
@@ -165,10 +164,10 @@ class TasksController extends AppController
         $task = $this->Tasks->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-//             debug($this->request->data);
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+//             debug($this->getRequest()->getData());
 //             die();
-            $task = $this->Tasks->patchEntity($task, $this->request->data);
+            $task = $this->Tasks->patchEntity($task, $this->getRequest()->getData());
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(___('the task has been saved'));
 //                 return $this->redirect(['action' => 'index']);
@@ -234,7 +233,7 @@ class TasksController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $task = $this->Tasks->get($id);
 
         try
@@ -266,12 +265,13 @@ class TasksController extends AppController
      * Delete all method
      */
     public function delete_all() {
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
             $query = $this->Tasks->query();
-            $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
+            $query->delete()->where(['id IN' => $checkedIds]);
 
             try{
                 if ($statement = $query->execute()) {
@@ -308,9 +308,9 @@ class TasksController extends AppController
         $task = $this->Tasks->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $task = $this->Tasks->newEntity();
-            $task = $this->Tasks->patchEntity($task, $this->request->data);
+            $task = $this->Tasks->patchEntity($task, $this->getRequest()->getData());
             if ($this->Tasks->save($task)) {
                 $this->Flash->success(___('the task has been saved'));
                 return $this->redirect(['action' => 'index']);
@@ -330,24 +330,11 @@ class TasksController extends AppController
     public function open_tasks()
     {
         $this->autoRender = false;
-        $this->response->type('json');
 
         $applications = $this->Tasks->Applications->find()->contain(['Tasks' => function($q){
                 return $q->where(['Tasks.closed IS NULL', 'Tasks.abandoned IS NULL']);
             }])->order(['name']);
 
-//         $applications = $this->Tasks->Applications->find()->matching('Tasks', function($q){
-//             return $q->where(['Tasks.closed IS NULL', 'Tasks.abandoned IS NULL']);
-//         });
-
-//         $results = [];
-
-//         foreach($applications as $i => $application){
-//             $results[$i]['tasks'] = $application['_matchingData']['Tasks'];
-//         }
-
-
-        $this->response->body(json_encode($applications->toArray()));
+        $this->setResponse($this->getResponse()->withType('json')->withStringBody($applications->toArray()));
     }
-
 }

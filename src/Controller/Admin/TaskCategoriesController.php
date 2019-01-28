@@ -61,8 +61,8 @@ class TaskCategoriesController extends AppController
     public function add()
     {
         $taskCategory = $this->TaskCategories->newEntity();
-        if ($this->request->is('post')) {
-            $taskCategory = $this->TaskCategories->patchEntity($taskCategory, $this->request->data);
+        if ($this->getRequest()->is('post')) {
+            $taskCategory = $this->TaskCategories->patchEntity($taskCategory, $this->getRequest()->getData());
             if ($this->TaskCategories->save($taskCategory)) {
                 $this->Flash->success(___('the task category has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -86,8 +86,8 @@ class TaskCategoriesController extends AppController
         $taskCategory = $this->TaskCategories->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $taskCategory = $this->TaskCategories->patchEntity($taskCategory, $this->request->data);
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $taskCategory = $this->TaskCategories->patchEntity($taskCategory, $this->getRequest()->getData());
             if ($this->TaskCategories->save($taskCategory)) {
                 $this->Flash->success(___('the task category has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -108,7 +108,7 @@ class TaskCategoriesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $taskCategory = $this->TaskCategories->get($id);
 
         try
@@ -138,12 +138,13 @@ class TaskCategoriesController extends AppController
      * Delete all method
      */
     public function delete_all() {
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
             $query = $this->TaskCategories->query();
-            $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
+            $query->delete()->where(['id IN' => $checkedIds]);
 
             try{
                 if ($statement = $query->execute()) {
@@ -180,9 +181,9 @@ class TaskCategoriesController extends AppController
         $taskCategory = $this->TaskCategories->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $taskCategory = $this->TaskCategories->newEntity();
-            $taskCategory = $this->TaskCategories->patchEntity($taskCategory, $this->request->data);
+            $taskCategory = $this->TaskCategories->patchEntity($taskCategory, $this->getRequest()->getData());
             if ($this->TaskCategories->save($taskCategory)) {
                 $this->Flash->success(___('the task category has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);

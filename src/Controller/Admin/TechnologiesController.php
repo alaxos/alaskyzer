@@ -61,8 +61,8 @@ class TechnologiesController extends AppController
     public function add()
     {
         $technology = $this->Technologies->newEntity();
-        if ($this->request->is('post')) {
-            $technology = $this->Technologies->patchEntity($technology, $this->request->data);
+        if ($this->getRequest()->is('post')) {
+            $technology = $this->Technologies->patchEntity($technology, $this->getRequest()->getData());
             if ($this->Technologies->save($technology)) {
                 $this->Flash->success(___('the technology has been saved'), ['plugin' => 'Alaxos']);
 
@@ -88,8 +88,8 @@ class TechnologiesController extends AppController
         $technology = $this->Technologies->get($id, [
             'contain' => ['Applications']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $technology = $this->Technologies->patchEntity($technology, $this->request->data);
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $technology = $this->Technologies->patchEntity($technology, $this->getRequest()->getData());
             if ($this->Technologies->save($technology)) {
                 $this->Flash->success(___('the technology has been saved'), ['plugin' => 'Alaxos']);
 
@@ -112,7 +112,7 @@ class TechnologiesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $technology = $this->Technologies->get($id);
 
         try {
@@ -137,12 +137,13 @@ class TechnologiesController extends AppController
      */
     public function delete_all()
     {
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if (isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])) {
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
             $query = $this->Technologies->query();
-            $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
+            $query->delete()->where(['id IN' => $checkedIds]);
 
             try {
                 if ($statement = $query->execute()) {
@@ -177,9 +178,9 @@ class TechnologiesController extends AppController
         $technology = $this->Technologies->get($id, [
             'contain' => ['Applications']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $technology = $this->Technologies->newEntity();
-            $technology = $this->Technologies->patchEntity($technology, $this->request->data);
+            $technology = $this->Technologies->patchEntity($technology, $this->getRequest()->getData());
             if ($this->Technologies->save($technology)) {
                 $this->Flash->success(___('the technology has been saved'), ['plugin' => 'Alaxos']);
 

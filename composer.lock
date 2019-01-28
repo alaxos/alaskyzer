@@ -4,20 +4,63 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "abdfa27a39a729012873ccdadfa37a70",
+    "content-hash": "2da5480b448cd389913036230b3309bf",
     "packages": [
         {
-            "name": "alaxos/cakephp3-bootstrap-theme",
-            "version": "dev-dev",
+            "name": "alaxos/cakephp3-blueimp-upload",
+            "version": "3.7.0-RC1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/alaxos/cakephp3-bootstrap-theme.git",
-                "reference": "c17dfd6570b04815fb864a2f7ea31d407e79007d"
+                "url": "https://github.com/alaxos/cakephp3-blueimp-upload.git",
+                "reference": "40a622df771cecdc3e7fc29e16717fe67d366ff1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alaxos/cakephp3-bootstrap-theme/zipball/c17dfd6570b04815fb864a2f7ea31d407e79007d",
-                "reference": "c17dfd6570b04815fb864a2f7ea31d407e79007d",
+                "url": "https://api.github.com/repos/alaxos/cakephp3-blueimp-upload/zipball/40a622df771cecdc3e7fc29e16717fe67d366ff1",
+                "reference": "40a622df771cecdc3e7fc29e16717fe67d366ff1",
+                "shasum": ""
+            },
+            "require": {
+                "alaxos/cakephp3-libs": "3.7.*",
+                "cakephp/cakephp": "3.7.*",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "CakephpBlueimpUpload\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "CakePHP 3 plugin allowing to easily use the blueimp jQuery-File-Upload",
+            "homepage": "https://github.com/alaxos/cakephp3-blueimp-upload",
+            "keywords": [
+                "blueimp",
+                "cakephp",
+                "jquery-file-upload",
+                "libraries",
+                "upload"
+            ],
+            "time": "2019-01-22T10:59:42+00:00"
+        },
+        {
+            "name": "alaxos/cakephp3-bootstrap-theme",
+            "version": "3.7.0-RC2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alaxos/cakephp3-bootstrap-theme.git",
+                "reference": "107c5abc8deb3bccb4e9fe0a927fe94ee21748cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alaxos/cakephp3-bootstrap-theme/zipball/107c5abc8deb3bccb4e9fe0a927fe94ee21748cd",
+                "reference": "107c5abc8deb3bccb4e9fe0a927fe94ee21748cd",
                 "shasum": ""
             },
             "require": {
@@ -47,24 +90,24 @@
                 "libraries",
                 "theme"
             ],
-            "time": "2018-06-26T06:39:09+00:00"
+            "time": "2019-01-28T11:39:08+00:00"
         },
         {
             "name": "alaxos/cakephp3-libs",
-            "version": "3.6.6",
+            "version": "3.7.0-RC2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alaxos/cakephp3-libs.git",
-                "reference": "dde33117b60c57be96034db28ac97503ad3c2c6e"
+                "reference": "175a21f27f17259e94aa98209f3b2905f20060ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alaxos/cakephp3-libs/zipball/dde33117b60c57be96034db28ac97503ad3c2c6e",
-                "reference": "dde33117b60c57be96034db28ac97503ad3c2c6e",
+                "url": "https://api.github.com/repos/alaxos/cakephp3-libs/zipball/175a21f27f17259e94aa98209f3b2905f20060ff",
+                "reference": "175a21f27f17259e94aa98209f3b2905f20060ff",
                 "shasum": ""
             },
             "require": {
-                "cakephp/cakephp": "~3.6",
+                "cakephp/cakephp": "~3.7",
                 "cakephp/plugin-installer": "*"
             },
             "require-dev": {
@@ -90,7 +133,7 @@
                 "cakephp",
                 "libraries"
             ],
-            "time": "2019-01-15T10:49:16+00:00"
+            "time": "2019-01-28T11:55:12+00:00"
         },
         {
             "name": "aura/intl",
@@ -140,16 +183,16 @@
         },
         {
             "name": "cakephp/cakephp",
-            "version": "3.6.14",
+            "version": "3.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "4ce123c1255e8ada474d02703abede3f8dced3bf"
+                "reference": "b0b9a3713720b30cd8e90c8b1a317a8294b2513a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/4ce123c1255e8ada474d02703abede3f8dced3bf",
-                "reference": "4ce123c1255e8ada474d02703abede3f8dced3bf",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/b0b9a3713720b30cd8e90c8b1a317a8294b2513a",
+                "reference": "b0b9a3713720b30cd8e90c8b1a317a8294b2513a",
                 "shasum": ""
             },
             "require": {
@@ -159,6 +202,7 @@
                 "ext-mbstring": "*",
                 "php": ">=5.6.0",
                 "psr/log": "^1.0.0",
+                "psr/simple-cache": "^1.0.0",
                 "zendframework/zend-diactoros": "^1.4.0"
             },
             "conflict": {
@@ -181,9 +225,11 @@
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "^3.0",
+                "cakephp/chronos": "^1.2.1",
                 "phpunit/phpunit": "^5.7.14|^6.0"
             },
             "suggest": {
+                "ext-curl": "To enable more efficient network calls in Http\\Client.",
                 "ext-openssl": "To use Security::encrypt() or have secure CSRF token generation.",
                 "lib-ICU": "The intl PHP library, to use Text::transliterate() or Text::slug()"
             },
@@ -222,7 +268,7 @@
                 "rapid-development",
                 "validation"
             ],
-            "time": "2018-12-07T03:21:25+00:00"
+            "time": "2019-01-22T03:01:08+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -466,117 +512,6 @@
             "time": "2015-11-01T10:19:22+00:00"
         },
         {
-            "name": "josegonzalez/dotenv",
-            "version": "3.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/josegonzalez/php-dotenv.git",
-                "reference": "f19174d9d7213a6c20e8e5e268aa7dd042d821ca"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/josegonzalez/php-dotenv/zipball/f19174d9d7213a6c20e8e5e268aa7dd042d821ca",
-                "reference": "f19174d9d7213a6c20e8e5e268aa7dd042d821ca",
-                "shasum": ""
-            },
-            "require": {
-                "m1/env": "2.*",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "php-mock/php-mock-phpunit": "^1.1",
-                "satooshi/php-coveralls": "1.*",
-                "squizlabs/php_codesniffer": "2.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "josegonzalez\\Dotenv": [
-                        "src",
-                        "tests"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jose Diaz-Gonzalez",
-                    "email": "dotenv@josegonzalez.com",
-                    "homepage": "http://josediazgonzalez.com",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "dotenv file parsing for PHP",
-            "homepage": "https://github.com/josegonzalez/php-dotenv",
-            "keywords": [
-                "configuration",
-                "dotenv",
-                "php"
-            ],
-            "time": "2017-09-19T15:49:58+00:00"
-        },
-        {
-            "name": "m1/env",
-            "version": "2.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/m1/Env.git",
-                "reference": "294addeedf15e1149eeb96ec829f2029d2017d39"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/m1/Env/zipball/294addeedf15e1149eeb96ec829f2029d2017d39",
-                "reference": "294addeedf15e1149eeb96ec829f2029d2017d39",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*",
-                "scrutinizer/ocular": "~1.1",
-                "squizlabs/php_codesniffer": "^2.3"
-            },
-            "suggest": {
-                "josegonzalez/dotenv": "For loading of .env",
-                "m1/vars": "For loading of configs"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "M1\\Env\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Miles Croxford",
-                    "email": "hello@milescroxford.com",
-                    "homepage": "http://milescroxford.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Env is a lightweight library bringing .env file parser compatibility to PHP. In short - it enables you to read .env files with PHP.",
-            "homepage": "https://github.com/m1/Env",
-            "keywords": [
-                ".env",
-                "config",
-                "dotenv",
-                "env",
-                "loader",
-                "m1",
-                "parser",
-                "support"
-            ],
-            "time": "2018-06-19T18:55:08+00:00"
-        },
-        {
             "name": "mobiledetect/mobiledetectlib",
             "version": "2.8.33",
             "source": {
@@ -724,6 +659,54 @@
                 "psr-3"
             ],
             "time": "2018-11-20T15:27:04+00:00"
+        },
+        {
+            "name": "psr/simple-cache",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/simple-cache.git",
+                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
+                "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\SimpleCache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for simple caching",
+            "keywords": [
+                "cache",
+                "caching",
+                "psr",
+                "psr-16",
+                "simple-cache"
+            ],
+            "time": "2017-10-23T01:57:42+00:00"
         },
         {
             "name": "robmorgan/phinx",
@@ -1445,23 +1428,23 @@
         },
         {
             "name": "cakephp/bake",
-            "version": "1.8.7",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/bake.git",
-                "reference": "8a675e3a472014b6d1bc492db4daea328ba6a5a8"
+                "reference": "9949a6a867a17cf30996dfc9daceab1c63a7a9c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/bake/zipball/8a675e3a472014b6d1bc492db4daea328ba6a5a8",
-                "reference": "8a675e3a472014b6d1bc492db4daea328ba6a5a8",
+                "url": "https://api.github.com/repos/cakephp/bake/zipball/9949a6a867a17cf30996dfc9daceab1c63a7a9c1",
+                "reference": "9949a6a867a17cf30996dfc9daceab1c63a7a9c1",
                 "shasum": ""
             },
             "require": {
-                "cakephp/cakephp": "^3.6.12",
+                "cakephp/cakephp": "^3.7.0",
                 "cakephp/plugin-installer": "^1.0",
                 "php": ">=5.6.0",
-                "wyrihaximus/twig-view": "^4.3.4"
+                "wyrihaximus/twig-view": "^4.3.7"
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "^3.0",
@@ -1489,7 +1472,7 @@
                 "bake",
                 "cakephp"
             ],
-            "time": "2018-12-04T04:23:24+00:00"
+            "time": "2019-01-02T12:59:40+00:00"
         },
         {
             "name": "cakephp/cakephp-codesniffer",
@@ -1533,20 +1516,20 @@
         },
         {
             "name": "cakephp/debug_kit",
-            "version": "3.16.7",
+            "version": "3.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "556d7b97fe6efd796616af99c0c94918ccb0087c"
+                "reference": "6a9023ecc4ac0983c184cedf8e6142ab8ea4a3ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/556d7b97fe6efd796616af99c0c94918ccb0087c",
-                "reference": "556d7b97fe6efd796616af99c0c94918ccb0087c",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/6a9023ecc4ac0983c184cedf8e6142ab8ea4a3ff",
+                "reference": "6a9023ecc4ac0983c184cedf8e6142ab8ea4a3ff",
                 "shasum": ""
             },
             "require": {
-                "cakephp/cakephp": "^3.6.0",
+                "cakephp/cakephp": "^3.7.0",
                 "cakephp/chronos": "^1.0.0",
                 "cakephp/plugin-installer": "^1.0.0",
                 "composer/composer": "^1.3.0",
@@ -1589,20 +1572,20 @@
                 "debug",
                 "kit"
             ],
-            "time": "2018-12-02T03:24:57+00:00"
+            "time": "2018-12-02T03:27:26+00:00"
         },
         {
             "name": "composer/ca-bundle",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "8afa52cd417f4ec417b4bfe86b68106538a87660"
+                "reference": "558f321c52faeb4828c03e7dc0cfe39a09e09a2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/8afa52cd417f4ec417b4bfe86b68106538a87660",
-                "reference": "8afa52cd417f4ec417b4bfe86b68106538a87660",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/558f321c52faeb4828c03e7dc0cfe39a09e09a2d",
+                "reference": "558f321c52faeb4828c03e7dc0cfe39a09e09a2d",
                 "shasum": ""
             },
             "require": {
@@ -1645,7 +1628,7 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2018-10-18T06:09:13+00:00"
+            "time": "2019-01-28T09:30:10+00:00"
         },
         {
             "name": "composer/composer",
@@ -4091,13 +4074,12 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "alaxos/cakephp3-bootstrap-theme": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.9"
+        "php": ">=5.6"
     },
     "platform-dev": []
 }

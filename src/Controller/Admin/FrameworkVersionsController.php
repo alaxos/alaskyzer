@@ -68,8 +68,8 @@ class FrameworkVersionsController extends AppController
     public function add()
     {
         $frameworkVersion = $this->FrameworkVersions->newEntity();
-        if ($this->request->is('post')) {
-            $frameworkVersion = $this->FrameworkVersions->patchEntity($frameworkVersion, $this->request->data);
+        if ($this->getRequest()->is('post')) {
+            $frameworkVersion = $this->FrameworkVersions->patchEntity($frameworkVersion, $this->getRequest()->getData());
             if ($this->FrameworkVersions->save($frameworkVersion)) {
                 $this->Flash->success(___('the framework version has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -94,8 +94,8 @@ class FrameworkVersionsController extends AppController
         $frameworkVersion = $this->FrameworkVersions->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $frameworkVersion = $this->FrameworkVersions->patchEntity($frameworkVersion, $this->request->data);
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $frameworkVersion = $this->FrameworkVersions->patchEntity($frameworkVersion, $this->getRequest()->getData());
             if ($this->FrameworkVersions->save($frameworkVersion)) {
                 $this->Flash->success(___('the framework version has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -117,7 +117,7 @@ class FrameworkVersionsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $frameworkVersion = $this->FrameworkVersions->get($id);
 
         try
@@ -147,12 +147,13 @@ class FrameworkVersionsController extends AppController
      * Delete all method
      */
     public function delete_all() {
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
             $query = $this->FrameworkVersions->query();
-            $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
+            $query->delete()->where(['id IN' => $checkedIds]);
 
             try{
                 if ($statement = $query->execute()) {
@@ -189,9 +190,9 @@ class FrameworkVersionsController extends AppController
         $frameworkVersion = $this->FrameworkVersions->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $frameworkVersion = $this->FrameworkVersions->newEntity();
-            $frameworkVersion = $this->FrameworkVersions->patchEntity($frameworkVersion, $this->request->data);
+            $frameworkVersion = $this->FrameworkVersions->patchEntity($frameworkVersion, $this->getRequest()->getData());
             if ($this->FrameworkVersions->save($frameworkVersion)) {
                 $this->Flash->success(___('the framework version has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -206,18 +207,17 @@ class FrameworkVersionsController extends AppController
         $this->set('_serialize', ['frameworkVersion']);
     }
 
-    public function get_framework_versions()
+    public function getFrameworkVersions()
     {
         $this->autoRender = false;
 
-        $framework_id = $this->request->query('framework_id');
+        $framework_id = $this->getRequest()->getQuery('framework_id');
 
         if(is_numeric($framework_id) && $this->FrameworkVersions->Frameworks->exists($framework_id))
         {
             $frameworkVersions = $this->FrameworkVersions->find()->where(['framework_id' => $framework_id])->order(['sort' => 'asc']);
 
-            $this->response->type('json');
-            $this->response->body(json_encode($frameworkVersions));
+            $this->setResponse($this->getResponse()->withType('json')->withStringBody(json_encode($frameworkVersions)));
         }
         else
         {

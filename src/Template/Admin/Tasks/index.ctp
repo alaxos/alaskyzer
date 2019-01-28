@@ -1,8 +1,8 @@
 
 <div class="tasks index">
-	
+
 	<h2><?= ___('tasks'); ?></h2>
-	
+
 	<div class="panel panel-default">
 		<div class="panel-heading">
 		<?php
@@ -10,9 +10,9 @@
 		?>
 		</div>
 		<div class="panel-body">
-			
+
 			<div class="table-responsive">
-			
+
 			<table cellpadding="0" cellspacing="0" class="table table-striped table-hover table-condensed">
 			<thead>
 			<tr class="sortHeader">
@@ -33,8 +33,8 @@
 				<td>
 				<?php
 				echo $this->AlaxosForm->checkbox('_Tech.selectAll', ['id' => 'TechSelectAll']);
-				
-				echo $this->AlaxosForm->create($search_entity, array('url' => $this->request->here(false), 'class' => 'form-horizontal', 'role' => 'form', 'novalidate' => 'novalidate'));
+
+				echo $this->AlaxosForm->create($search_entity, array('url' => $this->request->getRequestTarget(), 'class' => 'form-horizontal', 'role' => 'form', 'novalidate' => 'novalidate'));
 				?>
 				</td>
 				<td>
@@ -95,7 +95,7 @@
 				</td>
 			</tr>
 			</thead>
-			
+
 			<tbody>
 			<?php foreach ($tasks as $i => $task): ?>
 				<tr>
@@ -135,19 +135,19 @@
 						<?php echo h($task->to_display_timezone('modified')); ?>
 					</td>
 					<td class="actions">
-						<?php 
+						<?php
 // 						echo $this->Navbars->actionButtons(['buttons_group' => 'list_item', 'buttons_list_item' => [['view', 'edit', 'delete']], 'model_id' => $task->id]);
 						?>
-						
-						<?php 
+
+						<?php
 // 						echo $this->Html->link('<span class="glyphicon glyphicon-search"></span> ' . __d('alaxos', 'view'), ['action' => 'view', $task->id], ['class' => 'to_view', 'escape' => false]);
 // 						echo ' ';
 // 						echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span> ' . __d('alaxos', 'edit'), ['action' => 'edit', $task->id], ['escape' => false]);
 // 						echo ' ';
 // 						echo $this->Form->postLink('<span class="glyphicon glyphicon-trash"></span> ' . __d('alaxos', 'delete'), ['action' => 'delete', $task->id], ['confirm' => __('Are you sure you want to delete # {0}?', $task->id), 'escape' => false]);
 						?>
-						
-						<?php 
+
+						<?php
 						echo $this->Html->link('<span class="glyphicon glyphicon-search"></span>', ['action' => 'view', $task->id], ['class' => 'to_view', 'escape' => false]);
 						echo '&nbsp;&nbsp;';
 						echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span>', ['action' => 'edit', $task->id], ['escape' => false]);
@@ -158,11 +158,11 @@
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
-			
+
 			</table>
-			
+
 			</div>
-			
+
 			<?php
 			if(isset($tasks) && $tasks->count() > 0)
 			{
@@ -173,7 +173,7 @@
 				echo '</div>';
 			}
 			?>
-			
+
 			<div class="paging text-center">
 				<ul class="pagination pagination-sm">
 				<?php
@@ -183,7 +183,7 @@
 				?>
 				</ul>
 			</div>
-			
+
 		</div>
 	</div>
 </div>

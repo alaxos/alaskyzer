@@ -61,8 +61,8 @@ class FrameworksController extends AppController
     public function add()
     {
         $framework = $this->Frameworks->newEntity();
-        if ($this->request->is('post')) {
-            $framework = $this->Frameworks->patchEntity($framework, $this->request->data);
+        if ($this->getRequest()->is('post')) {
+            $framework = $this->Frameworks->patchEntity($framework, $this->getRequest()->getData());
             if ($this->Frameworks->save($framework)) {
                 $this->Flash->success(___('the framework has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -87,8 +87,8 @@ class FrameworksController extends AppController
         $framework = $this->Frameworks->get($id, [
             'contain' => ['Applications']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $framework = $this->Frameworks->patchEntity($framework, $this->request->data);
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $framework = $this->Frameworks->patchEntity($framework, $this->getRequest()->getData());
             if ($this->Frameworks->save($framework)) {
                 $this->Flash->success(___('the framework has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -110,7 +110,7 @@ class FrameworksController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $framework = $this->Frameworks->get($id);
 
         try
@@ -140,12 +140,13 @@ class FrameworksController extends AppController
      * Delete all method
      */
     public function delete_all() {
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
             $query = $this->Frameworks->query();
-            $query->delete()->where(['id IN' => $this->request->data['checked_ids']]);
+            $query->delete()->where(['id IN' => $checkedIds]);
 
             try{
                 if ($statement = $query->execute()) {
@@ -182,9 +183,9 @@ class FrameworksController extends AppController
         $framework = $this->Frameworks->get($id, [
             'contain' => ['Applications']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $framework = $this->Frameworks->newEntity();
-            $framework = $this->Frameworks->patchEntity($framework, $this->request->data);
+            $framework = $this->Frameworks->patchEntity($framework, $this->getRequest()->getData());
             if ($this->Frameworks->save($framework)) {
                 $this->Flash->success(___('the framework has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);

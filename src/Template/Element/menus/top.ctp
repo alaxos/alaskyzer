@@ -10,19 +10,19 @@ if(isset($logged_user))
         'url'	 => array('prefix' => 'admin', 'controller' => 'Dashboard', 'action' => 'index'),
         'options' => ['id' => 'dashboard']
     ];
-    
+
     $menu[] = [
         'title'   => ___('tasks'),
         'url'	 => array('prefix' => 'admin', 'controller' => 'Tasks', 'action' => 'index'),
         'options' => ['id' => 'tasks']
     ];
-    
+
 	$menu[] = [
 			'title'   => ___('applications'),
 			'url'	 => array('prefix' => 'admin', 'controller' => 'Applications', 'action' => 'index'),
 			'options' => ['id' => 'applications']
 	];
-	
+
 	$menu[___('catalogs')] = [
     	[
     	    'title'   => ___('frameworks'),
@@ -71,13 +71,13 @@ if(isset($logged_user) && $logged_user->role_id == ROLE_ID_ADMINISTRATOR)
             'options' => ['id' => 'roles']
         ]
     ];
-    
+
 // 	$menu[] = [
 // 				'title'   => ___('users'),
 // 				'url'	 => array('prefix' => 'admin', 'controller' => 'Users', 'action' => 'index'),
 // 				'options' => ['id' => 'users']
 // 	];
-		
+
 // 	$menu[] = [
 // 				'title'   => ___('roles'),
 // 				'url'	 => array('prefix' => 'admin', 'controller' => 'Roles', 'action' => 'index'),
@@ -103,15 +103,8 @@ else
 	];
 }
 
-//debug($this->request->params['controller']);
-
 $options = [];
 $options['navbar_class'] = 'navbar navbar-default navbar-flat';
-
-// if(in_array($this->request->params['controller'], ['Chamilo', 'ChamiloInactiveCourses']))
-// {
-// 	$options['selected'] = 'chamilo';
-// }
 
 /*******************************************/
 

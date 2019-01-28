@@ -61,8 +61,8 @@ class RolesController extends AppController
     public function add()
     {
         $role = $this->Roles->newEntity();
-        if ($this->request->is('post')) {
-            $role = $this->Roles->patchEntity($role, $this->request->data);
+        if ($this->getRequest()->is('post')) {
+            $role = $this->Roles->patchEntity($role, $this->getRequest()->getData());
             if ($this->Roles->save($role)) {
                 $this->Flash->success(___('the role has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);
@@ -86,8 +86,8 @@ class RolesController extends AppController
         $role = $this->Roles->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $role = $this->Roles->patchEntity($role, $this->request->data);
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
+            $role = $this->Roles->patchEntity($role, $this->getRequest()->getData());
             if ($this->Roles->save($role)) {
                 $this->Flash->success(___('the role has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'view', $id]);
@@ -108,7 +108,7 @@ class RolesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->getRequest()->allowMethod(['post', 'delete']);
         $role = $this->Roles->get($id);
 
         try
@@ -139,11 +139,12 @@ class RolesController extends AppController
      */
     public function deleteAll() {
 
-        $this->request->allowMethod('post', 'delete');
+        $this->getRequest()->allowMethod('post', 'delete');
 
-        if(isset($this->request->data['checked_ids']) && !empty($this->request->data['checked_ids'])){
+        $checkedIds = $this->getRequest()->getData('checked_ids');
+        if(!empty($checkedIds)) {
 
-            $roles = $this->Roles->find()->where(['id IN' => $this->request->data['checked_ids']]);
+            $roles = $this->Roles->find()->where(['id IN' => $checkedIds]);
 
             $total         = $roles->count();
             $total_deleted = 0;
@@ -199,9 +200,9 @@ class RolesController extends AppController
         $role = $this->Roles->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        if ($this->getRequest()->is(['patch', 'post', 'put'])) {
             $role = $this->Roles->newEntity();
-            $role = $this->Roles->patchEntity($role, $this->request->data);
+            $role = $this->Roles->patchEntity($role, $this->getRequest()->getData());
             if ($this->Roles->save($role)) {
                 $this->Flash->success(___('the role has been saved'), ['plugin' => 'Alaxos']);
                 return $this->redirect(['action' => 'index']);

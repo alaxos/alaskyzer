@@ -1,4 +1,4 @@
-<?php 
+<?php
 use Cake\Collection\Collection;
 
 echo $this->AlaxosHtml->script('selectize/js/standalone/selectize.min', ['block' => true]);
@@ -7,7 +7,7 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
 
 <div class="applications view">
 	<h2><?php echo ___('application'); ?></h2>
-	
+
 	<div class="panel panel-default">
 		<div class="panel-heading">
 		<?php
@@ -16,19 +16,19 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
 		</div>
 		<div class="panel-body">
 			<dl class="dl-horizontal">
-			
+
 				<dt><?= ___('name'); ?></dt>
 				<dd>
-					<?php 
+					<?php
 					echo h($application->name);
 					?>
 				</dd>
-				
+
 				<dt><?= ___('frameworks'); ?></dt>
 				<dd>
 					<?php
 					foreach($application->applications_frameworks as $application_framework){
-					    
+
 					    echo '<span class="tag">';
 					    echo $this->Html->link($application_framework->framework->name, array('controller' => 'Frameworks', 'action' => 'view', $application_framework->framework->id));
 					    echo ' (';
@@ -36,19 +36,19 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
 					    echo ')';
 					    echo '</span>';
 					}
-					    
-					
+
+
 // 					$c       = new Collection($application->frameworks);
 // 					$options = $c->combine('id', 'name')->toArray();
 // 					$values  = array_keys($options);
-					
-// 					echo $this->AlaxosForm->input('frameworks._ids', ['label' => false, 'options' => $options, 'value' => $values, 'id' => 'frameworks_select']);
+
+// 					echo $this->AlaxosForm->control('frameworks._ids', ['label' => false, 'options' => $options, 'value' => $values, 'id' => 'frameworks_select']);
 					?>
 				</dd>
-				
+
 				<dt><?= ___('technologies'); ?></dt>
 				<dd>
-					<?php 
+					<?php
 					foreach($application->technologies as $technology){
 					    echo '<span class="tag">';
 					    echo $this->Html->link($technology->name, array('controller' => 'Technologies', 'action' => 'view', $technology->id));
@@ -57,16 +57,16 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
 // 					    echo ')';
 					    echo '</span>';
 					}
-					
+
 // 					$c       = new Collection($application->technologies);
 // 					$options = $c->combine('id', 'name')->toArray();
 // 					$values  = array_keys($options);
-					
-// 					echo $this->AlaxosForm->input('technologies._ids', ['label' => false, 'options' => $options, 'value' => $values, 'id' => 'technologies_select']);
+
+// 					echo $this->AlaxosForm->control('technologies._ids', ['label' => false, 'options' => $options, 'value' => $values, 'id' => 'technologies_select']);
 					?>
 				</dd>
 			</dl>
-			<?php 
+			<?php
 			echo $this->element('Alaxos.create_update_infos', ['entity' => $application], ['plugin' => 'Alaxos']);
 			?>
 			<div>
@@ -74,7 +74,7 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
 		</div>
 	</div>
 </div>
-	
+
 
 <script type="text/javascript">
 $(document).ready(function() {
