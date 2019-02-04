@@ -16,11 +16,11 @@ class UsersControllerTest extends AppControllerTestCase
      * @var array
      */
     public $fixtures = [
-        'app.users',
-        'app.roles',
-        'plugin.alaxos.log_categories',
-        'plugin.alaxos.log_levels',
-        'plugin.alaxos.log_entries',
+        'app.Roles',
+        'app.Users',
+        'plugin.Alaxos.LogCategories',
+        'plugin.Alaxos.LogLevels',
+        'plugin.Alaxos.LogEntries',
     ];
 
     /**
