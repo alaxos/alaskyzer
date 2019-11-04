@@ -65,6 +65,14 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
 // 					echo $this->AlaxosForm->control('technologies._ids', ['label' => false, 'options' => $options, 'value' => $values, 'id' => 'technologies_select']);
 					?>
 				</dd>
+
+                <dt><?= ___('close date'); ?></dt>
+                <dd>
+                    <?php
+                    echo $application->to_display_timezone('close_date');
+                    ?>
+                </dd>
+
 			</dl>
 			<?php
 			echo $this->element('Alaxos.create_update_infos', ['entity' => $application], ['plugin' => 'Alaxos']);
