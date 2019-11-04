@@ -49,6 +49,13 @@ echo $this->AlaxosHtml->css('/js/selectize/css/selectize.bootstrap3', ['block' =
             echo '</div>';
 
             echo '<div class="form-group">';
+            echo $this->AlaxosForm->label('close_date', __('close date'), ['class' => 'col-sm-2 control-label']);
+            echo '<div class="col-sm-5">';
+            echo $this->AlaxosForm->control('close_date', ['label' => false]);
+            echo '</div>';
+            echo '</div>';
+
+            echo '<div class="form-group">';
             echo '<div class="col-sm-offset-2 col-sm-5">';
             echo $this->AlaxosForm->button(___('submit'), ['class' => 'btn btn-default']);
             echo '</div>';

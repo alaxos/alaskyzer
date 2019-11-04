@@ -35,7 +35,7 @@ class ApplicationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'sortWhitelist'=>['name', 'Frameworks.name', 'FrameworkVersions.sort', 'created', 'modified'],
+            'sortWhitelist'=>['name', 'Frameworks.name', 'FrameworkVersions.sort', 'close_date', 'created', 'modified'],
             'order' => ['Frameworks.name' => 'asc', 'FrameworkVersions.name' => 'asc', 'name' => 'asc']
         ];
 

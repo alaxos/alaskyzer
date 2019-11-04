@@ -18,6 +18,7 @@ class Application extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'close_date' => true,
         'created_by' => true,
         'modified_by' => true,
         'bugs' => true,

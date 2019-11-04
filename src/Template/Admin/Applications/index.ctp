@@ -21,6 +21,7 @@
 				<th><?php echo $this->Paginator->sort('Frameworks.name', ___('framework')); ?></th>
 				<th><?php echo $this->Paginator->sort('FrameworkVersions.sort', ___('framework version')); ?></th>
 				<th><?php echo $this->Paginator->sort('Technologies.name', ___('technologies')); ?></th>
+                <th style="width:160px;"><?php echo $this->Paginator->sort('close_date', ___('close date')); ?></th>
 				<th style="width:160px;"><?php echo $this->Paginator->sort('created', ___('created')); ?></th>
 				<th style="width:160px;"><?php echo $this->Paginator->sort('modified', ___('modified')); ?></th>
 				<th class="actions"></th>
@@ -53,6 +54,11 @@
 					echo $this->AlaxosForm->filterField('Technologies.name');
 					?>
 				</td>
+                <td>
+                    <?php
+                    echo $this->AlaxosForm->filterDate('close_date');
+                    ?>
+                </td>
 				<td>
 					<?php
 					echo $this->AlaxosForm->filterDate('created');
@@ -73,8 +79,22 @@
 			</thead>
 
 			<tbody>
-			<?php foreach ($applications as $i => $application): ?>
-				<tr>
+			<?php foreach ($applications as $i => $application):
+
+                $closed = false;
+			    if ($application->has('close_date')) {
+			        $close_date = $application->close_date;
+			        if ($close_date->isPast()) {
+			            $closed = true;
+                    }
+			    }
+
+			    if ($closed) {
+                    echo '<tr class="application-closed">';
+                } else {
+			        echo '<tr>';
+                }
+                ?>
 					<td>
 						<?php
 						echo $this->AlaxosForm->checkBox('Application.' . $i . '.id', array('value' => $application->id, 'class' => 'model_id'));
@@ -119,6 +139,9 @@
 						}
 						?>
 					</td>
+                    <td>
+                        <?php echo h($application->to_display_timezone('close_date')); ?>
+                    </td>
 					<td>
 						<?php echo h($application->to_display_timezone('created')); ?>
 					</td>
